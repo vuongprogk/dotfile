@@ -35,7 +35,6 @@ return {
 				{
 					name = "luasnip",
 				},
-			}, {
 				{
 					name = "buffer",
 				},
@@ -44,23 +43,37 @@ return {
 				},
 			}),
 		})
+    local servers = {
+      "clangd",
+      "tsserver",
+      "lua_ls",
+      "pyright",
+    }
+
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 		local lspconfig = require("lspconfig")
-		lspconfig.lua_ls.setup({
-			capabilities = capabilities,
-		})
-		lspconfig.clangd.setup({
-			capabilities = capabilities,
-		})
-		lspconfig.tsserver.setup({
-			capabilities = capabilities,
-		})
-		lspconfig.pyright.setup({
-			capabilities = capabilities,
-		})
-		lspconfig.jdtls.setup({
-			capabilities = capabilities,
-		})
+		for _, lsp in ipairs(servers) do
+			lspconfig[lsp].setup({
+				--on_attach = my_custom_on_attach,
+				capabilities = capabilities,
+			})
+		end
+    -- old method
+		-- lspconfig.lua_ls.setup({
+		--   capabilities = capabilities,
+		-- })
+		-- lspconfig.clangd.setup({
+		--   capabilities = capabilities,
+		-- })
+		-- lspconfig.tsserver.setup({
+		--   capabilities = capabilities,
+		-- })
+		-- lspconfig.pyright.setup({
+		--   capabilities = capabilities,
+		-- })
+		-- lspconfig.jdtls.setup({
+		--   capabilities = capabilities,
+		-- })
 		vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 		vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 		vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
