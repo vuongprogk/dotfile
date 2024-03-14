@@ -15,7 +15,7 @@ if vim.g.neovide then
   vim.opt.guifont = "JetBrains Mono:h13"
 end
 vim.opt.belloff = "all"
-vim.opt.termguicolors = vim.g.neovide and false or true
+vim.opt.termguicolors = true
 vim.opt.scrolloff = 15
 vim.opt.number = true
 vim.opt.expandtab = true
