@@ -6,7 +6,7 @@ return {
 		opts = {},
 		config = function()
 			require("solarized-osaka").setup({
-				transparent = false
+				transparent = not vim.g.neovide
 			})
 			vim.cmd([[colorscheme solarized-osaka]])
 		end,
