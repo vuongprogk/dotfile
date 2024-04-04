@@ -17,7 +17,6 @@ return {
         -- globalstatus = false,
         theme = "horizon",
       },
-      sections = {lualine_c = {require('auto-session.lib').current_session_name}}
     },
   },
 
@@ -57,13 +56,31 @@ return {
         long_message_to_split = true,
         inc_rename = true,
       },
+      views = {
+        mini = {
+          win_options = {
+            winblend = 0,
+          },
+        },
+      },
     },
   },
   -- setup notify
   {
     "rcarriga/nvim-notify",
+    keys = {
+      {
+        "<leader>un",
+        function()
+          require("notify").dismiss({ silent = true, pending = true })
+        end,
+        desc = "Dismiss All Notifications",
+      },
+    },
     opts = {
+      stages = "static",
       timeout = 3000,
+      fps = 60,
       max_height = function()
         return math.floor(vim.o.lines * 0.75)
       end,
@@ -73,7 +90,6 @@ return {
       on_open = function(win)
         vim.api.nvim_win_set_config(win, { zindex = 100 })
       end,
-      fps = 60,
     },
   },
 }
