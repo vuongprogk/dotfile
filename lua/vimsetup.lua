@@ -29,3 +29,4 @@ vim.keymap.set("n", "<space>", "<NOP>", { silent = true, remap = false })
 vim.g.mapleader = " "
 vim.keymap.set("n", "<C-l>", ":tabnext<CR>", { silent = true })
 vim.keymap.set("n", "<C-h>", ":tabprevious<CR>", { silent = true })
+vim.keymap.set('i', "jk", '<ESC>', {silent = true, desc = "Exit insert mode with jk"})
