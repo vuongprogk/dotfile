@@ -1,11 +1,10 @@
 return {
   {
     "jay-babu/mason-null-ls.nvim",
-    config = function()
-      require("mason-null-ls").setup({
-        ensure_installed = { "stylua", "pylint", "isort", "black", "prettier", "clang_format", "cpplint" },
-      })
-    end,
+    opts = {
+      ensure_installed = { "stylua", "pylint", "isort", "black", "prettier", "clang_format", "cpplint" },
+      automatic_installation = true,
+    },
   },
   -- setup formatting
   {
@@ -45,6 +44,8 @@ return {
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
       "windwp/nvim-autopairs",
+      "hrsh7th/cmp-nvim-lua",
+      "onsails/lspkind.nvim",
     },
     config = function()
       -- server lsp config and ensure installed in mason
@@ -53,10 +54,13 @@ return {
         "tsserver",
         "lua_ls",
         "pyright",
+        "omnisharp",
       }
 
       local cmp = require("cmp")
       local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+      local lspkind = require('lspkind')
+
 
       -- setup for autopairs
       require("nvim-autopairs").setup({})
@@ -65,7 +69,15 @@ return {
       require("mason").setup()
       -- call mason config
       require("mason-lspconfig").setup({
-        ensure_installed = { "clangd", "tsserver", "lua_ls", "pyright", "jdtls" },
+        ensure_installed = {
+          "clangd",
+          "tsserver",
+          "pyright",
+          "jdtls",
+          "pyright",
+          "omnisharp",
+          "omnisharp_mono",
+        },
         automatic_installation = true,
       })
       -- call nvim-lsp-installer for automatic installation lsp server
@@ -79,7 +91,6 @@ return {
           },
         },
       })
-
       --cmp setup
       cmp.setup({
         snippet = {
@@ -100,6 +111,12 @@ return {
         }),
         sources = cmp.config.sources({
           {
+            name = "nvim_lua",
+            options = {
+              include_deprecated = true,
+            },
+          },
+          {
             name = "nvim_lsp",
           },
           {
@@ -112,6 +129,18 @@ return {
             name = "path",
           },
         }),
+        formatting = {
+          format = lspkind.cmp_format({
+            mode = "symbol_text",
+            menu = {
+              buffer = "[Buffer]",
+              nvim_lsp = "[LSP]",
+              luasnip = "[LuaSnip]",
+              nvim_lua = "[Lua]",
+              latex_symbols = "[Latex]",
+            },
+          }),
+        },
       })
 
       -- set keymap for completion
@@ -124,9 +153,6 @@ return {
         callback = function(ev)
           -- Enable completion triggered by <c-x><c-o>
           vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-
-          -- Buffer local mappings.
-          -- See `:help vim.lsp.*` for documentation on any of the below functions
           local opts = { buffer = ev.buf }
           vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
@@ -144,16 +170,23 @@ return {
           vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
         end,
       })
-
-      -- setup cmp lsp using capabilities
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local lspconfig = require("lspconfig")
       for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup({
-          --on_attach = my_custom_on_attach,
           capabilities = capabilities,
         })
       end
+      lspconfig.lua_ls.setup({
+        capabilities = capabilities,
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { "vim" },
+            },
+          },
+        },
+      })
     end,
   },
 }
