@@ -1,16 +1,10 @@
 return {
-  {
-    "junegunn/fzf",
-    build = "./install --bin",
+  -- TODO before install fzf lua make sure you have already install fzf in your machine
+  "ibhagwan/fzf-lua",
+  dependencies = {
+    "nvim-tree/nvim-web-devicons",
   },
-  {
-    "ibhagwan/fzf-lua",
-    dependencies = {
-      "nvim-tree/nvim-web-devicons",
-      "junegunn/fzf",
-    },
-    config = function()
-      require("fzf-lua").setup({})
-    end,
-  },
+  config = function()
+    require("fzf-lua").setup({})
+  end,
 }

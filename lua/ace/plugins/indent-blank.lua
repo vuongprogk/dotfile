@@ -1,5 +1,9 @@
 return {
   "lukas-reineke/indent-blankline.nvim",
+  event = { "BufReadPre", "BufNewFile" },
+  dependencies = {
+    "HiPhish/rainbow-delimiters.nvim",
+  },
   main = "ibl",
   opts = {},
   config = function()
@@ -25,6 +29,26 @@ return {
       vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
       vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
     end)
+
+    -- TODO add rainbow_delimiters
+    local rainbow_delimiters = require 'rainbow-delimiters'
+
+    vim.g.rainbow_delimiters = {
+      strategy = {
+        [''] = rainbow_delimiters.strategy['global'],
+        vim = rainbow_delimiters.strategy['local'],
+      },
+      query = {
+        [''] = 'rainbow-delimiters',
+        lua = 'rainbow-blocks',
+      },
+      priority = {
+        [''] = 110,
+        lua = 210,
+      },
+
+      highlight = highlight
+    }
     require("ibl").setup({
       indent = {
         highlight = highlight,
@@ -41,6 +65,7 @@ return {
       exclude = {
         filetypes = { "help", "startify", "dashboard", "packer", "neogitstatus", "NvimTree", "Trouble" },
       },
+
     })
   end,
 }

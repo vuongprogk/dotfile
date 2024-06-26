@@ -40,8 +40,6 @@ return {
         "tsserver",
         "pyright",
         "jdtls",
-        "omnisharp",
-        "omnisharp_mono",
         "html",
         "cssls",
         "tailwindcss",

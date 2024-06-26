@@ -5,13 +5,28 @@ return {
       "nvim-lua/plenary.nvim",
     },
     branch = "0.1.x",
-    config = function()
-      local builtin = require("telescope.builtin")
-      vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
-      vim.keymap.set("n", "<leader>fs", builtin.live_grep, {})
-      vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
-      vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
-    end,
+    keys = {
+      {
+        "<leader>ff", function()
+        require("telescope.builtin").find_files()
+      end, { desc = "Telescope search file" },
+      },
+      {
+        "<leader>fs", function ()
+          require("telescope.builtin").live_grep()
+        end, {desc = "Telescope search word in file"}
+      },
+      {
+        "<leader>fb", function ()
+          require("telescope.builtin").buffers()
+        end, {desc = "Telescope read buffers"}
+      },
+      {
+        "<leader>fh", function ()
+          require("telescope.builtin").help_tags()
+        end, {desc = "Telescope help tags"}
+      }
+    },
   },
   {
     "nvim-telescope/telescope-ui-select.nvim",

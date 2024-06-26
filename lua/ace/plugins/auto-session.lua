@@ -1,20 +1,28 @@
 return {
-	"rmagatti/auto-session",
-	config = function()
-		local auto_session = require("auto-session")
+  "rmagatti/auto-session",
+  keys = {
+    {
+      "<leader>wr", "<cmd>SessionRestore<CR>", { desc = "Restore session for cwd" }
+    },
+    {
+      "<leader>ws", "<cmd>SessionSave<CR>", { desc = "Save session for auto session root dir" }
+    },
+    {
+      "<leader>wd", "<cmd>SessionDelete<CR>", { desc = "Delete session" }
+    },
+    {
+      "<Leader>ls",function ()
+        require("auto-session.session-lens").search_session()
+      end , { desc = "Search session" }
 
-		auto_session.setup({
-			auto_restore_enabled = false,
-			auto_session_suppress_dirs = { "~/", "~/Dev/", "~/Downloads", "~/Documents", "~/Desktop/" },
-		})
+    }
+  },
+  config = function()
+    local auto_session = require("auto-session")
 
-		local keymap = vim.keymap
-
-		keymap.set("n", "<leader>wr", "<cmd>SessionRestore<CR>", { desc = "Restore session for cwd" })
-		keymap.set("n", "<leader>ws", "<cmd>SessionSave<CR>", { desc = "Save session for auto session root dir" })
-		keymap.set("n", "<leader>ws", "<cmd>SessionDelete<CR>", { desc = "Delete session" })
-		keymap.set("n", "<Leader>ls", require("auto-session.session-lens").search_session, {
-			noremap = true,
-		})
-	end,
+    auto_session.setup({
+      auto_restore_enabled = false,
+      auto_session_suppress_dirs = { "~/", "~/Dev/", "~/Downloads", "~/Documents", "~/Desktop/" },
+    })
+  end,
 }

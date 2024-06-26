@@ -1,6 +1,7 @@
 return {
 	-- setup formatting
   "nvimtools/none-ls.nvim",
+  event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     {
       "nvim-lua/plenary.nvim",
@@ -9,7 +10,6 @@ return {
     "williamboman/mason.nvim",
     "jay-babu/mason-null-ls.nvim",
   },
-  event = { "BufReadPre", "BufNewFile" },
   keys = {
     {
       "<leader>gf",

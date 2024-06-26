@@ -1,6 +1,7 @@
 return {
   {
     "echasnovski/mini.indentscope",
+    event = { "BufReadPre", "BufNewFile" },
     version = "*",
     opts = {
       draw = {
@@ -32,8 +33,8 @@ return {
   },
   {
     "echasnovski/mini.diff",
+    event = { "BufReadPre", "BufNewFile" },
     version = "*",
-    event = "VeryLazy",
     keys = {
       {
         "<leader>go",

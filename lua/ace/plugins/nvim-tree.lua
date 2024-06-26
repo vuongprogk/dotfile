@@ -23,48 +23,45 @@ return {
       desc = "Refresh file explorer",
     },
   },
-  config = function()
-    local nvimtree = require("nvim-tree")
-    nvimtree.setup({
-      sync_root_with_cwd = true,
-      view = {
-        width = 40,
+  opts = {
+    sync_root_with_cwd = true,
+    view = {
+      width = 40,
+    },
+    -- change folder arrow icons
+    renderer = {
+      indent_markers = {
+        enable = true,
       },
-      -- change folder arrow icons
-      renderer = {
-        indent_markers = {
-          enable = true,
-        },
-        icons = {
-          web_devicons = {
-            file = {
-              enable = true,
-              color = true,
-            },
-            folder = {
-              enable = false,
-              color = true,
-            },
+      icons = {
+        web_devicons = {
+          file = {
+            enable = true,
+            color = true,
           },
-          git_placement = "after",
-          show = {
-            git = true,
-          },
-        },
-      },
-      actions = {
-        open_file = {
-          window_picker = {
+          folder = {
             enable = false,
+            color = true,
           },
         },
+        git_placement = "after",
+        show = {
+          git = true,
+        },
       },
-      filters = {
-        custom = { ".DS_Store" },
+    },
+    actions = {
+      open_file = {
+        window_picker = {
+          enable = false,
+        },
       },
-      git = {
-        ignore = false,
-      },
-    })
-  end,
+    },
+    filters = {
+      custom = { ".DS_Store" },
+    },
+    git = {
+      ignore = false,
+    },
+  },
 }
