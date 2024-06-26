@@ -1,7 +1,11 @@
 return {
+	{ "nvim-tree/nvim-web-devicons", lazy = true },
+	{ "MunifTanjim/nui.nvim", opts = nil, lazy = true },
 	--bufferline
 	{
 		"akinsho/bufferline.nvim",
+		event = "VeryLazy",
+		dependencies = "nvim-tree/nvim-web-devicons",
 		opts = {
 			options = {
 				mode = "tabs",
@@ -12,6 +16,7 @@ return {
 	-- statusline
 	{
 		"nvim-lualine/lualine.nvim",
+		dependencies = "nvim-tree/nvim-web-devicons",
 		opts = {
 			options = {
 				-- globalstatus = false,
@@ -19,16 +24,12 @@ return {
 			},
 		},
 	},
-
-	--setup nui
-	{
-
-		"MunifTanjim/nui.nvim",
-		opts = nil,
-	},
-	--setup noice
+	-- setup noice
 	{
 		"folke/noice.nvim",
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+		},
 		opts = {
 			lsp = {
 				override = {

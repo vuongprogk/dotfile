@@ -3,7 +3,7 @@ if vim.g.neovide then
   vim.opt.linespace = 0
   vim.g.neovide_scale_factor = 1.0
   local alpha = function()
-    return string.format("%x", math.floor(255 * vim.g.transparency or 0.8))
+    return string.format("%x", math.floor(0.8))
   end
   vim.g.neovide_transparency = 0.9
   vim.g.transparency = 0.9
@@ -14,6 +14,8 @@ if vim.g.neovide then
   vim.g.neovide_refresh_rate = 60
   vim.opt.guifont = "Hack Nerd Font:h12"
 end
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_perl_provider = 0
 vim.opt.belloff = "all"
 vim.opt.termguicolors = true
@@ -30,4 +32,4 @@ vim.keymap.set("n", "<space>", "<NOP>", { silent = true, remap = false })
 vim.g.mapleader = " "
 vim.keymap.set("n", "<C-l>", ":tabnext<CR>", { silent = true })
 vim.keymap.set("n", "<C-h>", ":tabprevious<CR>", { silent = true })
-vim.keymap.set('i', "jk", '<ESC>', {silent = true, desc = "Exit insert mode with jk"})
+vim.keymap.set("i", "jk", "<ESC>", { silent = true, desc = "Exit insert mode with jk" })

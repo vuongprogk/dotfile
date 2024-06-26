@@ -6,8 +6,8 @@ return {
 		local path = vim.fn.stdpath("data") .. "\\mason\\bin\\jdtls.cmd" --Default using Windows
 		if os.getName() == "Windows" then
 			path = vim.fn.stdpath("data") .. "\\mason\\bin\\jdtls.cmd"
-    else
-      path = ""
+		else
+			path = vim.fn.stdpath("data") .. "/mason/bin/jdtls"
 		end
 		local config = {
 			cmd = { vim.fn.expand(path) },

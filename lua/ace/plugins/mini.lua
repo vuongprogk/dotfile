@@ -1,7 +1,7 @@
 return {
   {
     "echasnovski/mini.indentscope",
-    version = false,
+    version = "*",
     opts = {
       draw = {
         delay = 100,
@@ -32,6 +32,7 @@ return {
   },
   {
     "echasnovski/mini.diff",
+    version = "*",
     event = "VeryLazy",
     keys = {
       {
