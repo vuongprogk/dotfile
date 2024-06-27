@@ -6,8 +6,7 @@ return {
       {
         "<Leader>dt",
         function()
-          local dap = require("dap")
-          dap.toggle_breakpoint()
+          require("dap").toggle_breakpoint()
         end,
         desc = "Toggle breakpoint",
       },
@@ -35,12 +34,55 @@ return {
       local dapui = require("dapui")
       require("dapui").setup()
 
+      --TODO Update DAP icons and color
+
+      --Update dap icon
+      -- vim.api.nvim_set_hl(0, "red", { fg = "#FFA500" })
+      -- vim.api.nvim_set_hl(0, "green", { fg = "#9ece6a" })
+      -- vim.api.nvim_set_hl(0, "yellow", { fg = "#FFFF00" })
+      -- vim.api.nvim_set_hl(0, "orange", { fg = "#f09000" })
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        pattern = "*",
+        desc = "prevent colorscheme clears self-defined DAP icon colors.",
+        callback = function()
+          vim.api.nvim_set_hl(0, 'DapBreakpoint', { ctermbg = 0, fg = '#993939' })
+          vim.api.nvim_set_hl(0, 'DapLogPoint', { ctermbg = 0, fg = '#61afef' })
+          vim.api.nvim_set_hl(0, 'DapStopped', { ctermbg = 0, fg = '#98c379' })
+        end
+      })
+
       --Change icons
-      local sign = vim.fn.sign_define
-      sign("DapBreakpoint", { text = "●", texthl = "DapBreakpoint", linehl = "", numhl = "" })
-      sign("DapBreakpointCondition", { text = "●", texthl = "DapBreakpointCondition", linehl = "", numhl = "" })
-      sign("DapLogPoint", { text = "◆", texthl = "DapLogPoint", linehl = "", numhl = "" })
-      sign("DapStopped", { text = "󰁕 ", texthl = "DiagnosticWarn", linehl = "DapStoppedLine", numhl = "" })
+      vim.fn.sign_define('DapBreakpoint', {
+        text = '●',
+        texthl = 'DapBreakpoint',
+        linehl = 'DapBreakpoint',
+        numhl = 'DapBreakpoint'
+      })
+      vim.fn.sign_define('DapBreakpointCondition', {
+        text = '●',
+        texthl = 'DapBreakpoint',
+        linehl = 'DapBreakpoint',
+        numhl = 'DapBreakpoint'
+      })
+      vim.fn.sign_define('DapBreakpointRejected', {
+        text = '◆',
+        texthl = 'DapBreakpoint',
+        linehl = 'DapBreakpoint',
+        numhl = 'DapBreakpoint'
+      })
+      vim.fn.sign_define('DapStopped', {
+        text = '●',
+        texthl = 'DapStopped',
+        linehl = 'DapStopped',
+        numhl = 'DapStopped'
+      })
+      vim.fn.sign_define('DapLogPoint', {
+        text = '󰁕',
+        texthl = 'DapLogPoint',
+        linehl = 'DapLogPoint',
+        numhl = 'DapLogPoint'
+      })
+
 
       dap.listeners.before.attach.dapui_config = function()
         dapui.open()

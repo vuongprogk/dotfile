@@ -4,22 +4,23 @@ return {
   keys = {
     {
       "<leader>ee",
-      "<cmd>NvimTreeToggle<CR>",
+      function ()
+        require("nvim-tree.api").tree.toggle()
+      end,
       desc = "Toggle file explorer",
     },
     {
       "<leader>ef",
-      "<cmd>NvimTreeFindFileToggle<CR>",
+      function ()
+        require("nvim-tree.api").tree.toggle({ find_file = true, focus = true, })
+      end,
       desc = "Toggle file explorer on current file",
     },
     {
-      "<leader>ec",
-      "<cmd>NvimTreeCollapse<CR>",
-      desc = "Collapse file explorer",
-    },
-    {
       "<leader>er",
-      "<cmd>NvimTreeRefresh<CR>",
+      function ()
+        require("nvim-tree.api").tree.reload()
+      end,
       desc = "Refresh file explorer",
     },
   },
