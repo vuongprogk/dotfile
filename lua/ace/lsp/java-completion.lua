@@ -2,7 +2,7 @@ return {
 	"mfussenegger/nvim-jdtls",
 	ft = "java",
 	config = function()
-		local os = require("ace.detect.os")
+		local os = require("ace.custom.os")
 		local path = vim.fn.stdpath("data") .. "\\mason\\bin\\jdtls.cmd" --Default using Windows
 		if os.getName() == "Windows" then
 			path = vim.fn.stdpath("data") .. "\\mason\\bin\\jdtls.cmd"

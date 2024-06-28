@@ -1,9 +1,14 @@
 return {
   "akinsho/toggleterm.nvim",
   version = "*",
+  keys = {
+    {
+      "<c-\\>",
+      function(opts) require("toggleterm").toggle_command(opts.args, opts.count) end, { desc = "Toggle Term" }
+    }
+  },
   config = function()
-    local toggleterm = require("toggleterm")
-    toggleterm.setup({
+    require("toggleterm").setup({
       size = 20,
       open_mapping = [[<c-\>]],
       hide_numbers = true, -- hide the number column in toggleterm buffers

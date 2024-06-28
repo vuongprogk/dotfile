@@ -1,7 +1,6 @@
 return {
 	-- setup formatting
   "nvimtools/none-ls.nvim",
-  event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     {
       "nvim-lua/plenary.nvim",

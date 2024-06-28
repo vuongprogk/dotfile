@@ -1,7 +1,6 @@
 return {
   {
     "mfussenegger/nvim-dap",
-    event = { "BufReadPre", "BufNewFile" },
     keys = {
       {
         "<Leader>dt",
@@ -17,12 +16,10 @@ return {
         end,
       },
     },
-  },
-  {
-    "rcarriga/nvim-dap-ui",
     dependencies = {
       "mfussenegger/nvim-dap",
       "nvim-neotest/nvim-nio",
+      "rcarriga/nvim-dap-ui",
     },
     config = function()
       local present, dap = pcall(require, "dap")
