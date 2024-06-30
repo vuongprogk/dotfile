@@ -1,6 +1,6 @@
 return {
 	"neovim/nvim-lspconfig",
-  event = { "BufReadPre", "BufNewFile" },
+	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
 		{
@@ -94,6 +94,14 @@ return {
 							end,
 						})
 					end,
+				})
+			end,
+			["jdtls"] = function()
+				lspconfig["jdtls"].setup({
+					handlers = {
+						["language/status"] = function(_, result) end,
+						["$/progress"] = function(_, result, ctx) end,
+					},
 				})
 			end,
 			["graphql"] = function()

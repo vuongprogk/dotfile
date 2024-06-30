@@ -12,6 +12,9 @@ return {
 		local config = {
 			cmd = { vim.fn.expand(path) },
 			root_dir = vim.fs.dirname(vim.fs.find({ "gradlew", ".git", "mvnw", "pom.xml" }, { upward = true })[1]),
+			handlers = {
+				["$/progress"] = function(_, result, ctx) end,
+			},
 		}
 		require("jdtls").start_or_attach(config)
 	end,

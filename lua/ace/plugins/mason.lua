@@ -15,25 +15,6 @@ return {
     }
   },
   {
-    "jay-babu/mason-null-ls.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-      "williamboman/mason.nvim",
-    },
-    opts = {
-      ensure_installed = {
-        "stylua",
-        "pylint",
-        "isort",
-        "black",
-        "prettier",
-        "clang_format",
-        "cpplint"
-      },
-      automatic_installation = true,
-    }
-  },
-  {
     "williamboman/mason-lspconfig.nvim",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
