@@ -23,6 +23,8 @@ return {
 			cpp = {
 				"clang_format",
 			},
+      html = {"prettier"},
+      css = {"prettier"},
 		},
 	},
 	format_on_save = {
