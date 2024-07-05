@@ -33,6 +33,7 @@ return {
 				"lua_ls",
 				"graphql",
 				"emmet_ls",
+        "csharp_ls"
 			},
 		},
 	},
@@ -97,7 +98,7 @@ return {
         "isort",
         "prettier",
         "prettierd",
-        "clang-format"
+        "clang-format",
       }
     }
 	},

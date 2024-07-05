@@ -3,33 +3,31 @@ return {
 	dependencies = {
 		"nvim-telescope/telescope.nvim",
 	},
+	cmd = {
+		"SessionRestore",
+		"SessionSave",
+		"SessionDelete",
+		"Autosession",
+	},
 	keys = {
 		{
 			"<leader>wr",
-			function()
-				require("auto-session").RestoreSession()
-			end,
+			"<cmd>SessionRestore<CR>",
 			{ desc = "Restore session for cwd", mode = { "n", "v" } },
 		},
 		{
 			"<leader>ws",
-			function()
-				require("auto-session").SaveSession()
-			end,
+			"<cmd>SessionSave<CR>",
 			{ desc = "Save session for auto session root dir", mode = { "n", "v" } },
 		},
 		{
 			"<leader>wd",
-			function()
-				require("auto-session").DeleteSession()
-			end,
+			"<cmd>SessionDelete<CR>",
 			{ desc = "Delete session", mode = { "n", "v" } },
 		},
 		{
 			"<Leader>ls",
-			function()
-				require("auto-session.session-lens").search_session()
-			end,
+			"<cmd>Telescope session-lens<CR>",
 			{ desc = "Search session", mode = { "n", "v" } },
 		},
 	},
@@ -38,5 +36,19 @@ return {
 		auto_save_enabled = true,
 		auto_session_use_git_branch = true,
 		close_unsupported_windows = true,
+		session_lens = {
+			load_on_setup = true,
+			theme_conf = { border = true },
+			previewer = false,
+			buftypes_to_ignore = {},
+		},
+		post_restore_cmds = {
+			function()
+				local nvim_tree = require("nvim-tree")
+				nvim_tree.change_dir(vim.fn.getcwd())
+			end,
+			"NvimTreeOpen",
+		},
+		pre_save_cmds = { "NvimTreeClose" },
 	},
 }

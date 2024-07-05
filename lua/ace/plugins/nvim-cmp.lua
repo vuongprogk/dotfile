@@ -7,7 +7,13 @@ return {
 		"hrsh7th/cmp-path", -- source for file system paths
 		"L3MON4D3/LuaSnip",
 		"saadparwaiz1/cmp_luasnip", -- for autocompletion
-		"rafamadriz/friendly-snippets", -- useful snippets
+		{
+			"garymjr/nvim-snippets",
+			opts = {
+				friendly_snippets = true,
+			},
+			dependencies = { "rafamadriz/friendly-snippets" },
+		},
 		"onsails/lspkind.nvim", -- vs-code like pictograms
 		"hrsh7th/cmp-nvim-lua",
 	},
@@ -56,6 +62,10 @@ return {
 				documentation = cmp.config.window.bordered(),
 			},
 			sources = cmp.config.sources({
+				{
+					name = "lazydev",
+					group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+				},
 				{
 					name = "nvim_lua",
 					options = {

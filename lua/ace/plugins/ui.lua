@@ -31,13 +31,13 @@ return {
 			"MunifTanjim/nui.nvim",
 		},
 		opts = {
-			messages = {
-				view = "mini",
-			},
-			notify = {
-				enabled = true,
-				view = "notify",
-			},
+			-- messages = {
+			-- 	view = "mini",
+			-- },
+			-- notify = {
+			-- 	enabled = true,
+			-- 	view = "notify",
+			-- },
 			lsp = {
 				override = {
 					["vim.lsp.util.convert_input_to_markdown_lines"] = true,

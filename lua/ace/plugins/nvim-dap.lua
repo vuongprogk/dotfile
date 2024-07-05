@@ -1,19 +1,19 @@
 return {
 	{
 		"mfussenegger/nvim-dap",
+		cmd = {
+			"DapToggleBreakpoint",
+			"DapContinue",
+		},
 		keys = {
 			{
 				"<Leader>dt",
-				function()
-					require("dap").toggle_breakpoint()
-				end,
+				"<cmd>DapToggleBreakpoint<CR>",
 				{ desc = "Toggle breakpoint", mode = { "n", "v" } },
 			},
 			{
 				"<Leader>dc",
-				function()
-					require("dap").continue()
-				end,
+				"<cmd>DapContinue<CR>",
 				{ desc = "Start/Continue debugger", mode = { "n", "v" } },
 			},
 		},
@@ -21,6 +21,7 @@ return {
 			"mfussenegger/nvim-dap",
 			"nvim-neotest/nvim-nio",
 			"rcarriga/nvim-dap-ui",
+			"nvim-telescope/telescope.nvim",
 		},
 		config = function()
 			local present, dap = pcall(require, "dap")

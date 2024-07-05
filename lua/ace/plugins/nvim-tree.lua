@@ -1,26 +1,25 @@
 return {
 	"nvim-tree/nvim-tree.lua",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
+  cmd = {
+    "NvimTreeToggle",
+    "NvimTreeRefresh",
+    "NvimTreeFindFileToggle"
+  },
 	keys = {
 		{
 			"<leader>ee",
-			function()
-				require("nvim-tree.api").tree.toggle()
-			end,
+			"<cmd>NvimTreeToggle<CR>",
 			{ desc = "Toggle file explorer", mode = { "n", "v" } },
 		},
 		{
 			"<leader>ef",
-			function()
-				require("nvim-tree.api").tree.toggle({ find_file = true, focus = true })
-			end,
+			"<cmd>NvimTreeFindFileToggle<CR>",
 			{ desc = "Toggle file explorer on current file", mode = { "n", "v" } },
 		},
 		{
 			"<leader>er",
-			function()
-				require("nvim-tree.api").tree.reload()
-			end,
+			"<cmd>NvimTreeRefresh<CR>",
 			desc = "Refresh file explorer",
 		},
 	},

@@ -1,15 +1,12 @@
 return {
 	"lewis6991/gitsigns.nvim",
+	cmd = { "Gitsigns" },
 	keys = {
 		{
 			"<leader>tb",
-			function()
-				require("gitsigns").toggle_current_line_blame()
-			end,
+			"<cmd>Gitsigns toggle_current_line_blame<CR>",
 			{ desc = "Toggle line blame", mode = { "n", "v" } },
 		},
 	},
-	config = function()
-		require("gitsigns").setup()
-	end,
+  opts = {}
 }

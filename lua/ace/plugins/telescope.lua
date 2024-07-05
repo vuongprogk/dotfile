@@ -1,59 +1,58 @@
 return {
-	{
-		"nvim-telescope/telescope.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
-		branch = "0.1.x",
-		keys = {
-			{
-				"<leader>ff",
-				function()
-					require("telescope.builtin").find_files()
-				end,
-				{ desc = "Telescope search file", mode = { "n", "v" } },
-			},
-			{
-				"<leader>fs",
-				function()
-					require("telescope.builtin").live_grep()
-				end,
-				{ desc = "Telescope search word in file", mode = { "n", "v" } },
-			},
-			{
-				"<leader>fb",
-				function()
-					require("telescope.builtin").buffers()
-				end,
-				{ desc = "Telescope read buffers", mode = { "n", "v" } },
-			},
-			{
-				"<leader>fh",
-				function()
-					require("telescope.builtin").help_tags()
-				end,
-				{ desc = "Telescope help tags", mode = { "n", "v" } },
-			},
-		},
-		config = function()
-			require("telescope").load_extension("noice")
-		end,
-	},
-	{
+	"nvim-telescope/telescope.nvim",
+	dependencies = {
+		"nvim-lua/plenary.nvim",
 		"nvim-telescope/telescope-ui-select.nvim",
-		dependencies = {
-			"nvim-telescope/telescope.nvim",
+	},
+	branch = "0.1.x",
+	cmd = { "Telescope", "TodoTelescope" },
+	keys = {
+		{
+			"<leader>ff",
+			"<cmd>Telescope find_files<cr>",
+			{ desc = "Telescope search file", mode = { "n", "v" } },
 		},
-		config = function()
-			require("telescope").setup({
-				extensions = {
-					["ui-select"] = {
-						require("telescope.themes").get_dropdown({}),
+		{
+			"<leader>fs",
+			"<cmd>Telescope live_grep<cr>",
+			{ desc = "Telescope search word in file", mode = { "n", "v" } },
+		},
+		{
+			"<leader>fb",
+			"<cmd>Telescope buffers<cr>",
+			{ desc = "Telescope read buffers", mode = { "n", "v" } },
+		},
+		{
+			"<leader>fh",
+			"<cmd>Telescope help_tags<cr>",
+			{ desc = "Telescope help tags", mode = { "n", "v" } },
+		},
+		{
+			"<leader>ft",
+			"<cmd>TodoTelescope<CR>",
+			{ desc = "Find todo comment", mode = { "n", "v" } },
+		},
+	},
+	config = function()
+		local telescope = require("telescope")
+    local actions = require("telescope.actions")
+		telescope.setup({
+			defaults = {
+				path_display = { "smart" },
+				mappings = {
+					i = {
+						["<C-k>"] = actions.move_selection_previous, -- move to prev result
+						["<C-j>"] = actions.move_selection_next, -- move to next result
 					},
 				},
-			})
-
-			require("telescope").load_extension("ui-select")
-		end,
-	},
+			},
+			extensions = {
+				["ui-select"] = {
+					require("telescope.themes").get_dropdown({}),
+				},
+			},
+		})
+		telescope.load_extension("noice")
+		telescope.load_extension("ui-select")
+	end,
 }
