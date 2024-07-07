@@ -1,15 +1,11 @@
 return {
   "stevearc/conform.nvim",
-  event = { "BufReadPre", "BufNewFile" },
+  event = { "BufRead", "BufNewFile" },
   keys = {
     {
       "<leader>gf",
       function()
-        require("conform").format({
-          lsp_fallback = true,
-          async = false,
-          timeout_ms = 1000,
-        })
+        require("conform").format({ timeout_ms = 1000, lsp_format = "prefer" })
       end,
       {
         desc = "formatting code",
@@ -17,6 +13,17 @@ return {
       },
     },
   },
+  init = function()
+    vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
+      callback = function()
+        vim.filetype.add({
+          extension = {
+            ejs = "html",
+          },
+        })
+      end,
+    })
+  end,
   opts = {
     formatters_by_ft = {
       lua = { "stylua" },
@@ -35,9 +42,6 @@ return {
     format_on_save = {
       timeout_ms = 500,
       lsp_format = "prefer",
-    },
-    format_after_save = {
-      lsp_format = "fallback",
     },
     formatters = {
       csharpier = {
