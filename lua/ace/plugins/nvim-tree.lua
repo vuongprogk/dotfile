@@ -1,11 +1,10 @@
 return {
 	"nvim-tree/nvim-tree.lua",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
-  cmd = {
-    "NvimTreeToggle",
-    "NvimTreeRefresh",
-    "NvimTreeFindFileToggle"
-  },
+	cmd = {
+		"NvimTreeToggle",
+		"NvimTreeRefresh",
+	},
 	keys = {
 		{
 			"<leader>ee",
@@ -14,7 +13,14 @@ return {
 		},
 		{
 			"<leader>ef",
-			"<cmd>NvimTreeFindFileToggle<CR>",
+			function()
+				local tree_is_visible = require("nvim-tree.view")
+				if tree_is_visible.is_visible() then
+					vim.cmd("NvimTreeFocus")
+				else
+					vim.cmd("NvimTreeFindFileToggle")
+				end
+			end,
 			{ desc = "Toggle file explorer on current file", mode = { "n", "v" } },
 		},
 		{
