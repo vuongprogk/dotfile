@@ -5,7 +5,7 @@ return {
     {
       "<leader>gf",
       function()
-        require("conform").format({ timeout_ms = 1000, lsp_format = "prefer" })
+        require("conform").format({ timeout_ms = 1000, lsp_format = "first" })
       end,
       {
         desc = "formatting code",
@@ -41,7 +41,7 @@ return {
     },
     format_on_save = {
       timeout_ms = 500,
-      lsp_format = "prefer",
+      lsp_format = "first",
     },
     formatters = {
       csharpier = {
