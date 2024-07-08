@@ -47,8 +47,15 @@ return {
 				local nvim_tree = require("nvim-tree")
 				nvim_tree.change_dir(vim.fn.getcwd())
 			end,
-			"NvimTreeOpen",
+			"NvimTreeFindFileToggle",
 		},
-		pre_save_cmds = { "NvimTreeClose" },
+		pre_save_cmds = {
+			function()
+				local nvim_visible = require("nvim-tree.view")
+				if nvim_visible.is_visible() then
+					vim.cmd("NvimTreeClose")
+				end
+			end,
+		},
 	},
 }
