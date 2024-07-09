@@ -10,6 +10,7 @@ return {
 			options = {
 				mode = "tabs",
 				show_close_icon = false,
+				separator_style = "slope",
 			},
 		},
 	},
@@ -71,6 +72,7 @@ return {
 				command_palette = true,
 				long_message_to_split = true,
 				inc_rename = true,
+				lsp_doc_border = true,
 			},
 			views = {
 				mini = {
@@ -100,8 +102,8 @@ return {
 			},
 		},
 		opts = {
-			stages = "static",
-			timeout = 3000,
+			stages = "fade_in_slide_out",
+			timeout = 5000,
 			fps = 60,
 		},
 	},
