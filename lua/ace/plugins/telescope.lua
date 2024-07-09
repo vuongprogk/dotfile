@@ -32,10 +32,18 @@ return {
 			"<cmd>TodoTelescope<CR>",
 			{ desc = "Find todo comment", mode = { "n", "v" } },
 		},
+		{
+			"<leader>nh",
+			"<cmd>Telescope notify<CR>",
+			{
+				desc = "Notification history",
+				mode = { "n", "v" },
+			},
+		},
 	},
 	config = function()
 		local telescope = require("telescope")
-    local actions = require("telescope.actions")
+		local actions = require("telescope.actions")
 		telescope.setup({
 			defaults = {
 				path_display = { "smart" },
@@ -54,5 +62,6 @@ return {
 		})
 		telescope.load_extension("noice")
 		telescope.load_extension("ui-select")
+		require("telescope").load_extension("notify")
 	end,
 }
