@@ -1,6 +1,6 @@
 return {
 	"folke/todo-comments.nvim",
-	event = { "BufReadPre", "BufNewFile" },
+	event = { "BufRead", "BufNewFile" },
 	dependencies = { "nvim-lua/plenary.nvim" },
 	config = function()
 		local todo_comments = require("todo-comments")
@@ -16,6 +16,16 @@ return {
 			todo_comments.jump_prev()
 		end, { desc = "Previous todo comment" })
 
-		todo_comments.setup()
+		todo_comments.setup({
+			highlight = {
+				pattern = {
+					[[.*<(KEYWORDS)\s*:]],
+					[[.*<(KEYWORDS)\s+]],
+				},
+			},
+			search = {
+				pattern = [[\s(KEYWORDS)\s|\s(KEYWORDS):]],
+			},
+		})
 	end,
 }
