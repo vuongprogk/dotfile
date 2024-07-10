@@ -11,6 +11,10 @@ return {
 			typescriptreact = { "eslint_d" },
 			svelte = { "eslint_d" },
 			python = { "pylint" },
+			-- TODO create .vale.init
+			-- using this link to generate profile https://vale.sh/generator
+			-- run cmd vale sync to create style folder
+			markdown = { "markdownlint", "vale" },
 		},
 	},
 	config = function()
