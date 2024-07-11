@@ -61,7 +61,6 @@ vim.g.mapleader = " "
 -- TODo auto read file
 opt.autoread = true
 -- TODO set update time
-opt.updatetime = 1000
 vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
 	command = "if mode() != 'c' | checktime | endif",
 	pattern = { "*" },
