@@ -92,19 +92,15 @@ return {
 	-- setup notify
 	{
 		"rcarriga/nvim-notify",
-		keys = {
-			{
-				"<leader>un",
-				function()
-					require("notify").dismiss({ silent = true, pending = true })
-				end,
-				desc = "Dismiss All Notifications",
-			},
-		},
 		opts = {
 			stages = "fade_in_slide_out",
 			timeout = 5000,
 			fps = 60,
 		},
+		config = function()
+			vim.keymap.set("n", "<leader>un", function()
+				require("notify").dismiss({ silent = true, pending = true })
+			end, { desc = "Dismiss All Notifications" })
+		end,
 	},
 }

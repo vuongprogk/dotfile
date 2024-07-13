@@ -1,9 +1,6 @@
 return {
 	{
 		"williamboman/mason.nvim",
-		cmd = {
-			"Mason",
-		},
 		opts = {
 			ui = {
 				icons = {
@@ -80,25 +77,25 @@ return {
 	},
 	{
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
-    cmd = {
-      "MasonToolsInstall"
-    },
+		cmd = {
+			"MasonToolsInstall",
+		},
 		dependencies = {
 			"williamboman/mason.nvim",
 		},
-    opts = {
-      ensure_installed = {
-        "stylua",
-        "eslint_d",
-        "cpplint",
-        "pylint",
-        "luacheck",
-        "black",
-        "isort",
-        "prettier",
-        "prettierd",
-        "clang-format",
-      }
-    }
+		opts = {
+			ensure_installed = {
+				"stylua",
+				"eslint_d",
+				"cpplint",
+				"pylint",
+				"luacheck",
+				"black",
+				"isort",
+				"prettier",
+				"prettierd",
+				"clang-format",
+			},
+		},
 	},
 }

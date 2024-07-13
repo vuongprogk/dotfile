@@ -5,42 +5,6 @@ return {
 		"nvim-telescope/telescope-ui-select.nvim",
 	},
 	branch = "0.1.x",
-	cmd = { "Telescope", "TodoTelescope" },
-	keys = {
-		{
-			"<leader>ff",
-			"<cmd>Telescope find_files<cr>",
-			{ desc = "Telescope search file", mode = { "n", "v" } },
-		},
-		{
-			"<leader>fs",
-			"<cmd>Telescope live_grep<cr>",
-			{ desc = "Telescope search word in file", mode = { "n", "v" } },
-		},
-		{
-			"<leader>fb",
-			"<cmd>Telescope buffers<cr>",
-			{ desc = "Telescope read buffers", mode = { "n", "v" } },
-		},
-		{
-			"<leader>fh",
-			"<cmd>Telescope help_tags<cr>",
-			{ desc = "Telescope help tags", mode = { "n", "v" } },
-		},
-		{
-			"<leader>ft",
-			"<cmd>TodoTelescope<CR>",
-			{ desc = "Find todo comment", mode = { "n", "v" } },
-		},
-		{
-			"<leader>nh",
-			"<cmd>Telescope notify<CR>",
-			{
-				desc = "Notification history",
-				mode = { "n", "v" },
-			},
-		},
-	},
 	config = function()
 		local telescope = require("telescope")
 		local actions = require("telescope.actions")
@@ -62,6 +26,20 @@ return {
 		})
 		telescope.load_extension("noice")
 		telescope.load_extension("ui-select")
-		require("telescope").load_extension("notify")
+		telescope.load_extension("notify")
+		local keymap = vim.keymap
+		keymap.set({ "n", "v" }, "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Telescope search file" })
+		keymap.set(
+			{ "n", "v" },
+			"<leader>fs",
+			"<cmd>Telescope live_grep<cr>",
+			{ desc = "Telescope search word in file" }
+		)
+		keymap.set({ "n", "v" }, "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Telescope read buffers" })
+		keymap.set({ "n", "v" }, "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Telescope help tags" })
+		keymap.set({ "n", "v" }, "<leader>ft", "<cmd>TodoTelescope<CR>", { desc = "Find todo comment" })
+		keymap.set({ "n", "v" }, "<leader>nh", "<cmd>Telescope notify<CR>", {
+			desc = "Notification history",
+		})
 	end,
 }
