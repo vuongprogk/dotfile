@@ -17,12 +17,11 @@ local plugin_path = {
 }
 require("lazy").setup({
 	spec = plugin_path,
-	pgk = { enable = false },
-	rocks = { enable = false },
-	checker = {
-		enable = true,
-		notify = false,
+	install = {
+		colorscheme = { "solarized-osaka" },
 	},
+	pgk = { enabled = false },
+	rocks = { enabled = false },
 	change_detection = {
 		notify = false,
 	},
