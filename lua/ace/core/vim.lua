@@ -1,18 +1,18 @@
 -- Set up for neovide
 if vim.g.neovide then
-  vim.opt.linespace = 0
-  vim.g.neovide_scale_factor = 1.0
-  local alpha = function()
-    return string.format("%x", math.floor(0.8))
-  end
-  vim.g.neovide_transparency = 0.9
-  vim.g.transparency = 0.9
-  vim.g.neovide_background_color = "#0f1117" .. alpha()
-  vim.g.neovide_scroll_animation_far_lines = 3
-  vim.g.neovide_hide_mouse_when_typing = true
-  vim.g.neovide_refresh_rate_idle = 5
-  vim.g.neovide_refresh_rate = 60
-  vim.opt.guifont = "Hack Nerd Font:h12"
+	vim.opt.linespace = 0
+	vim.g.neovide_scale_factor = 1.0
+	local alpha = function()
+		return string.format("%x", math.floor(255 * vim.g.transparency or 0.8))
+	end
+	vim.g.neovide_transparency = 0.9
+	vim.g.transparency = 0.9
+	vim.g.neovide_background_color = "#0f1117" .. alpha()
+	vim.g.neovide_scroll_animation_far_lines = 3
+	vim.g.neovide_hide_mouse_when_typing = true
+	vim.g.neovide_refresh_rate_idle = 5
+	vim.g.neovide_refresh_rate = 60
+	vim.opt.guifont = "JetBrainsMono Nerd Font:h12"
 end
 local opt = vim.opt
 vim.g.loaded_netrw = 1
@@ -63,15 +63,15 @@ opt.autoread = true
 -- TODO set update time
 vim.opt.updatetime = 100
 vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
-  command = "if mode() != 'c' | checktime | endif",
-  pattern = { "*" },
+	command = "if mode() != 'c' | checktime | endif",
+	pattern = { "*" },
 })
 vim.api.nvim_create_autocmd("FileChangedShellPost", {
-  pattern = "*",
-  callback = function()
-    ---@diagnostic disable-next-line: param-type-mismatch
-    vim.notify("File changed on disk. Buffer reloaded.", "info")
-  end,
+	pattern = "*",
+	callback = function()
+		---@diagnostic disable-next-line: param-type-mismatch
+		vim.notify("File changed on disk. Buffer reloaded.", "info")
+	end,
 })
 
 -- set keymap for tab
