@@ -62,17 +62,6 @@ vim.g.mapleader = " "
 opt.autoread = true
 -- TODO set update time
 vim.opt.updatetime = 100
-vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
-	command = "if mode() != 'c' | checktime | endif",
-	pattern = { "*" },
-})
-vim.api.nvim_create_autocmd("FileChangedShellPost", {
-	pattern = "*",
-	callback = function()
-		---@diagnostic disable-next-line: param-type-mismatch
-		vim.notify("File changed on disk. Buffer reloaded.", "info")
-	end,
-})
 
 -- set keymap for tab
 vim.keymap.set("n", "<Leader>tn", "<cmd>tabnext<CR>", { silent = true })
