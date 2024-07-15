@@ -10,7 +10,6 @@ return {
 			options = {
 				mode = "tabs",
 				show_close_icon = false,
-				separator_style = "slope",
 			},
 		},
 	},
@@ -20,9 +19,38 @@ return {
 		dependencies = "nvim-tree/nvim-web-devicons",
 		opts = {
 			options = {
-				-- globalstatus = false,
-				theme = "solarized_dark",
+				theme = function()
+					local colors = {
+						blue = "#268bd2",
+						black = "#080808",
+						white = "#c6c6c6",
+						red = "#ff5189",
+						violet = "#d183e8",
+						grey = "#303030",
+						base03 = "#002b36",
+						green = "#859900",
+						magenta = "#d33682",
+					}
+					return {
+						normal = {
+							a = { fg = colors.black, bg = colors.blue, gui = "bold" },
+							b = { fg = colors.white, bg = colors.grey },
+							c = { fg = colors.white },
+						},
+
+						insert = { a = { fg = colors.black, bg = colors.green, gui = "bold" } },
+						visual = { a = { fg = colors.black, bg = colors.violet, gui = "bold" } },
+						replace = { a = { fg = colors.black, bg = colors.red, gui = "bold" } },
+
+						inactive = {
+							a = { fg = colors.white, bg = colors.black, gui = "bold" },
+							b = { fg = colors.white, bg = colors.black },
+							c = { fg = colors.white },
+						},
+					}
+				end,
 			},
+			extensions = { "nvim-tree" },
 		},
 	},
 	-- setup noice
