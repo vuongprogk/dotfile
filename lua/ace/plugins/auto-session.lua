@@ -42,13 +42,13 @@ return {
 			previewer = false,
 			buftypes_to_ignore = {},
 		},
-		post_restore_cmds = {
-			function()
-				local nvim_tree = require("nvim-tree")
-				nvim_tree.change_dir(vim.fn.getcwd())
-			end,
-			"NvimTreeFindFileToggle",
-		},
+		-- post_restore_cmds = {
+		-- 	function()
+		-- 		local nvim_tree = require("nvim-tree")
+		-- 		nvim_tree.change_dir(vim.fn.getcwd())
+		-- 	end,
+		-- 	"NvimTreeFindFileToggle",
+		-- },
 		pre_save_cmds = {
 			function()
 				local nvim_visible = require("nvim-tree.view")
