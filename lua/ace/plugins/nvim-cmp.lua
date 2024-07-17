@@ -89,7 +89,11 @@ return {
 				{ name = "path" },
 			}),
 			formatting = {
-				fields = { "kind", "abbr", "menu" },
+				fields = {
+					cmp.ItemField.Abbr,
+					cmp.ItemField.Kind,
+					cmp.ItemField.Menu,
+				},
 				format = lspkind.cmp_format({
 					mode = "symbol_text",
 					maxwidth = 50,

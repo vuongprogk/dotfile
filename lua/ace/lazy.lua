@@ -18,7 +18,7 @@ local plugin_path = {
 require("lazy").setup({
 	spec = plugin_path,
 	install = {
-		colorscheme = { "solarized-osaka" },
+		colorscheme = { "tokyonight-night", "solarized-osaka" },
 	},
 	pgk = { enabled = false },
 	rocks = { enabled = false },
