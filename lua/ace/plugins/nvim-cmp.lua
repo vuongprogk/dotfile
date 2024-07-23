@@ -7,6 +7,7 @@ return {
 		"hrsh7th/cmp-path", -- source for file system paths
 		{
 			"L3MON4D3/LuaSnip",
+			version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
 			build = function()
 				if require("ace.custom.os").getName() == "Windows" then
 					vim.notify("Can't install jsregexp on window")
@@ -14,20 +15,15 @@ return {
 				end
 				return "make install_jsregexp"
 			end,
+			dependencies = { "saadparwaiz1/cmp_luasnip" },
 		},
-		"saadparwaiz1/cmp_luasnip", -- for autocompletion
 		{
 			"garymjr/nvim-snippets",
-			opts = {
-				friendly_snippets = true,
-			},
+			opts = { friendly_snippets = true },
 			dependencies = { "rafamadriz/friendly-snippets" },
 		},
 		"onsails/lspkind.nvim", -- vs-code like pictograms
-		{
-			"hrsh7th/cmp-nvim-lua",
-			ft = "lua",
-		},
+		{ "hrsh7th/cmp-nvim-lua", ft = "lua" },
 	},
 	config = function()
 		local lspkind = require("lspkind")
@@ -43,7 +39,7 @@ return {
 				["<C-f>"] = cmp.mapping.scroll_docs(4),
 				["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
 				["<C-e>"] = cmp.mapping.abort(), -- close completion window
-				["<CR>"] = cmp.mapping.confirm({ select = false }),
+				["<CR>"] = cmp.mapping.confirm({ select = true }),
 				["<Tab>"] = cmp.mapping(function(fallback) -- super tab
 					if cmp.visible() then
 						cmp.select_next_item()
@@ -73,18 +69,16 @@ return {
 				documentation = cmp.config.window.bordered(),
 			},
 			sources = cmp.config.sources({
-				{
-					name = "lazydev",
-					group_index = 0, -- set group index to 0 to skip loading LuaLS completions
-				},
-				{
-					name = "nvim_lua",
-					options = {
-						include_deprecated = true,
-					},
-				},
+				{ name = "lazydev", group_index = 0 },
+				-- {
+				-- 	name = "nvim_lua",
+				-- 	options = {
+				-- 		include_deprecated = true,
+				-- 	},
+				-- },
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
+				{ name = "snippets" },
 				{ name = "buffer" },
 				{ name = "path" },
 			}),

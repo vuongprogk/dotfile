@@ -5,7 +5,7 @@ return {
 	opts = {
 		sync_root_with_cwd = true,
 		view = {
-			width = 40,
+			width = 35,
 		},
 		-- change folder arrow icons
 		renderer = {
