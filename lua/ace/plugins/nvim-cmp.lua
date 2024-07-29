@@ -67,7 +67,13 @@ return {
 			},
 			sources = cmp.config.sources({
 				{ name = "lazydev", group_index = 0 },
-				{ name = "nvim_lsp", priority = 1000 },
+				{
+					name = "nvim_lsp",
+					priority = 1000,
+					entry_filter = function(entry, ctx)
+						return cmp.lsp.CompletionItemKind.Snippet ~= entry:get_kind()
+					end,
+				},
 				{ name = "luasnip", priority = 750 },
 				{ name = "buffer", priority = 500, keyword_length = 3 },
 				{ name = "path", priority = 250 },
