@@ -23,9 +23,19 @@ return {
 	},
 	config = function()
 		local lspkind = require("lspkind")
-		require("luasnip.loaders.from_vscode").lazy_load()
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
+		require("luasnip.loaders.from_vscode").lazy_load()
+
+		-- NOTE:  deprioritize_snippet in some lsp
+		local function deprioritize_snippet(entry1, entry2)
+			if entry1:get_kind() == cmp.lsp.CompletionItemKind.Snippet then
+				return false
+			end
+			if entry2:get_kind() == cmp.lsp.CompletionItemKind.Snippet then
+				return true
+			end
+		end
 
 		cmp.setup({
 			mapping = cmp.mapping.preset.insert({
@@ -70,12 +80,9 @@ return {
 				{
 					name = "nvim_lsp",
 					priority = 1000,
-					entry_filter = function(entry, ctx)
-						return cmp.lsp.CompletionItemKind.Snippet ~= entry:get_kind()
-					end,
 				},
 				{ name = "luasnip", priority = 750 },
-				{ name = "buffer", priority = 500, keyword_length = 3 },
+				{ name = "buffer", keyword_length = 3, priority = 500 },
 				{ name = "path", priority = 250 },
 				{ name = "nvim_lsp_signature_help" },
 			}),
@@ -100,7 +107,20 @@ return {
 				}),
 			},
 			sorting = {
-				comparators = {},
+				priority_weight = 2,
+				comparators = {
+					deprioritize_snippet,
+					cmp.config.compare.offset,
+					cmp.config.compare.exact,
+					cmp.config.compare.scopes,
+					cmp.config.compare.score,
+					cmp.config.compare.recently_used,
+					cmp.config.compare.locality,
+					cmp.config.compare.kind,
+					cmp.config.compare.sort_text,
+					cmp.config.compare.length,
+					cmp.config.compare.order,
+				},
 			},
 			experimental = {
 				ghost_text = true,
