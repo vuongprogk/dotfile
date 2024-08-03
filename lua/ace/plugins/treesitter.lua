@@ -22,7 +22,7 @@ return {
 			auto_install = true,
 			highlight = {
 				enable = true,
-				disable = { "c_sharp" },
+				-- disable = { "c_sharp" },
 			},
 			indent = true,
 			ignore_install = {},

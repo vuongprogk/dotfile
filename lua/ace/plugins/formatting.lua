@@ -40,10 +40,15 @@ return {
 			html = { "prettier" },
 			cs = { "csharpier" },
 			css = { "prettier" },
+			-- c_sharp = { "csharpier" },
 		},
+		-- format_on_save = {
+		-- 	timeout_ms = 500,
+		-- 	lsp_format = "first",
+		-- },
 		format_on_save = {
+			lsp_format = "fallback",
 			timeout_ms = 500,
-			lsp_format = "first",
 		},
 		formatters = {
 			csharpier = {
@@ -51,5 +56,8 @@ return {
 				args = { "--write-stdout" },
 			},
 		},
+		-- lang_to_ext = {
+		-- 	c_sharp = "cs",
+		-- },
 	},
 }
