@@ -42,11 +42,6 @@ vim.keymap.set({ "n", "v" }, "<space>", "<NOP>", { silent = true, remap = false 
 -- set leader key
 vim.g.mapleader = " "
 
--- TODo auto read file
-opt.autoread = true
--- TODO set update time
-vim.opt.updatetime = 1000
-
 -- TODO: set no swap file
 vim.opt.swapfile = false
 
