@@ -167,11 +167,6 @@ return {
 				["tsserver"] = function()
 					lspconfig["tsserver"].setup({
 						capabilities = capabilities,
-						init_options = {
-							preferences = {
-								disableSuggestions = true,
-							},
-						},
 					})
 				end,
 				["csharp_ls"] = function()
