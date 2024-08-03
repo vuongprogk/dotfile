@@ -1,5 +1,4 @@
 return {
-	{ "nvim-telescope/telescope-fzf-native.nvim", build = "mingw32-make", event = "VeryLazy" },
 	{
 		"nvim-telescope/telescope.nvim",
 		dependencies = {
@@ -27,10 +26,8 @@ return {
 					},
 				},
 			})
-			telescope.load_extension("noice")
 			telescope.load_extension("ui-select")
 			telescope.load_extension("notify")
-			telescope.load_extension("fzf")
 			local keymap = vim.keymap
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
