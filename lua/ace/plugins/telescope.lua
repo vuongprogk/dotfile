@@ -28,6 +28,8 @@ return {
 			})
 			telescope.load_extension("ui-select")
 			telescope.load_extension("notify")
+			telescope.load_extension("noice")
+
 			local keymap = vim.keymap
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
@@ -37,6 +39,9 @@ return {
 			keymap.set({ "n", "v" }, "<leader>ft", "<cmd>TodoTelescope<CR>", { desc = "Find todo comment" })
 			keymap.set({ "n", "v" }, "<leader>nh", "<cmd>Telescope notify<CR>", {
 				desc = "Notification history",
+			})
+			keymap.set({ "n", "v" }, "<leader>nt", "<cmd>Telescope noice<CR>", {
+				desc = "Noice history",
 			})
 		end,
 	},
