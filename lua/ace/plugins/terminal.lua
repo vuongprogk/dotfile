@@ -38,6 +38,7 @@ return {
 	},
 	{
 		"akinsho/toggleterm.nvim",
+		event = "VeryLazy",
 		enabled = function()
 			if require("ace.custom.os").getName() == "Windows" then
 				return true

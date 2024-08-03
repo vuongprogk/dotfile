@@ -3,34 +3,7 @@ return {
 	dependencies = {
 		"nvim-telescope/telescope.nvim",
 	},
-	cmd = {
-		"SessionRestore",
-		"SessionSave",
-		"SessionDelete",
-		"Autosession",
-	},
-	keys = {
-		{
-			"<leader>wr",
-			"<cmd>SessionRestore<CR>",
-			{ desc = "Restore session for cwd", mode = { "n", "v" } },
-		},
-		{
-			"<leader>ws",
-			"<cmd>SessionSave<CR>",
-			{ desc = "Save session for auto session root dir", mode = { "n", "v" } },
-		},
-		{
-			"<leader>wd",
-			"<cmd>SessionDelete<CR>",
-			{ desc = "Delete session", mode = { "n", "v" } },
-		},
-		{
-			"<Leader>ls",
-			"<cmd>Telescope session-lens<CR>",
-			{ desc = "Search session", mode = { "n", "v" } },
-		},
-	},
+	event = "VeryLazy",
 	opts = {
 		auto_session_suppress_dirs = { "~/", "~/Dev/", "~/Downloads", "~/Documents", "~/Desktop/" },
 		auto_save_enabled = true,
@@ -57,4 +30,17 @@ return {
 			end,
 		},
 	},
+	config = function(_, opts)
+		require("auto-session").setup(opts)
+		local keys = vim.keymap
+		keys.set({ "n", "v" }, "<leader>wr", "<cmd>SessionRestore<CR>", { desc = "Restore session for cwd" })
+		keys.set(
+			{ "n", "v" },
+			"<leader>ws",
+			"<cmd>SessionSave<CR>",
+			{ desc = "Save session for auto session root dir" }
+		)
+		keys.set({ "n", "v" }, "<leader>wd", "<cmd>SessionDelete<CR>", { desc = "Delete session" })
+		keys.set({ "n", "v" }, "<Leader>ls", "<cmd>Telescope session-lens<CR>", { desc = "Search session" })
+	end,
 }

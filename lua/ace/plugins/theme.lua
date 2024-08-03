@@ -28,6 +28,7 @@ return {
 		"craftzdog/solarized-osaka.nvim",
 		priority = 1000,
 		lazy = true,
+		enabled = false,
 		opts = {
 			styles = {
 				comments = { italic = true },

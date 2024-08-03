@@ -5,8 +5,8 @@ return {
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope-ui-select.nvim",
 		},
-		event = { "VeryLazy" },
-		branch = "0.1.x",
+		event = "VeryLazy",
+		version = false,
 		config = function()
 			local telescope = require("telescope")
 			local actions = require("telescope.actions")
