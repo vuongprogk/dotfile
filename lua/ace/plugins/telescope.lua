@@ -4,15 +4,14 @@ return {
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope-ui-select.nvim",
+			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 		},
-		event = "VeryLazy",
 		version = false,
 		config = function()
 			local telescope = require("telescope")
 			local actions = require("telescope.actions")
 			telescope.setup({
 				defaults = {
-					path_display = { "smart" },
 					mappings = {
 						i = {
 							["<C-k>"] = actions.move_selection_previous, -- move to prev result
@@ -26,6 +25,7 @@ return {
 					},
 				},
 			})
+			telescope.load_extension("fzf")
 			telescope.load_extension("ui-select")
 			telescope.load_extension("notify")
 			telescope.load_extension("noice")
