@@ -83,6 +83,9 @@ return {
 					view = "mini",
 					opts = {},
 				},
+				signature = {
+					enabled = false,
+				},
 			},
 			routes = {
 				{
