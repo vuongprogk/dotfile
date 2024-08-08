@@ -1,6 +1,8 @@
 return {
 	{
 		"folke/lazydev.nvim",
+		dependencies = "hrsh7th/nvim-cmp",
+
 		ft = "lua", -- only load on lua files
 		opts = {
 			library = {
@@ -21,6 +23,7 @@ return {
 				config = true,
 			},
 			"williamboman/mason-lspconfig.nvim",
+			"hrsh7th/nvim-cmp",
 		},
 		config = function()
 			-- import lspconfig plugin
@@ -29,6 +32,16 @@ return {
 			local mason_lspconfig = require("mason-lspconfig")
 			-- import cmp-nvim-lsp plugin
 			local cmp_nvim_lsp = require("cmp_nvim_lsp")
+
+			-- NOTE: Load lspconfig to cmp
+			local cmp = require("cmp")
+			local config = cmp.get_config()
+			table.insert(config.sources, {
+				name = "nvim_lsp",
+				priority = 1000,
+			})
+			table.insert(config.sources, { name = "lazydev", group_index = 0 })
+			cmp.setup(config)
 
 			local keymap = vim.keymap -- for conciseness
 
