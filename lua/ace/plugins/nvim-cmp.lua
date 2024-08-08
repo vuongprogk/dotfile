@@ -43,6 +43,7 @@ return {
 				["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
 				["<C-b>"] = cmp.mapping.scroll_docs(-4),
 				["<C-f>"] = cmp.mapping.scroll_docs(4),
+				["<C-s>"] = cmp.mapping.complete(), -- show completion suggestions because some terminal emulator not word
 				["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
 				["<C-e>"] = cmp.mapping.abort(), -- close completion window
 				["<CR>"] = cmp.mapping.confirm({ select = false }),
@@ -121,12 +122,6 @@ return {
 					cmp.config.compare.length,
 					cmp.config.compare.order,
 				},
-			},
-			experimental = {
-				ghost_text = true,
-			},
-			performance = {
-				max_view_entries = 50,
 			},
 		})
 	end,
