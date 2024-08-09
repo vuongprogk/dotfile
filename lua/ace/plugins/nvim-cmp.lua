@@ -27,8 +27,7 @@ return {
 				["<C-s>"] = cmp.mapping.complete(), -- show completion suggestions because some terminal emulator not word
 				["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
 				["<C-e>"] = cmp.mapping.abort(), -- close completion window
-				["<CR>"] = cmp.mapping.confirm({ select = false }),
-				["<C-y>"] = cmp.mapping.confirm({ select = true }),
+				["<CR>"] = cmp.mapping.confirm({ select = true }),
 			})
 			opts.window = {
 				completion = cmp.config.window.bordered(),
@@ -74,6 +73,9 @@ return {
 					cmp.config.compare.order,
 				},
 			}
+			opts.completion = {
+				completeopt = "menu,menuone,noinsert",
+			}
 		end,
 	},
 	{
@@ -91,7 +93,7 @@ return {
 	{
 		"hrsh7th/cmp-path", -- source for file system paths
 		dependencies = { "hrsh7th/nvim-cmp" },
-		event = { "BufReadPre", "BufNewFile" },
+		event = "InsertEnter",
 		config = function()
 			local cmp = require("cmp")
 			local config = cmp.get_config()
