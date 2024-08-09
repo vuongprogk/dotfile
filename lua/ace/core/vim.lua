@@ -45,6 +45,8 @@ vim.g.mapleader = " "
 -- TODO: set no swap file
 vim.opt.swapfile = false
 
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+
 -- set keymap for tab
 vim.keymap.set("n", "<Leader>tn", "<cmd>tabnext<CR>", { silent = true })
 vim.keymap.set("n", "<Leader>tp", "<cmd>tabprevious<CR>", { silent = true })
