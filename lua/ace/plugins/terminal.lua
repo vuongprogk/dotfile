@@ -16,7 +16,7 @@ return {
 				blend = 0,
 				cmd = function()
 					if require("ace.custom.os").getName() == "Windows" then
-						return "powershell"
+						return "powershell /nologo"
 					else
 						return nil
 					end
@@ -56,7 +56,13 @@ return {
 					return vim.o.columns * 0.4
 				end
 			end,
-			direction = "tab", -- "horizontal", -- | "tab" | "float",
+			direction = "float", -- "horizontal", -- | "tab" | "float",
+			shell = "powershell /nologo",
+			float_opts = {
+				winblend = 0,
+				border = "curved",
+				title_pos = "center",
+			},
 		},
 		config = function(_, opts)
 			require("toggleterm").setup(opts)
