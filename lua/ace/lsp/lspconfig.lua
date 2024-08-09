@@ -23,7 +23,15 @@ return {
 				config = true,
 			},
 			"williamboman/mason-lspconfig.nvim",
-			"hrsh7th/nvim-cmp",
+			{
+				"hrsh7th/nvim-cmp",
+				opts = function(_, opts)
+					table.insert(opts.sources, {
+						name = "nvim_lsp",
+						priority = 1000,
+					})
+				end,
+			},
 		},
 		config = function()
 			-- import lspconfig plugin
@@ -32,16 +40,6 @@ return {
 			local mason_lspconfig = require("mason-lspconfig")
 			-- import cmp-nvim-lsp plugin
 			local cmp_nvim_lsp = require("cmp_nvim_lsp")
-
-			-- NOTE: Load lspconfig to cmp
-			local cmp = require("cmp")
-			local config = cmp.get_config()
-			table.insert(config.sources, {
-				name = "nvim_lsp",
-				priority = 1000,
-			})
-			table.insert(config.sources, { name = "lazydev", group_index = 0 })
-			cmp.setup(config)
 
 			local keymap = vim.keymap -- for conciseness
 
@@ -125,7 +123,7 @@ return {
 					-- configure svelte server
 					lspconfig["svelte"].setup({
 						capabilities = capabilities,
-						on_attach = function(client, bufnr)
+						on_attach = function(client, _)
 							vim.api.nvim_create_autocmd("BufWritePost", {
 								pattern = { "*.js", "*.ts" },
 								callback = function(ctx)

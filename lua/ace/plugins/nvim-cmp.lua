@@ -19,7 +19,7 @@ return {
 					return true
 				end
 			end
-			opts.mapping = cmp.mapping.preset.insert({
+			opts.mapping = vim.tbl_extend("force", opts.mapping, {
 				["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
 				["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
 				["<C-b>"] = cmp.mapping.scroll_docs(-4),
@@ -29,14 +29,11 @@ return {
 				["<C-e>"] = cmp.mapping.abort(), -- close completion window
 				["<CR>"] = cmp.mapping.confirm({ select = true }),
 			})
+
 			opts.window = {
 				completion = cmp.config.window.bordered(),
 				documentation = cmp.config.window.bordered(),
 			}
-			opts.sources = cmp.config.sources({
-				{ name = "lazydev", group_index = 0 },
-				{ name = "nvim_lsp_signature_help" },
-			})
 			opts.formatting = {
 				fields = {
 					cmp.ItemField.Abbr,
@@ -76,30 +73,31 @@ return {
 			opts.completion = {
 				completeopt = "menu,menuone,noinsert",
 			}
+			table.insert(opts.sources, {
+				{ name = "lazydev", group_index = 0 },
+				{ name = "nvim_lsp_signature_help" },
+			})
 		end,
 	},
+
 	{
 		"hrsh7th/cmp-buffer", -- source for text in buffer
-		dependencies = { "hrsh7th/nvim-cmp" },
 		event = { "BufReadPre", "BufNewFile" },
-		config = function()
-			local cmp = require("cmp")
-			local config = cmp.get_config()
-
-			table.insert(config.sources, { name = "buffer", priority = 500 })
-			cmp.setup(config)
-		end,
+		dependencies = {
+			"hrsh7th/nvim-cmp",
+			opts = function(_, opts)
+				table.insert(opts.sources, { name = "buffer", priority = 250 })
+			end,
+		},
 	},
 	{
 		"hrsh7th/cmp-path", -- source for file system paths
-		dependencies = { "hrsh7th/nvim-cmp" },
 		event = "InsertEnter",
-		config = function()
-			local cmp = require("cmp")
-			local config = cmp.get_config()
-
-			table.insert(config.sources, { name = "path", priority = 250 })
-			cmp.setup(config)
-		end,
+		dependencies = {
+			"hrsh7th/nvim-cmp",
+			opts = function(_, opts)
+				table.insert(opts.sources, { name = "path", priority = 500 })
+			end,
+		},
 	},
 }
