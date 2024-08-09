@@ -42,6 +42,7 @@ vim.keymap.set({ "n", "v" }, "<space>", "<NOP>", { silent = true, remap = false 
 -- set leader key
 vim.g.mapleader = " "
 
+vim.g.updatetime = 100
 -- TODO: set no swap file
 vim.opt.swapfile = false
 

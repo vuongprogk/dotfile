@@ -33,7 +33,7 @@ return {
 				if not opts.mapping then
 					opts.mapping = {}
 				end
-				opts.mapping = vim.tbl_extend("force", opts.mapping, {
+				opts.mapping = cmp.mapping.preset.insert({
 					["<Tab>"] = cmp.mapping(function(fallback) -- super tab
 						if cmp.visible() then
 							cmp.select_next_item()
