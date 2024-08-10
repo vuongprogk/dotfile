@@ -5,7 +5,7 @@ return {
 		{
 			"<leader>gf",
 			function()
-				require("conform").format({ timeout_ms = 1000, lsp_format = "first" })
+				require("conform").format({ timeout_ms = 1000, lsp_format = "fallback" })
 			end,
 			{
 				desc = "formatting code",
@@ -28,8 +28,8 @@ return {
 		formatters_by_ft = {
 			lua = { "stylua" },
 			python = { "isort", "black" },
-			javascript = { "prettierd", "prettier", stop_after_first = true },
-			javascriptreact = { "prettierd", "prettier", stop_after_first = true },
+			javascript = { "prettier", "prettierd", stop_after_first = true },
+			javascriptreact = { "prettier", "prettierd", stop_after_first = true },
 
 			java = {
 				"clang_format",
@@ -42,13 +42,9 @@ return {
 			css = { "prettier" },
 			cshtml = { "csharpier", "prettier", stop_after_first = true },
 		},
-		-- format_on_save = {
-		-- 	timeout_ms = 500,
-		-- 	lsp_format = "first",
-		-- },
 		format_on_save = {
 			lsp_format = "fallback",
-			timeout_ms = 500,
+			timeout_ms = 1000,
 		},
 		formatters = {
 			csharpier = {
