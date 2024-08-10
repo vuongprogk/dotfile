@@ -54,14 +54,12 @@ return {
 		require("nvim-tree").setup(config)
 		local keymap = vim.keymap
 		keymap.set({ "n", "v" }, "<leader>er", "<cmd>NvimTreeRefresh<CR>", { desc = "Refresh file explorer" })
-		keymap.set({ "n", "v" }, "<leader>ef", function()
-			local tree_is_visible = require("nvim-tree.view")
-			if tree_is_visible.is_visible() then
-				vim.cmd("NvimTreeFocus")
-			else
-				vim.cmd("NvimTreeFindFileToggle")
-			end
-		end, { desc = "Toggle file explorer on current file" })
+		keymap.set(
+			{ "n", "v" },
+			"<leader>ef",
+			"<cmd>NvimTreeFindFileToggle<CR>",
+			{ desc = "Toggle file explorer on current file" }
+		)
 		keymap.set({ "n", "v" }, "<leader>ee", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" })
 	end,
 }
