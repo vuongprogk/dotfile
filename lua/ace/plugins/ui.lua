@@ -119,6 +119,13 @@ return {
 						winblend = 0,
 					},
 				},
+				hover = {
+					size = {
+						max_width = 80,
+						width = "auto",
+						height = "auto",
+					},
+				},
 			},
 			cmdline = {
 				enabled = true,
