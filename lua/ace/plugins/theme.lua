@@ -1,6 +1,7 @@
 return {
 	{
 		"folke/tokyonight.nvim",
+		event = "VimEnter",
 		priority = 1000,
 		opts = {
 			style = "night", -- The theme comes in three styles, `storm`, a darker variant `night` and `day`
