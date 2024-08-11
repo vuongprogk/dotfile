@@ -7,6 +7,8 @@ vim.g.loaded_ruby_provider = 0
 -- Turn off bell
 opt.belloff = "all"
 
+vim.g.lazyvim_picker = "telescope"
+
 -- set default background
 opt.background = "dark"
 opt.termguicolors = true

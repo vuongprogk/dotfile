@@ -50,7 +50,7 @@ return {
 		},
 		event = "VeryLazy",
 		build = "make",
-		init = function()
+		config = function()
 			if vim.tbl_get(require("lazy.core.config"), "plugins", "telescope.nvim", "_", "loaded") ~= nil then
 				local ok, err = pcall(require("telescope").load_extension, "fzf")
 				if not ok then
@@ -94,7 +94,7 @@ return {
 			},
 		},
 		event = "VeryLazy",
-		init = function()
+		config = function()
 			if vim.tbl_get(require("lazy.core.config"), "plugins", "telescope.nvim", "_", "loaded") ~= nil then
 				local ok, err = pcall(require("telescope").load_extension, "ui-select")
 				if not ok then
