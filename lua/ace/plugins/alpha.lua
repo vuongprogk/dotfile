@@ -4,37 +4,74 @@ return {
 		"nvim-tree/nvim-web-devicons",
 		"nvim-telescope/telescope.nvim",
 	},
-
-	config = function()
-		local alpha = require("alpha")
+	event = "VimEnter",
+	init = false,
+	opts = function()
 		local dashboard = require("alpha.themes.dashboard")
-		local builtin = require("telescope.builtin")
 
 		dashboard.section.header.val = {
-			[[                        ]],
-			[[                        ]],
-			[[                        ]],
-			[[                        ]],
+			-- [[                        ]],
+			-- [[                        ]],
+			-- [[                        ]],
+			-- [[                        ]],
 			[[ █████╗  ██████╗███████╗]],
 			[[██╔══██╗██╔════╝██╔════╝]],
 			[[███████║██║     █████╗  ]],
 			[[██╔══██║██║     ██╔══╝  ]],
 			[[██║  ██║╚██████╗███████╗]],
 			[[╚═╝  ╚═╝ ╚═════╝╚══════╝]],
-			[[                        ]],
-			[[                        ]],
-			[[                        ]],
+			-- [[                        ]],
+			-- [[                        ]],
+			-- [[                        ]],
 		}
 		dashboard.section.buttons.val = {
 			dashboard.button("e", "  > New File", "<cmd>ene<CR>"),
 			dashboard.button("󱁐 ee", "  > Toggle file explorer", "<cmd>NvimTreeToggle<CR>"),
-			dashboard.button("󱁐 ff", "󰱼  > Find File", builtin.find_files),
-			dashboard.button("󱁐 fg", "  > Find Word", builtin.live_grep),
+			dashboard.button("󱁐 ff", "󰱼  > Find File", "<cmd>Telescope find_files<CR>"),
+			dashboard.button("󱁐 fg", "  > Find Word", "<cmd>Telescope live_grep<CR>"),
+			dashboard.button("󱁐 lg", "  > Open Lazygit", ""),
 			dashboard.button("󱁐 wr", "󰁯  > Restore Session For Current Directory", "<cmd>SessionRestore<CR>"),
 			dashboard.button("q", "  > Quit NVIM", "<cmd>qa<CR>"),
 		}
-		alpha.setup(dashboard.opts)
+		for _, button in ipairs(dashboard.section.buttons.val) do
+			button.opts.hl = "AlphaButtons"
+			button.opts.hl_shortcut = "AlphaShortcut"
+		end
+		dashboard.section.header.opts.hl = "AlphaHeader"
+		dashboard.section.buttons.opts.hl = "AlphaButtons"
+		dashboard.section.footer.opts.hl = "AlphaFooter"
+		dashboard.opts.layout[1].val = 8
+		-- vim.cmd([[autocmd FileType alpha setlocal nofoldenable]])
+		return dashboard
+	end,
+	config = function(_, dashboard)
+		if vim.o.filetype == "lazy" then
+			vim.cmd.close()
+			vim.api.nvim_create_autocmd("User", {
+				once = true,
+				pattern = "AlphaReady",
+				callback = function()
+					require("lazy").show()
+				end,
+			})
+		end
 
-		vim.cmd([[autocmd FileType alpha setlocal nofoldenable]])
+		require("alpha").setup(dashboard.opts)
+		vim.api.nvim_create_autocmd("User", {
+			once = true,
+			pattern = "LazyVimStarted",
+			callback = function()
+				local stats = require("lazy").stats()
+				local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
+				dashboard.section.footer.val = "⚡ Neovim loaded "
+					.. stats.loaded
+					.. "/"
+					.. stats.count
+					.. " plugins in "
+					.. ms
+					.. "ms"
+				pcall(vim.cmd.AlphaRedraw)
+			end,
+		})
 	end,
 }
