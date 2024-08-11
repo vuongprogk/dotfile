@@ -1,7 +1,8 @@
 return {
 	{
 		"williamboman/mason.nvim",
-		event = "VeryLazy",
+		cmd = "Mason",
+		opts_extend = { "ensure_installed" },
 		opts = {
 			ui = {
 				icons = {
@@ -10,11 +11,45 @@ return {
 					package_uninstalled = "✗",
 				},
 			},
+			ensure_installed = {
+				"stylua",
+				"eslint_d",
+				"cpplint",
+				"pylint",
+				"luacheck",
+				"black",
+				"isort",
+				"prettier",
+				"prettierd",
+				"clang-format",
+			},
 		},
+		config = function(_, opts)
+			require("mason").setup(opts)
+			local mr = require("mason-registry")
+			mr:on("package:install:success", function()
+				vim.defer_fn(function()
+					-- trigger FileType event to possibly load this newly installed LSP server
+					require("lazy.core.handler.event").trigger({
+						event = "FileType",
+						buf = vim.api.nvim_get_current_buf(),
+					})
+				end, 100)
+			end)
+
+			mr.refresh(function()
+				for _, tool in ipairs(opts.ensure_installed) do
+					local p = mr.get_package(tool)
+					if not p:is_installed() then
+						p:install()
+					end
+				end
+			end)
+		end,
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
-		event = { "BufReadPre", "BufNewFile" },
+		cmd = { "LspInstall", "LspUninstall" },
 		dependencies = {
 			"williamboman/mason.nvim",
 		},
@@ -31,16 +66,15 @@ return {
 				"lua_ls",
 				"graphql",
 				"emmet_ls",
-        "csharp_ls"
+				"csharp_ls",
 			},
 		},
 	},
 	{
 		"jay-babu/mason-nvim-dap.nvim",
-		event = { "BufReadPre", "BufNewFile" },
+		cmd = { "DapInstall", "DapUninstall" },
 		dependencies = {
 			"williamboman/mason.nvim",
-			"jay-babu/mason-nvim-dap.nvim",
 		},
 		opts = {
 			ensure_installed = {
@@ -74,29 +108,6 @@ return {
 					}
 					require("mason-nvim-dap").default_setup(config)
 				end,
-			},
-		},
-	},
-	{
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		cmd = {
-			"MasonToolsInstall",
-		},
-		dependencies = {
-			"williamboman/mason.nvim",
-		},
-		opts = {
-			ensure_installed = {
-				"stylua",
-				"eslint_d",
-				"cpplint",
-				"pylint",
-				"luacheck",
-				"black",
-				"isort",
-				"prettier",
-				"prettierd",
-				"clang-format",
 			},
 		},
 	},
