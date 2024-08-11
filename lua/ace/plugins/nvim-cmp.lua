@@ -2,17 +2,17 @@ return {
 	{
 		"hrsh7th/nvim-cmp",
 		event = "VeryLazy",
-		dependencies = {},
 		opts = function(_, opts)
 			local cmp = require("cmp")
 
-			-- NOTE:  deprioritize_snippet in some lsp
-			local function deprioritize_snippet(entry1, entry2)
-				if entry1:get_kind() == cmp.lsp.CompletionItemKind.Snippet then
-					return false
-				end
-				if entry2:get_kind() == cmp.lsp.CompletionItemKind.Snippet then
-					return true
+			local function deprio(kind)
+				return function(e1, e2)
+					if e1:get_kind() == kind then
+						return false
+					end
+					if e2:get_kind() == kind then
+						return true
+					end
 				end
 			end
 			opts.mapping = vim.tbl_extend("force", opts.mapping, {
@@ -33,7 +33,9 @@ return {
 			opts.sorting = {
 				priority_weight = 2,
 				comparators = {
-					deprioritize_snippet,
+					-- deprioritize_snippet,
+					deprio(cmp.lsp.CompletionItemKind.Text),
+					deprio(cmp.lsp.CompletionItemKind.Snippet),
 					cmp.config.compare.offset,
 					cmp.config.compare.exact,
 					cmp.config.compare.scopes,
