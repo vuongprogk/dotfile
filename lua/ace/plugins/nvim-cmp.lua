@@ -2,12 +2,8 @@ return {
 	{
 		"hrsh7th/nvim-cmp",
 		event = "VeryLazy",
-		dependencies = {
-			"onsails/lspkind.nvim", -- vs-code like pictograms
-			{ "hrsh7th/cmp-nvim-lsp-signature-help" },
-		},
+		dependencies = {},
 		opts = function(_, opts)
-			local lspkind = require("lspkind")
 			local cmp = require("cmp")
 
 			-- NOTE:  deprioritize_snippet in some lsp
@@ -34,26 +30,6 @@ return {
 				completion = cmp.config.window.bordered(),
 				documentation = cmp.config.window.bordered(),
 			}
-			opts.formatting = {
-				fields = {
-					cmp.ItemField.Abbr,
-					cmp.ItemField.Kind,
-					cmp.ItemField.Menu,
-				},
-				format = lspkind.cmp_format({
-					mode = "symbol_text",
-					maxwidth = 50,
-					ellipsis_char = "...",
-					menu = {
-						buffer = "[Buffer]",
-						nvim_lsp = "[LSP]",
-						luasnip = "[LuaSnip]",
-						nvim_lua = "[Lua]",
-						latex_symbols = "[Latex]",
-					},
-					before = require("tailwindcss-colorizer-cmp").formatter,
-				}),
-			}
 			opts.sorting = {
 				priority_weight = 2,
 				comparators = {
@@ -75,7 +51,6 @@ return {
 			}
 			table.insert(opts.sources, {
 				{ name = "lazydev", group_index = 0 },
-				{ name = "nvim_lsp_signature_help" },
 			})
 		end,
 	},
@@ -92,11 +67,21 @@ return {
 	},
 	{
 		"hrsh7th/cmp-path", -- source for file system paths
-		event = "InsertEnter",
+		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
 			"hrsh7th/nvim-cmp",
 			opts = function(_, opts)
 				table.insert(opts.sources, { name = "path", priority = 500 })
+			end,
+		},
+	},
+	{
+		"hrsh7th/cmp-nvim-lsp-signature-help",
+		event = { "BufReadPre", "BufNewFile" },
+		dependencies = {
+			"hrsh7th/nvim-cmp",
+			opts = function(_, opts)
+				table.insert(opts.sources, { name = "nvim_lsp_signature_help", priority = 1000 })
 			end,
 		},
 	},

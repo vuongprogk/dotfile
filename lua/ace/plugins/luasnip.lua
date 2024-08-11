@@ -18,47 +18,50 @@ return {
 			end,
 		},
 		{
-			"nvim-cmp",
+			"saadparwaiz1/cmp_luasnip",
 			dependencies = {
-				"saadparwaiz1/cmp_luasnip",
-			},
-			opts = function(_, opts)
-				local luasnip = require("luasnip")
-				local cmp = require("cmp")
-				opts.snippet = {
-					expand = function(args)
-						luasnip.lsp_expand(args.body)
-					end,
-				}
-				if not opts.mapping then
-					opts.mapping = {}
-				end
-				opts.mapping = cmp.mapping.preset.insert({
-					["<Tab>"] = cmp.mapping(function(fallback) -- super tab
-						if cmp.visible() then
-							cmp.select_next_item()
-						elseif luasnip.expand_or_jumpable() then
-							luasnip.expand_or_jump()
-						else
-							fallback()
-						end
-					end, { "i", "s" }),
-					["<S-Tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_prev_item()
-						elseif luasnip.jumpable(-1) then
-							luasnip.jump(-1)
-						else
-							fallback()
-						end
-					end, { "i", "s" }),
-				})
+				"nvim-cmp",
+				opts = function(_, opts)
+					local cmp = require("cmp")
+					opts.snippet = {
+						expand = function(args)
+							require("luasnip").lsp_expand(args.body)
+						end,
+					}
+					if not opts.mapping then
+						opts.mapping = {}
+					end
+					opts.mapping = cmp.mapping.preset.insert({
+						["<Tab>"] = cmp.mapping(function(fallback) -- super tab
+							local luasnip = require("luasnip")
 
-				if not opts.sources then
-					opts.sources = {}
-				end
-				table.insert(opts.sources, { name = "luasnip", priority = 750 })
-			end,
+							if cmp.visible() then
+								cmp.select_next_item()
+							elseif luasnip.expand_or_jumpable() then
+								luasnip.expand_or_jump()
+							else
+								fallback()
+							end
+						end, { "i", "s" }),
+						["<S-Tab>"] = cmp.mapping(function(fallback)
+							local luasnip = require("luasnip")
+
+							if cmp.visible() then
+								cmp.select_prev_item()
+							elseif luasnip.jumpable(-1) then
+								luasnip.jump(-1)
+							else
+								fallback()
+							end
+						end, { "i", "s" }),
+					})
+
+					if not opts.sources then
+						opts.sources = {}
+					end
+					table.insert(opts.sources, { name = "luasnip", priority = 750 })
+				end,
+			},
 		},
 	},
 	opts = {
