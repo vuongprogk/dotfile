@@ -5,7 +5,7 @@ return {
 	lazy = true,
 	build = function()
 		if require("ace.custom.os").getName() == "Windows" then
-			vim.notify("Can't install jsregexp on window")
+			vim.notify("Can't install jsregexp on window", vim.log.levels.ERROR)
 			return nil
 		end
 		return "make install_jsregexp"

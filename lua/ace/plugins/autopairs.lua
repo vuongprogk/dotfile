@@ -26,7 +26,7 @@ return {
 			-- make autopairs and completion work together
 			cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 		else
-			vim.notify("nvim-cmp not load yet")
+			vim.notify("nvim-cmp not load yet", vim.log.levels.WARN)
 		end
 	end,
 }

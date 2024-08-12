@@ -26,7 +26,7 @@ return {
 		config = function()
 			local present, dap = pcall(require, "dap")
 			if not present then
-				vim.notify("DAP not loaded")
+				vim.notify("DAP not loaded", vim.log.levels.ERROR)
 				return
 			end
 

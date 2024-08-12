@@ -54,7 +54,7 @@ return {
 			if vim.tbl_get(require("lazy.core.config"), "plugins", "telescope.nvim", "_", "loaded") ~= nil then
 				local ok, err = pcall(require("telescope").load_extension, "fzf")
 				if not ok then
-					vim.notify("Failed to load `telescope-fzf-native.nvim`:\n" .. err, "error", {})
+					vim.notify("Failed to load `telescope-fzf-native.nvim`:\n" .. err, vim.log.levels.ERROR, {})
 				end
 			end
 		end,
@@ -98,7 +98,7 @@ return {
 			if vim.tbl_get(require("lazy.core.config"), "plugins", "telescope.nvim", "_", "loaded") ~= nil then
 				local ok, err = pcall(require("telescope").load_extension, "ui-select")
 				if not ok then
-					vim.notify("Failed to load `telescope-ui-select.nvim`:\n" .. err, "error", {})
+					vim.notify("Failed to load `telescope-ui-select.nvim`:\n" .. err, vim.log.levels.ERROR, {})
 				end
 			end
 		end,

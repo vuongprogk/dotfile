@@ -16,7 +16,7 @@ local function clearShada()
 		::continue::
 	end
 	if all_success == 0 then
-		vim.print("Successfully deleted all temporary shada files")
+		vim.print("Successfully deleted all temporary shada files", vim.log.levels.INFO)
 	end
 end
 local function clearState(args)
@@ -31,7 +31,7 @@ local function clearState(args)
 		end
 	end
 	if success == 0 then
-		vim.notify("Deleting Successfully")
+		vim.notify("Deleting Successfully", vim.log.levels.INFO)
 	end
 end
 vim.api.nvim_create_user_command("ClearShada", clearShada, { desc = "Clears all the .tmp shada files" })
@@ -56,7 +56,6 @@ vim.api.nvim_create_autocmd("FileChangedShellPost", {
 	pattern = "*",
 	group = "AutoDetectFileChange",
 	callback = function()
-		---@diagnostic disable-next-line: param-type-mismatch
-		vim.notify("File changed on disk. Buffer reloaded.", "info")
+		vim.notify("File changed on disk. Buffer reloaded.", vim.log.INFO)
 	end,
 })
