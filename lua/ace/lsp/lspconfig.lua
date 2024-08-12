@@ -29,6 +29,15 @@ return {
 					table.insert(opts.sources, {
 						name = "nvim_lsp",
 						priority = 1000,
+						entry_filter = function(entry)
+							local list_server = vim.lsp.get_clients()
+							for _, server in ipairs(list_server) do
+								if server.name == "tsserver" then
+									return require("cmp").lsp.CompletionItemKind.Snippet ~= entry:get_kind()
+								end
+							end
+							return true
+						end,
 					})
 				end,
 			},
