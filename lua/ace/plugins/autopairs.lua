@@ -1,9 +1,6 @@
 return {
 	"windwp/nvim-autopairs",
-	event = { "InsertEnter" },
-	dependencies = {
-		"hrsh7th/nvim-cmp",
-	},
+	event = { "BufReadPre", "BufNewFile" },
 	config = function()
 		-- import nvim-autopairs
 		local autopairs = require("nvim-autopairs")
