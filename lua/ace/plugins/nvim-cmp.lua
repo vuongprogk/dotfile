@@ -5,16 +5,6 @@ return {
 		opts = function(_, opts)
 			local cmp = require("cmp")
 
-			local function deprio(kind)
-				return function(e1, e2)
-					if e1:get_kind() == kind then
-						return false
-					end
-					if e2:get_kind() == kind then
-						return true
-					end
-				end
-			end
 			opts.mapping = vim.tbl_extend("force", opts.mapping, {
 				["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
 				["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
@@ -30,24 +20,6 @@ return {
 				completion = cmp.config.window.bordered(),
 				documentation = cmp.config.window.bordered(),
 			}
-			-- opts.sorting = {
-			-- 	priority_weight = 2,
-			-- 	comparators = {
-			-- 		-- deprioritize_snippet,
-			-- 		deprio(cmp.lsp.CompletionItemKind.Text),
-			-- 		deprio(cmp.lsp.CompletionItemKind.Snippet),
-			-- 		cmp.config.compare.offset,
-			-- 		cmp.config.compare.exact,
-			-- 		cmp.config.compare.scopes,
-			-- 		cmp.config.compare.score,
-			-- 		cmp.config.compare.recently_used,
-			-- 		cmp.config.compare.locality,
-			-- 		cmp.config.compare.kind,
-			-- 		cmp.config.compare.sort_text,
-			-- 		cmp.config.compare.length,
-			-- 		cmp.config.compare.order,
-			-- 	},
-			-- }
 			opts.completion = {
 				completeopt = "menu,menuone,noinsert",
 			}
