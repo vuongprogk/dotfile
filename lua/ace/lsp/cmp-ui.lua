@@ -36,19 +36,25 @@ return {
 							"kind",
 							"menu",
 						},
-						format = require("lspkind").cmp_format({
-							mode = "symbol_text",
-							maxwidth = 50,
-							ellipsis_char = "...",
-							menu = {
-								buffer = "[Buffer]",
-								nvim_lsp = "[LSP]",
-								luasnip = "[LuaSnip]",
-								nvim_lua = "[Lua]",
-								latex_symbols = "[Latex]",
-							},
-							before = require("tailwindcss-colorizer-cmp").formatter,
-						}),
+						format = function(entry, vim_item)
+							local cmp_format = require("lspkind").cmp_format({
+								mode = "symbol_text",
+								maxwidth = 50,
+								ellipsis_char = "...",
+								menu = {
+									buffer = "[Buffer]",
+									nvim_lsp = "[LSP]",
+									luasnip = "[LuaSnip]",
+									nvim_lua = "[Lua]",
+									latex_symbols = "[Latex]",
+								},
+								before = function(nested_entry, nested_vim_item)
+									require("tailwindcss-colorizer-cmp").formatter(nested_entry, nested_vim_item)
+									return vim_item
+								end,
+							})
+							return cmp_format(entry, vim_item)
+						end,
 					}
 				end,
 			},
