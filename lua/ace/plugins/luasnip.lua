@@ -2,7 +2,7 @@ return {
 
 	"L3MON4D3/LuaSnip",
 	version = "*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-	lazy = true,
+	event = "InsertEnter",
 	build = function()
 		if require("ace.custom.os").getName() == "Windows" then
 			vim.notify("Can't install jsregexp on window", vim.log.levels.ERROR)
@@ -59,7 +59,7 @@ return {
 					if not opts.sources then
 						opts.sources = {}
 					end
-					table.insert(opts.sources, { name = "luasnip", priority = 750 })
+					table.insert(opts.sources, { name = "luasnip", priority = 1000 })
 				end,
 			},
 		},
