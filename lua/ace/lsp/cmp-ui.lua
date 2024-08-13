@@ -11,14 +11,16 @@ return {
 	},
 	{
 		"roobert/tailwindcss-colorizer-cmp.nvim",
-		lazy = true,
+		event = { "BufReadPre", "BufNewFile" },
+		cond = vim.fs.find({ "tailwind.config.js" }, { upward = true })[1] and true or false,
 		opts = {
 			color_square_width = 1,
 		},
 	},
 	{
 		"laytan/tailwind-sorter.nvim",
-		cmd = { "TailwindSort", "TailwindSortOnSaveToggle" },
+		event = { "BufReadPre", "BufNewFile" },
+		cond = vim.fs.find({ "tailwind.config.js" }, { upward = true })[1] and true or false,
 		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-lua/plenary.nvim" },
 		build = "cd formatter && npm ci && npm run build",
 		config = true,
@@ -49,8 +51,11 @@ return {
 									latex_symbols = "[Latex]",
 								},
 								before = function(nested_entry, nested_vim_item)
-									require("tailwindcss-colorizer-cmp").formatter(nested_entry, nested_vim_item)
-									return vim_item
+									local tailwind = vim.fs.find({ "tailwind.config.js" }, { upward = true })[1]
+									if tailwind then
+										require("tailwindcss-colorizer-cmp").formatter(nested_entry, nested_vim_item)
+									end
+									return nested_vim_item
 								end,
 							})
 							return cmp_format(entry, vim_item)

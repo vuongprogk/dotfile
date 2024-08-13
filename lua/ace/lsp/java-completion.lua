@@ -1,6 +1,7 @@
 return {
 	"mfussenegger/nvim-jdtls",
 	ft = "java",
+	cond = vim.fs.find({ "gradlew", "mvnw", "pom.xml" }, { upward = true })[1] and true or false,
 	config = function()
 		local os = require("ace.custom.os")
 		local path = vim.fn.stdpath("data") .. "\\mason\\bin\\jdtls.cmd" --Default using Windows

@@ -2,12 +2,10 @@ return {
 	{
 		"folke/lazydev.nvim",
 		dependencies = "hrsh7th/nvim-cmp",
-
+		cond = vim.fs.find({ "init.lua" }, { upward = true })[1] and true or false,
 		ft = "lua", -- only load on lua files
 		opts = {
 			library = {
-				-- See the configuration section for more details
-				-- Load luvit types when the `vim.uv` word is found
 				{ path = "luvit-meta/library", words = { "vim%.uv" } },
 			},
 		},
@@ -17,30 +15,11 @@ return {
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
-			"hrsh7th/cmp-nvim-lsp",
 			{
 				"antosha417/nvim-lsp-file-operations",
 				config = true,
 			},
 			"williamboman/mason-lspconfig.nvim",
-			{
-				"hrsh7th/nvim-cmp",
-				opts = function(_, opts)
-					table.insert(opts.sources, {
-						name = "nvim_lsp",
-						priority = 1000,
-						entry_filter = function(entry)
-							local list_server = vim.lsp.get_clients()
-							for _, server in ipairs(list_server) do
-								if server.name == "tsserver" then
-									return require("cmp").lsp.CompletionItemKind.Snippet ~= entry:get_kind()
-								end
-							end
-							return true
-						end,
-					})
-				end,
-			},
 		},
 		config = function()
 			-- import lspconfig plugin
@@ -148,5 +127,31 @@ return {
 				end,
 			})
 		end,
+	},
+
+	{
+		"hrsh7th/cmp-nvim-lsp",
+		event = { "BufReadPre", "BufNewFile" },
+		dependencies = {
+			"neovim/nvim-lspconfig",
+			{
+				"hrsh7th/nvim-cmp",
+				opts = function(_, opts)
+					table.insert(opts.sources, {
+						name = "nvim_lsp",
+						priority = 1000,
+						entry_filter = function(entry)
+							local list_server = vim.lsp.get_clients()
+							for _, server in ipairs(list_server) do
+								if server.name == "tsserver" then
+									return require("cmp").lsp.CompletionItemKind.Snippet ~= entry:get_kind()
+								end
+							end
+							return true
+						end,
+					})
+				end,
+			},
+		},
 	},
 }

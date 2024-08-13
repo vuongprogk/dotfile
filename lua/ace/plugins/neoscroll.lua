@@ -1,11 +1,11 @@
 local neoscroll = {
 	"karb94/neoscroll.nvim",
 	opts = {},
-	enabled = true,
+	cond = true,
 	event = nil,
 }
 if vim.g.enabled_neovide then
-	neoscroll.enabled = false
+	neoscroll.cond = false
 else
 	neoscroll.event = "VeryLazy"
 end

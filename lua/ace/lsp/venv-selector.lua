@@ -5,15 +5,14 @@ return {
 			"nvim-telescope/telescope.nvim",
 		},
 		branch = "regexp", -- Use this branch for the new version
-		cmd = "VenvSelect",
-		enabled = function()
-			local present, telescope = pcall(require, "telescope")
-			if not present then
-				return false
-			else
-				return true
-			end
-		end,
+		cond = vim.fs.find({ ".venv", "venv" }, { upward = true, type = "directory" })[1] and true or false,
+		event = "VeryLazy", -- Optional: needed only if you want to type `:VenvSelect` without a keymapping
+		keys = {
+			-- Keymap to open VenvSelector to pick a venv.
+			{ "<leader>vs", "<cmd>VenvSelect<cr>" },
+			-- Keymap to retrieve the venv from a cache (the one previously used for the same project directory).
+			{ "<leader>vc", "<cmd>VenvSelectCached<cr>" },
+		},
 		opts = {
 			settings = {
 				options = {
