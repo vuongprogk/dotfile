@@ -25,8 +25,6 @@ return {
 			-- import lspconfig plugin
 			local lspconfig = require("lspconfig")
 
-			require("ace.custom.auto-cmd")
-
 			local mason_lspconfig = require("mason-lspconfig")
 			-- import cmp-nvim-lsp plugin
 			local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
