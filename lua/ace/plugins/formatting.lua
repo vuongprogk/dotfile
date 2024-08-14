@@ -5,7 +5,10 @@ return {
 		{
 			"<leader>gf",
 			function()
-				require("conform").format({ timeout_ms = 1000, lsp_format = "fallback" })
+				require("conform").format({
+					timeout_ms = 500,
+					lsp_format = "fallback",
+				})
 			end,
 			{
 				desc = "formatting code",
@@ -38,19 +41,13 @@ return {
 				"clang_format",
 			},
 			html = { "prettier" },
-			cs = { "csharpier" },
+			cs = { "csharpier", lsp_format = "never" },
 			css = { "prettier" },
-			cshtml = { "csharpier", "prettier", stop_after_first = true },
+			cshtml = { "prettier", "prettier", stop_after_first = true },
 		},
 		format_on_save = {
 			lsp_format = "fallback",
-			timeout_ms = 1000,
-		},
-		formatters = {
-			csharpier = {
-				command = "dotnet-csharpier",
-				args = { "--write-stdout", "--no-cache", "$FILENAME" },
-			},
+			timeout_ms = 500,
 		},
 	},
 }
