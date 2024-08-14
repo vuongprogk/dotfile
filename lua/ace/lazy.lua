@@ -53,10 +53,4 @@ require("lazy").setup({
 			},
 		},
 	},
-	checker = {
-		enabled = false,
-		notify = true, -- get a notification when new updates are found
-		frequency = 3600, -- check for updates every hour
-		check_pinned = false, -- check for pinned packages that can't be updated
-	},
 })
