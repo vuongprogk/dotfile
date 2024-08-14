@@ -74,7 +74,16 @@ return {
 						end,
 					})
 				end,
-				["jdtls"] = function() end,
+				["jdtls"] = function()
+					local is_maven_project = vim.fs.find({ "gradlew", "mvnw", "pom.xml" }, { upward = true })[1]
+					-- NOTE: if cwd is maven project then not start local jdtls instead using nvim jdtls
+					if not is_maven_project then
+						lspconfig["jdtls"].setup({
+							capabilities = capabilities,
+						})
+					end
+					-- TODO: do nothing
+				end,
 				["graphql"] = function()
 					-- configure graphql language server
 					lspconfig["graphql"].setup({
