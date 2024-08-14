@@ -2,7 +2,7 @@ return {
 
 	"L3MON4D3/LuaSnip",
 	version = "*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-	event = "InsertEnter",
+	event = { "BufReadPre", "BufNewFile" },
 	build = function()
 		if require("ace.custom.os").getName() == "Windows" then
 			vim.notify("Can't install jsregexp on window", vim.log.levels.ERROR)
