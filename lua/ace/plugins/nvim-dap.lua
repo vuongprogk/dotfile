@@ -18,7 +18,6 @@ return {
 			},
 		},
 		dependencies = {
-			"mfussenegger/nvim-dap",
 			"nvim-neotest/nvim-nio",
 			"rcarriga/nvim-dap-ui",
 			"nvim-telescope/telescope.nvim",

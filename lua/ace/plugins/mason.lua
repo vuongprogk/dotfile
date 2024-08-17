@@ -79,8 +79,12 @@ return {
 		opts = {
 			ensure_installed = {
 				"cppdbg",
+				"javadbg",
 			},
 			handlers = {
+				function(config)
+					return require("mason-nvim-dap").default_setup(config)
+				end,
 				cppdbg = function(config)
 					config.configurations = {
 						{
