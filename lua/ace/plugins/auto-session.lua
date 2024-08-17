@@ -15,32 +15,42 @@ return {
 			previewer = false,
 			buftypes_to_ignore = {},
 		},
+		silent_restore = false,
 		post_restore_cmds = {
 			function()
-				local nvim_tree = require("nvim-tree")
-				nvim_tree.change_dir(vim.fn.getcwd())
+				require("nvim-tree").change_dir(vim.fn.getcwd())
 			end,
 		},
 		pre_save_cmds = {
 			function()
-				local nvim_visible = require("nvim-tree.view")
-				if nvim_visible.is_visible() then
-					vim.cmd("NvimTreeClose")
+				if require("lazy.core.config").plugins["nvim-tree.lua"]._.loaded ~= nil then
+					if require("nvim-tree.view").is_visible() == true then
+						vim.cmd("NvimTreeClose")
+					end
 				end
 			end,
 		},
 	},
-	config = function(_, opts)
-		require("auto-session").setup(opts)
-		local keys = vim.keymap
-		keys.set({ "n", "v" }, "<leader>wr", "<cmd>SessionRestore<CR>", { desc = "Restore session for cwd" })
-		keys.set(
-			{ "n", "v" },
+	keys = {
+		{
+			"<leader>wr",
+			"<cmd>SessionRestore<CR>",
+			{ desc = "Restore session for cwd" },
+		},
+		{
 			"<leader>ws",
 			"<cmd>SessionSave<CR>",
-			{ desc = "Save session for auto session root dir" }
-		)
-		keys.set({ "n", "v" }, "<leader>wd", "<cmd>SessionDelete<CR>", { desc = "Delete session" })
-		keys.set({ "n", "v" }, "<Leader>ls", "<cmd>Telescope session-lens<CR>", { desc = "Search session" })
-	end,
+			{ desc = "Save session for auto session root dir" },
+		},
+		{
+			"<leader>wd",
+			"<cmd>SessionDelete<CR>",
+			{ desc = "Delete session" },
+		},
+		{
+			"<Leader>ls",
+			"<cmd>Telescope session-lens<CR>",
+			{ desc = "Search session" },
+		},
+	},
 }

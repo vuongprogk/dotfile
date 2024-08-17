@@ -1,7 +1,7 @@
 return {
 	"nvim-tree/nvim-tree.lua",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
-	event = { "VeryLazy" },
+	event = "VeryLazy",
 	opts = {
 		sync_root_with_cwd = true,
 		view = {
@@ -50,16 +50,22 @@ return {
 			show_on_open_dirs = true,
 		},
 	},
-	config = function(_, config)
-		require("nvim-tree").setup(config)
-		local keymap = vim.keymap
-		keymap.set({ "n", "v" }, "<leader>er", "<cmd>NvimTreeRefresh<CR>", { desc = "Refresh file explorer" })
-		keymap.set(
-			{ "n", "v" },
+	keys = {
+		{
 			"<leader>ef",
 			"<cmd>NvimTreeFindFileToggle<CR>",
-			{ desc = "Toggle file explorer on current file" }
-		)
-		keymap.set({ "n", "v" }, "<leader>ee", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" })
-	end,
+			{ desc = "Toggle file explorer on current file" },
+		},
+		{
+			"<leader>ee",
+			"<cmd>NvimTreeToggle<CR>",
+			{ desc = "Toggle file explorer" },
+		},
+		{
+			"<leader>er",
+			"<cmd>NvimTreeRefresh<CR>",
+			{ desc = "Refresh file explorer" },
+		},
+	},
+	cmd = { "NvimTreeFindFileToggle", "NvimTreeToggle", "NvimTreeRefresh" },
 }

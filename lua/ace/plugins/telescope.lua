@@ -6,6 +6,15 @@ return {
 			"nvim-lua/plenary.nvim",
 		},
 		version = false,
+		keys = {
+			{ "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Telescope find file" } },
+			{ "<leader>fg", "<cmd>Telescope live_grep<CR>", { desc = "Telescope find word in file" } },
+			{ "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "Telescope find buffers is opening" } },
+			{ "<leader>fh", "<cmd>Telescope help_tag<CR>", { desc = "Telescope find help tag" } },
+			{ "<leader>ft", "<cmd>TodoTelescope<CR>", { desc = "Find todo comment" } },
+			{ "<leader>nh", "<cmd>Telescope notify<CR>", { desc = "Notification history" } },
+			{ "<leader>nt", "<cmd>Telescope noice<CR>", { desc = "Noice history" } },
+		},
 		opts = function(_, opts)
 			opts.defaults = {
 				mappings = {
@@ -15,18 +24,7 @@ return {
 					},
 				},
 			}
-			local keymap = vim.keymap
-			vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>", {})
-			vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<CR>", {})
-			vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<CR>", {})
-			vim.keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", {})
-			keymap.set({ "n", "v" }, "<leader>ft", "<cmd>TodoTelescope<CR>", { desc = "Find todo comment" })
-			keymap.set({ "n", "v" }, "<leader>nh", "<cmd>Telescope notify<CR>", {
-				desc = "Notification history",
-			})
-			keymap.set({ "n", "v" }, "<leader>nt", "<cmd>Telescope noice<CR>", {
-				desc = "Noice history",
-			})
+			opts.extensions = {}
 		end,
 	},
 	{
@@ -35,9 +33,6 @@ return {
 			{
 				"nvim-telescope/telescope.nvim",
 				opts = function(_, opts)
-					if not opts.extensions then
-						opts.extensions = {}
-					end
 					opts.extensions.fzf = {
 						fuzzy = true, -- false will only do exact matching
 						override_generic_sorter = true, -- override the generic sorter
