@@ -1,5 +1,7 @@
 if vim.loader then
-	vim.loader.enable()
+	if not vim.loader.enabled then
+		vim.loader.enable()
+	end
 end
 vim.g.enabled_neovide = false
 if vim.g.neovide then
