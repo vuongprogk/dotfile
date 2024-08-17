@@ -9,19 +9,12 @@ return {
 		local dashboard = require("alpha.themes.dashboard")
 
 		dashboard.section.header.val = {
-			-- [[                        ]],
-			-- [[                        ]],
-			-- [[                        ]],
-			-- [[                        ]],
 			[[ █████╗  ██████╗███████╗]],
 			[[██╔══██╗██╔════╝██╔════╝]],
 			[[███████║██║     █████╗  ]],
 			[[██╔══██║██║     ██╔══╝  ]],
 			[[██║  ██║╚██████╗███████╗]],
 			[[╚═╝  ╚═╝ ╚═════╝╚══════╝]],
-			-- [[                        ]],
-			-- [[                        ]],
-			-- [[                        ]],
 		}
 		dashboard.section.buttons.val = {
 			dashboard.button("e", "  > New File", "<cmd>ene<CR>"),
@@ -40,7 +33,6 @@ return {
 		dashboard.section.buttons.opts.hl = "AlphaButtons"
 		dashboard.section.footer.opts.hl = "AlphaFooter"
 		dashboard.opts.layout[1].val = 8
-		-- vim.cmd([[autocmd FileType alpha setlocal nofoldenable]])
 		return dashboard
 	end,
 	config = function(_, dashboard)
