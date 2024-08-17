@@ -78,6 +78,9 @@ return {
 					if not is_maven_project then
 						lspconfig["jdtls"].setup({
 							capabilities = capabilities,
+							handlers = {
+								["$/progress"] = function() end,
+							},
 						})
 					end
 					-- TODO: do nothing
