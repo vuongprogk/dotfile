@@ -15,32 +15,34 @@ return {
 			{ "<leader>nh", "<cmd>Telescope notify<CR>", { desc = "Notification history" } },
 			{ "<leader>nt", "<cmd>Telescope noice<CR>", { desc = "Noice history" } },
 		},
-		opts = function(_, opts)
-			opts.defaults = {
+		opts = {
+			defaults = {
 				mappings = {
 					i = {
 						["<C-k>"] = require("telescope.actions").move_selection_previous, -- move to prev result
 						["<C-j>"] = require("telescope.actions").move_selection_next, -- move to next result
 					},
 				},
-			}
-			opts.extensions = {}
-		end,
+			},
+			extensions = {},
+		},
 	},
 	{
 		"nvim-telescope/telescope-fzf-native.nvim",
 		dependencies = {
 			{
 				"nvim-telescope/telescope.nvim",
-				opts = function(_, opts)
-					opts.extensions.fzf = {
-						fuzzy = true, -- false will only do exact matching
-						override_generic_sorter = true, -- override the generic sorter
-						override_file_sorter = true, -- override the file sorter
-						case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-						-- the default case_mode is "smart_case"
-					}
-				end,
+				opts = {
+					extensions = {
+						fzf = {
+							fuzzy = true, -- false will only do exact matching
+							override_generic_sorter = true, -- override the generic sorter
+							override_file_sorter = true, -- override the file sorter
+							case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+							-- the default case_mode is "smart_case"
+						},
+					},
+				},
 			},
 		},
 		event = "VeryLazy",
@@ -59,33 +61,34 @@ return {
 		dependencies = {
 			{
 				"nvim-telescope/telescope.nvim",
-				opts = function(_, opts)
-					opts.extensions["ui-select"] = {
-						theme = "dropdown",
-						results_title = false,
+				opts = {
+					extensions = {
+						["ui-select"] = {
+							theme = "dropdown",
+							results_title = false,
 
-						sorting_strategy = "ascending",
-						layout_strategy = "center",
-						layout_config = {
-							preview_cutoff = 1, -- Preview should always show (unless previewer = false)
+							sorting_strategy = "ascending",
+							layout_strategy = "center",
+							layout_config = {
+								preview_cutoff = 1, -- Preview should always show (unless previewer = false)
 
-							width = function(_, max_columns, _)
-								return math.min(max_columns, 80)
-							end,
+								width = function(_, max_columns, _)
+									return math.min(max_columns, 80)
+								end,
 
-							height = function(_, _, max_lines)
-								return math.min(max_lines, 15)
-							end,
+								height = function(_, _, max_lines)
+									return math.min(max_lines, 15)
+								end,
+							},
+							border = true,
+							borderchars = {
+								prompt = { "─", "│", " ", "│", "╭", "╮", "│", "│" },
+								results = { "─", "│", "─", "│", "├", "┤", "╯", "╰" },
+								preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+							},
 						},
-
-						border = true,
-						borderchars = {
-							prompt = { "─", "│", " ", "│", "╭", "╮", "│", "│" },
-							results = { "─", "│", "─", "│", "├", "┤", "╯", "╰" },
-							preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-						},
-					}
-				end,
+					},
+				},
 			},
 		},
 		event = "VeryLazy",
