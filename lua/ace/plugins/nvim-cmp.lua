@@ -1,7 +1,7 @@
 return {
 	{
 		"hrsh7th/nvim-cmp",
-		event = "VeryLazy",
+		event = "InsertEnter",
 		opts = function(_, opts)
 			local cmp = require("cmp")
 
@@ -23,9 +23,7 @@ return {
 			opts.completion = {
 				completeopt = "menu,menuone,noinsert",
 			}
-			table.insert(opts.sources, {
-				{ name = "lazydev", group_index = 0 },
-			})
+			table.insert(opts.sources, { name = "lazydev", group_index = 0 })
 		end,
 	},
 
