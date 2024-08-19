@@ -1,38 +1,64 @@
 return {
 	{
-		"nvim-telescope/telescope.nvim",
-		event = "VeryLazy",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
-		version = false,
-		keys = {
-			{ "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Telescope find file" } },
-			{ "<leader>fg", "<cmd>Telescope live_grep<CR>", { desc = "Telescope find word in file" } },
-			{ "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "Telescope find buffers is opening" } },
-			{ "<leader>fh", "<cmd>Telescope help_tag<CR>", { desc = "Telescope find help tag" } },
-			{ "<leader>ft", "<cmd>TodoTelescope<CR>", { desc = "Find todo comment" } },
-			{ "<leader>nh", "<cmd>Telescope notify<CR>", { desc = "Notification history" } },
-			{ "<leader>nt", "<cmd>Telescope noice<CR>", { desc = "Noice history" } },
-		},
-		opts = {
-			defaults = {
-				mappings = {
-					i = {
-						["<C-k>"] = require("telescope.actions").move_selection_previous, -- move to prev result
-						["<C-j>"] = require("telescope.actions").move_selection_next, -- move to next result
-					},
+		{
+			"nvim-telescope/telescope.nvim",
+			cmd = "Telescope",
+			dependencies = {
+				"nvim-lua/plenary.nvim",
+				{
+					"nvim-telescope/telescope-fzf-native.nvim",
+					build = "make",
 				},
 			},
-			extensions = {},
-		},
-	},
-	{
-		"nvim-telescope/telescope-fzf-native.nvim",
-		dependencies = {
-			{
-				"nvim-telescope/telescope.nvim",
-				opts = {
+			version = false,
+			keys = {
+				{ "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Telescope find file" } },
+				{ "<leader>fg", "<cmd>Telescope live_grep<CR>", { desc = "Telescope find word in file" } },
+				{ "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "Telescope find buffers is opening" } },
+				{ "<leader>fh", "<cmd>Telescope help_tag<CR>", { desc = "Telescope find help tag" } },
+				{ "<leader>ft", "<cmd>TodoTelescope<CR>", { desc = "Find todo comment" } },
+				{ "<leader>nh", "<cmd>Telescope notify<CR>", { desc = "Notification history" } },
+				{ "<leader>nt", "<cmd>Telescope noice<CR>", { desc = "Noice history" } },
+			},
+			opts = function()
+				return {
+					mappings = {
+						i = {
+							["<C-k>"] = require("telescope.actions").move_selection_previous, -- move to prev result
+							["<C-j>"] = require("telescope.actions").move_selection_next, -- move to next result
+						},
+					},
+					defaults = {
+						get_selection_window = function()
+							local wins = vim.api.nvim_list_wins()
+							table.insert(wins, 1, vim.api.nvim_get_current_win())
+							for _, win in ipairs(wins) do
+								local buf = vim.api.nvim_win_get_buf(win)
+								if vim.bo[buf].buftype == "" then
+									return win
+								end
+							end
+							return 0
+						end,
+					},
+					pickers = {
+						find_files = {
+							find_command = function()
+								if 1 == vim.fn.executable("rg") then
+									return { "rg", "--files", "--color", "never", "-g", "!.git" }
+								elseif 1 == vim.fn.executable("fd") then
+									return { "fd", "--type", "f", "--color", "never", "-E", ".git" }
+								elseif 1 == vim.fn.executable("fdfind") then
+									return { "fdfind", "--type", "f", "--color", "never", "-E", ".git" }
+								elseif 1 == vim.fn.executable("find") and vim.fn.has("win32") == 0 then
+									return { "find", ".", "-type", "f" }
+								elseif 1 == vim.fn.executable("where") then
+									return { "where", "/r", ".", "*" }
+								end
+							end,
+							hidden = true,
+						},
+					},
 					extensions = {
 						fzf = {
 							fuzzy = true, -- false will only do exact matching
@@ -42,62 +68,29 @@ return {
 							-- the default case_mode is "smart_case"
 						},
 					},
-				},
-			},
-		},
-		event = "VeryLazy",
-		build = "make",
-		config = function()
-			if vim.tbl_get(require("lazy.core.config"), "plugins", "telescope.nvim", "_", "loaded") ~= nil then
-				local ok, err = pcall(require("telescope").load_extension, "fzf")
-				if not ok then
-					vim.notify("Failed to load `telescope-fzf-native.nvim`:\n" .. err, vim.log.levels.ERROR, {})
+				}
+			end,
+			config = function()
+				local ok_fzf, err_fzf = pcall(require("telescope").load_extension, "fzf")
+				if not ok_fzf then
+					vim.notify("Failed to load `telescope-fzf-native.nvim`:\n" .. err_fzf, vim.log.levels.ERROR, {})
 				end
-			end
-		end,
+			end,
+		},
 	},
 	{
-		"nvim-telescope/telescope-ui-select.nvim",
-		dependencies = {
-			{
-				"nvim-telescope/telescope.nvim",
-				opts = {
-					extensions = {
-						["ui-select"] = {
-							theme = "dropdown",
-							results_title = false,
-
-							sorting_strategy = "ascending",
-							layout_strategy = "center",
-							layout_config = {
-								preview_cutoff = 1, -- Preview should always show (unless previewer = false)
-
-								width = function(_, max_columns, _)
-									return math.min(max_columns, 80)
-								end,
-
-								height = function(_, _, max_lines)
-									return math.min(max_lines, 15)
-								end,
-							},
-							border = true,
-							borderchars = {
-								prompt = { "─", "│", " ", "│", "╭", "╮", "│", "│" },
-								results = { "─", "│", "─", "│", "├", "┤", "╯", "╰" },
-								preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-							},
-						},
-					},
-				},
-			},
-		},
-		event = "VeryLazy",
-		config = function()
-			if vim.tbl_get(require("lazy.core.config"), "plugins", "telescope.nvim", "_", "loaded") ~= nil then
-				local ok, err = pcall(require("telescope").load_extension, "ui-select")
-				if not ok then
-					vim.notify("Failed to load `telescope-ui-select.nvim`:\n" .. err, vim.log.levels.ERROR, {})
-				end
+		"stevearc/dressing.nvim",
+		lazy = true,
+		init = function()
+			---@diagnostic disable-next-line: duplicate-set-field
+			vim.ui.select = function(...)
+				require("lazy").load({ plugins = { "dressing.nvim" } })
+				return vim.ui.select(...)
+			end
+			---@diagnostic disable-next-line: duplicate-set-field
+			vim.ui.input = function(...)
+				require("lazy").load({ plugins = { "dressing.nvim" } })
+				return vim.ui.input(...)
 			end
 		end,
 	},
