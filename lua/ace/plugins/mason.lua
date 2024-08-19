@@ -48,29 +48,6 @@ return {
 		end,
 	},
 	{
-		"williamboman/mason-lspconfig.nvim",
-		cmd = { "LspInstall", "LspUninstall" },
-		dependencies = {
-			"williamboman/mason.nvim",
-		},
-		opts = {
-			ensure_installed = {
-				"clangd",
-				"tsserver",
-				"pyright",
-				"jdtls",
-				"html",
-				"cssls",
-				"tailwindcss",
-				"svelte",
-				"lua_ls",
-				"graphql",
-				"emmet_ls",
-				"csharp_ls",
-			},
-		},
-	},
-	{
 		"jay-babu/mason-nvim-dap.nvim",
 		cmd = { "DapInstall", "DapUninstall" },
 		dependencies = {
