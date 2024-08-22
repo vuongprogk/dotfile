@@ -9,12 +9,12 @@ return {
 			{
 				"<Leader>dt",
 				"<cmd>DapToggleBreakpoint<CR>",
-				{ desc = "Toggle breakpoint", mode = { "n", "v" } },
+				{ desc = "Toggle breakpoint", mode = { "n", "v" }, remap = true },
 			},
 			{
 				"<Leader>dc",
 				"<cmd>DapContinue<CR>",
-				{ desc = "Start/Continue debugger", mode = { "n", "v" } },
+				{ desc = "Start/Continue debugger", mode = { "n", "v" }, remap = true },
 			},
 		},
 		dependencies = {
@@ -35,10 +35,6 @@ return {
 			--TODO Update DAP icons and color
 
 			--Update dap icon
-			-- vim.api.nvim_set_hl(0, "red", { fg = "#FFA500" })
-			-- vim.api.nvim_set_hl(0, "green", { fg = "#9ece6a" })
-			-- vim.api.nvim_set_hl(0, "yellow", { fg = "#FFFF00" })
-			-- vim.api.nvim_set_hl(0, "orange", { fg = "#f09000" })
 			vim.api.nvim_create_autocmd("ColorScheme", {
 				pattern = "*",
 				desc = "prevent colorscheme clears self-defined DAP icon colors.",

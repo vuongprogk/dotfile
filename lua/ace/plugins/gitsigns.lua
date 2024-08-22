@@ -5,8 +5,8 @@ return {
 		{
 			"<leader>tb",
 			"<cmd>Gitsigns toggle_current_line_blame<CR>",
-			{ desc = "Toggle line blame", mode = { "n", "v" } },
+			{ desc = "Toggle line blame", mode = { "n", "v" }, remap = true },
 		},
 	},
-  opts = {}
+	opts = {},
 }

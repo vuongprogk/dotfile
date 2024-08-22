@@ -8,35 +8,35 @@ return {
 			function()
 				require("persistence").load()
 			end,
-			desc = "Restore Session",
+			{ desc = "Restore Session", remap = true },
 		},
 		{
 			"<leader>wl",
 			function()
 				require("persistence").load({ last = true })
 			end,
-			desc = "Restore Session",
+			{ desc = "Restore Session", remap = true },
 		},
 		{
 			"<leader>ls",
 			function()
 				require("persistence").select()
 			end,
-			desc = "Select Session",
+			{ desc = "Select Session", remap = true },
 		},
 		{
 			"<leader>wd",
 			function()
 				require("persistence").stop()
 			end,
-			desc = "Stop saving session",
+			{ desc = "Stop saving session", remap = true },
 		},
 		{
 			"<leader>ws",
 			function()
 				require("persistence").save()
 			end,
-			desc = "Saving session",
+			{ desc = "Saving session", remap = true },
 		},
 	},
 }

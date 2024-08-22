@@ -2,6 +2,7 @@ return {
 	"mfussenegger/nvim-lint",
 	event = { "BufReadPre", "BufNewFile" },
 	opts = {
+		events = { "BufWritePost", "BufReadPost", "InsertLeave" },
 		linters_by_ft = {
 			cpp = { "cpplint" },
 			lua = { "luacheck" },
@@ -22,6 +23,6 @@ return {
 		-- TODO create auto command ran after Buffer Wrote
 		vim.keymap.set("n", "<leader>l", function()
 			lint.try_lint()
-		end, { desc = "Trigger linting for current file" })
+		end, { desc = "Trigger linting for current file", remap = true })
 	end,
 }

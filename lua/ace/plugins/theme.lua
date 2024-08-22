@@ -1,7 +1,6 @@
 return {
 
 	"folke/tokyonight.nvim",
-	event = "VimEnter",
 	priority = 1000,
 	opts = {
 		style = "night", -- The theme comes in three styles, `storm`, a darker variant `night` and `day`
@@ -12,7 +11,7 @@ return {
 			comments = { italic = true },
 			keywords = { italic = true },
 			functions = { italic = true, bold = true },
-			variables = {},
+			variables = { bold = true },
 			sidebars = "dark", -- style for sidebars, see below
 			floats = not vim.g.enabled_neovide and "transparent" or "dark", -- style for floating windows
 		},
