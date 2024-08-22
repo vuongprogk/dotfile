@@ -13,20 +13,10 @@ return {
 			{
 				desc = "formatting code",
 				mode = { "n", "v" },
+				remap = true,
 			},
 		},
 	},
-	init = function()
-		vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
-			callback = function()
-				vim.filetype.add({
-					extension = {
-						ejs = "html",
-					},
-				})
-			end,
-		})
-	end,
 	opts = {
 		formatters_by_ft = {
 			lua = { "stylua" },
@@ -41,9 +31,15 @@ return {
 				"clang_format",
 			},
 			html = { "prettier" },
-			cs = { "csharpier", lsp_format = "never" },
+			cs = { "csharpier" },
 			css = { "prettier" },
 			cshtml = { "prettier", "prettier", stop_after_first = true },
+		},
+		formatters = {
+			csharpier = {
+				command = "dotnet-csharpier",
+				args = { "--write-stdout" },
+			},
 		},
 		format_on_save = {
 			lsp_format = "fallback",
