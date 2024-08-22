@@ -150,6 +150,8 @@ return {
 				return ret
 			end
 
+			require("ace.core.lspmapping")
+
 			if vim.fn.has("nvim-0.10.0") == 0 then
 				if type(opts.diagnostics.signs) ~= "boolean" then
 					for severity, icon in pairs(opts.diagnostics.signs.text) do

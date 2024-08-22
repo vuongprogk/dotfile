@@ -26,6 +26,7 @@ opt.shiftwidth = 2
 opt.smartindent = true -- Insert indents automatically
 
 opt.splitbelow = true -- Put new windows below current
+opt.splitkeep = "screen"
 opt.splitright = true -- Put new windows right of current
 
 opt.undofile = true
@@ -42,9 +43,6 @@ opt.cursorline = true
 opt.clipboard:append("unnamedplus")
 opt.ignorecase = true
 opt.smartcase = true
-
--- set key map space when enter do nothing
-vim.keymap.set({ "n", "v" }, "<space>", "<NOP>", { silent = true, remap = false })
 
 -- set leader key
 vim.g.mapleader = " "
@@ -64,6 +62,16 @@ opt.showmode = false -- Dont show mode since we have a statusline
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 opt.spelllang = { "en" }
 opt.spelloptions:append("noplainbuffer")
+
+vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+opt.grepformat = "%f:%l:%c:%m"
+opt.grepprg = "rg --vimgrep"
+opt.inccommand = "nosplit" -- preview incremental substitute
+opt.pumblend = 0 -- Popup blend
+opt.pumheight = 10 -- Maximum number of entries in a popup
+
+opt.shiftround = true -- Round indent
+opt.shortmess:append({ W = true, I = true, c = true, C = true })
 
 -- set keymap for tab
 vim.keymap.set("n", "<Leader>tn", "<cmd>tabnext<CR>", { silent = true })

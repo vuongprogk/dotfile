@@ -12,8 +12,12 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 local plugin_path = {
+	{ import = "ace.ui" },
+	{ import = "ace.utils" },
+	{ import = "ace.editor" },
+	{ import = "ace.coding" },
 	{ import = "ace.plugins" },
-	{ import = "ace.lsp" },
+	{ import = "ace.lang" },
 }
 require("lazy").setup({
 	spec = plugin_path,
