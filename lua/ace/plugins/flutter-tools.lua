@@ -3,6 +3,7 @@ return {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 	},
+	event = { "BufReadPre", "BufNewFile" },
 	cond = vim.fs.find({ "pubspec.yaml" }, { upward = true })[1] and true or false,
 	opts = {
 		decorations = {
@@ -14,7 +15,7 @@ return {
 		},
 		dev_log = {
 			enabled = true,
-			notify_errors = true, -- if there is an error whilst running then notify the user
+			notify_errors = false, -- if there is an error whilst running then notify the user
 			open_cmd = "tabnew", -- command to use to open the log buffer
 		},
 	},
