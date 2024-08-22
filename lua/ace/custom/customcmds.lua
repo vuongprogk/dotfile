@@ -38,24 +38,3 @@ vim.api.nvim_create_user_command("ClearShada", clearShada, { desc = "Clears all 
 vim.api.nvim_create_user_command("DeleteStateFile", function(opts)
 	clearState(opts.args)
 end, { nargs = 1, desc = "Clear state file" })
-
--- NOTE: auto load on external change
-vim.api.nvim_create_augroup("AutoDetectFileChange", { clear = true })
-vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
-	pattern = { "*" },
-	group = "AutoDetectFileChange",
-	callback = function(param)
-		local name = vim.api.nvim_buf_get_name(param.buf)
-		local is_modifiable = vim.api.nvim_get_option_value("modifiable", { buf = param.buf })
-		if name ~= "" and is_modifiable then
-			vim.cmd(":checktime")
-		end
-	end,
-})
-vim.api.nvim_create_autocmd("FileChangedShellPost", {
-	pattern = "*",
-	group = "AutoDetectFileChange",
-	callback = function()
-		vim.notify("File changed on disk. Buffer reloaded.", vim.log.INFO)
-	end,
-})
