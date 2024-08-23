@@ -1,6 +1,6 @@
 return {
-	{ "nvim-tree/nvim-web-devicons" },
-	{ "MunifTanjim/nui.nvim", opts = nil },
+	{ "nvim-tree/nvim-web-devicons", lazy = true },
+	{ "MunifTanjim/nui.nvim", lazy = true },
 	--bufferline
 	{
 		"akinsho/bufferline.nvim",
@@ -173,9 +173,6 @@ return {
 	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-		},
 		opts = {
 			messages = {
 				view = "mini",
