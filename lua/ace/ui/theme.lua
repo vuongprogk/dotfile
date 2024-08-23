@@ -10,7 +10,7 @@ return {
 			comments = { italic = true },
 			keywords = { italic = true },
 			functions = { italic = true, bold = true },
-			sidebars = "dark", -- style for sidebars, see below
+			sidebars = not vim.g.neovide and "transparent" or "dark", -- style for sidebars, see below
 			floats = not vim.g.neovide and "transparent" or "dark", -- style for floating windows
 		},
 		day_brightness = 0.3, -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
