@@ -49,8 +49,6 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 vim.g.updatetime = 200
-opt.autowrite = true -- Enable auto write
-opt.confirm = true
 opt.undolevels = 10000
 
 if vim.fn.has("nvim-0.10") == 1 then
