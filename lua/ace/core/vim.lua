@@ -68,10 +68,11 @@ opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
 opt.inccommand = "nosplit" -- preview incremental substitute
 opt.pumblend = 0 -- Popup blend
-opt.pumheight = 10 -- Maximum number of entries in a popup
+opt.pumheight = 12 -- Maximum number of entries in a popup
 
 opt.shiftround = true -- Round indent
 opt.shortmess:append({ W = true, I = true, c = true, C = true })
+opt.list = true
 
 -- set keymap for tab
 vim.keymap.set("n", "<Leader>tn", "<cmd>tabnext<CR>", { silent = true })
