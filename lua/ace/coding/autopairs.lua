@@ -1,6 +1,6 @@
 return {
 	"windwp/nvim-autopairs",
-	event = { "BufReadPre", "BufNewFile" },
+	event = { "BufRead", "BufNewFile" },
 	opts = function()
 		if require("lazy.core.config").plugins["nvim-cmp"]._.loaded ~= nil then
 			local cmp = require("cmp")

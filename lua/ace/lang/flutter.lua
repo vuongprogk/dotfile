@@ -3,7 +3,7 @@ return {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 	},
-	event = { "BufReadPre", "BufNewFile" },
+	event = { "BufReadPost", "BufWritePost", "BufNewFile" },
 	cond = vim.fs.find({ "pubspec.yaml" }, { upward = true })[1] and true or false,
 	opts = {
 		decorations = {

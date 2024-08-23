@@ -1,7 +1,7 @@
 return {
 	"folke/todo-comments.nvim",
 	cmd = { "TodoTelescope" },
-	event = { "BufRead", "BufNewFile" },
+	event = { "BufReadPost", "BufWritePost", "BufNewFile" },
 	dependencies = { "nvim-lua/plenary.nvim" },
 	keys = {
 		{

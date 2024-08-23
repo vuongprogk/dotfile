@@ -11,16 +11,15 @@ if not vim.loop.fs_stat(lazypath) then
 	})
 end
 vim.opt.rtp:prepend(lazypath)
-local plugin_path = {
-	{ import = "ace.ui" },
-	{ import = "ace.utils" },
-	{ import = "ace.editor" },
-	{ import = "ace.coding" },
-	{ import = "ace.plugins" },
-	{ import = "ace.lang" },
-}
 require("lazy").setup({
-	spec = plugin_path,
+	spec = {
+		{ import = "ace.ui" },
+		{ import = "ace.editor" },
+		{ import = "ace.utils" },
+		{ import = "ace.coding" },
+		{ import = "ace.plugins" },
+		{ import = "ace.lang" },
+	},
 	pgk = { enabled = false },
 	rocks = { enabled = false },
 	change_detection = {
