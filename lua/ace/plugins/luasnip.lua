@@ -4,6 +4,7 @@ return {
 	build = (require("ace.custom.os").getName() == "Windows")
 			and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
 		or nil,
+	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
 		{
 			"rafamadriz/friendly-snippets",
@@ -17,14 +18,13 @@ return {
 				"saadparwaiz1/cmp_luasnip",
 			},
 			opts = function(_, opts)
-				local cmp = require("cmp")
 				local luasnip = require("luasnip")
+				local cmp = require("cmp")
 				opts.snippet = {
 					expand = function(args)
 						luasnip.lsp_expand(args.body)
 					end,
 				}
-				table.insert(opts.sources, { name = "luasnip" })
 				opts.mapping = vim.tbl_extend("force", opts.mapping, {
 					["<Tab>"] = cmp.mapping(function(fallback) -- super tab
 						if cmp.visible() then
@@ -45,6 +45,21 @@ return {
 						end
 					end, { "i", "s" }),
 				})
+				local abort_servers = { "dartls" }
+				local list_server = vim.lsp.get_clients()
+				local function has_server(abort_list, server_check)
+					for _, server in ipairs(abort_list) do
+						if server.name == server_check then
+							return true
+						end
+					end
+					return false
+				end
+				for _, server in ipairs(list_server) do
+					if not has_server(abort_servers, server) then
+						table.insert(opts.sources, { name = "luasnip", priority = 750 })
+					end
+				end
 			end,
 		},
 	},

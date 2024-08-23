@@ -40,9 +40,6 @@ return {
 					return true
 				end,
 			},
-			{ name = "luasnip", priority = 1000 },
-		}, {
-
 			{ name = "path", priority = 500 },
 			{ name = "buffer", priority = 250 },
 		})
