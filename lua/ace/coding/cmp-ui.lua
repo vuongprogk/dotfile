@@ -43,13 +43,6 @@ return {
 								mode = "symbol_text",
 								maxwidth = 50,
 								ellipsis_char = "...",
-								menu = {
-									buffer = "[Buffer]",
-									nvim_lsp = "[LSP]",
-									luasnip = "[LuaSnip]",
-									nvim_lua = "[Lua]",
-									latex_symbols = "[Latex]",
-								},
 								before = function(nested_entry, nested_vim_item)
 									local tailwind = vim.fs.find({ "tailwind.config.js" }, { upward = true })[1]
 									if tailwind then
