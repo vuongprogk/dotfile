@@ -1,5 +1,4 @@
 return {
-
 	"folke/tokyonight.nvim",
 	priority = 1000,
 	opts = {
@@ -11,7 +10,6 @@ return {
 			comments = { italic = true },
 			keywords = { italic = true },
 			functions = { italic = true, bold = true },
-			variables = { bold = true },
 			sidebars = "dark", -- style for sidebars, see below
 			floats = not vim.g.neovide and "transparent" or "dark", -- style for floating windows
 		},
@@ -22,6 +20,10 @@ return {
 	},
 	config = function(_, opts)
 		require("tokyonight").setup(opts)
-		vim.cmd([[colorscheme tokyonight-night]])
+		if vim.g.neovide then
+			vim.cmd.colorscheme("tokyonight-night")
+		else
+			vim.cmd.colorscheme("tokyonight-storm")
+		end
 	end,
 }

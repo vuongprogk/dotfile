@@ -1,8 +1,11 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
 	event = { "BufReadPre", "BufNewFile" },
+	build = ":TSUpdate",
+	lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
 	init = function(plugin)
 		require("lazy.core.loader").add_to_rtp(plugin)
+		require("nvim-treesitter.query_predicates")
 	end,
 	opts = {
 		ensure_installed = {
@@ -27,7 +30,7 @@ return {
 			enable = true,
 			-- disable = { "c_sharp" },
 		},
-		indent = true,
+		indent = { enable = true },
 		ignore_install = {},
 	},
 	config = function(_, opts)
