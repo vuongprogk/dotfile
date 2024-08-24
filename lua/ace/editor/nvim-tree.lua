@@ -4,12 +4,11 @@ return {
 	cmd = { "NvimTreeFindFileToggle", "NvimTreeToggle", "NvimTreeRefresh" },
 	keys = {
 		{
-			"<leader>ef",
+			"<leader>fe",
 			"<cmd>NvimTreeFindFileToggle<CR>",
 			{
 				desc = "Toggle file explorer on current file",
 				remap = true,
-				mode = { "n", "v" },
 			},
 		},
 		{
@@ -18,7 +17,6 @@ return {
 			{
 				desc = "Toggle file explorer",
 				remap = true,
-				mode = { "n", "v" },
 			},
 		},
 		{
@@ -27,7 +25,6 @@ return {
 			{
 				desc = "Refresh file explorer",
 				remap = true,
-				mode = { "n", "v" },
 			},
 		},
 	},
@@ -79,7 +76,4 @@ return {
 			show_on_open_dirs = true,
 		},
 	},
-	deactivate = function()
-		vim.cmd([[NvimTreeClose]])
-	end,
 }
