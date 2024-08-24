@@ -11,6 +11,8 @@ opt.belloff = "all"
 opt.background = "dark"
 opt.termguicolors = true
 
+opt.laststatus = 3 -- global statusline
+
 --set croll off
 opt.scrolloff = 10
 

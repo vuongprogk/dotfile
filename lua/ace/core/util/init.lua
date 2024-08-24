@@ -1,5 +1,4 @@
-local M = {
-	root = require("ace.core.util.root"),
+_G.Ace = {
 	lsp = require("ace.core.util.lsp"),
 	cmp = require("ace.core.util.cmp"),
 	icons = {
@@ -45,7 +44,7 @@ local M = {
 			Package = " ",
 			Property = " ",
 			Reference = " ",
-			Snippet = " ",
+			Snippet = "",
 			String = " ",
 			Struct = "󰆼 ",
 			TabNine = "󰏚 ",
@@ -91,4 +90,3 @@ local M = {
 		},
 	},
 }
-return M
