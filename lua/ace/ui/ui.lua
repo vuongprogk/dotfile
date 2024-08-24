@@ -132,42 +132,137 @@ return {
 		"nvim-lualine/lualine.nvim",
 		event = "VeryLazy",
 		dependencies = "nvim-tree/nvim-web-devicons",
-		opts = {
-			options = {
-				theme = function()
-					local colors = {
-						blue = "#268bd2",
-						black = "#080808",
-						white = "#c6c6c6",
-						red = "#ff5189",
-						violet = "#d183e8",
-						grey = "#303030",
-						base03 = "#002b36",
-						green = "#859900",
-						magenta = "#d33682",
-					}
-					return {
-						normal = {
-							a = { fg = colors.black, bg = colors.blue, gui = "bold" },
-							b = { fg = colors.white, bg = colors.grey },
-							c = { fg = colors.white },
-						},
+		init = function()
+			vim.g.lualine_laststatus = vim.o.laststatus
+			if vim.fn.argc(-1) > 0 then
+				-- set an empty statusline till lualine loads
+				vim.o.statusline = " "
+			else
+				-- hide the statusline on the starter page
+				vim.o.laststatus = 0
+			end
+		end,
+		opts = function()
+			local icons = Ace.icons
+			local function color_picker(name, bg)
+				local hl = vim.api.nvim_get_hl and vim.api.nvim_get_hl(0, { name = name, link = false })
+					or vim.api.nvim_get_hl_by_name(name, true)
+				local color = nil
+				if hl then
+					if bg then
+						color = hl.bg or hl.background
+					else
+						color = hl.fg or hl.foreground
+					end
+				end
+				return color and string.format("#%06x", color) or nil
+			end
+			local function fg(name)
+				local color = color_picker(name)
+				return color and { fg = color } or nil
+			end
+			local opts = {
+				options = {
+					theme = "tokyonight",
+					globalstatus = vim.o.laststatus == 3,
+					disabled_filetypes = { statusline = { "alpha" } },
+				},
+				sections = {
+					lualine_a = { "mode" },
+					lualine_b = { "branch" },
 
-						insert = { a = { fg = colors.black, bg = colors.green, gui = "bold" } },
-						visual = { a = { fg = colors.black, bg = colors.violet, gui = "bold" } },
-						replace = { a = { fg = colors.black, bg = colors.red, gui = "bold" } },
-
-						inactive = {
-							a = { fg = colors.white, bg = colors.black, gui = "bold" },
-							b = { fg = colors.white, bg = colors.black },
-							c = { fg = colors.white },
+					lualine_c = {
+						{ "filetype", icon_only = true, padding = { left = 1, right = 0 } },
+						{ "filename", path = 1 },
+						{
+							"diagnostics",
+							symbols = {
+								error = icons.diagnostics.Error,
+								warn = icons.diagnostics.Warn,
+								info = icons.diagnostics.Info,
+								hint = icons.diagnostics.Hint,
+							},
+							separator = "",
+							padding = { left = 1, right = 0 },
 						},
-					}
-				end,
-				disabled_filetypes = { statusline = { "alpha" } },
+					},
+					lualine_x = {
+            -- stylua: ignore
+						{
+							function()
+								return require("noice").api.status.mode.get()
+							end,
+							cond = function()
+								return package.loaded["noice"] and require("noice").api.status.mode.has()
+							end,
+							color = function()
+								return fg("Constant")
+							end,
+						},
+            -- stylua: ignore
+            {
+              function() return "  " .. require("dap").status() end,
+              cond = function() return package.loaded["dap"] and require("dap").status() ~= "" end,
+              color = function() return fg("Debug") end,
+            },
+            -- stylua: ignore
+            {
+              require("lazy.status").updates,
+              cond = require("lazy.status").has_updates,
+              color = function() return fg("Special") end,
+            },
+						{
+							"diff",
+							symbols = {
+								added = icons.git.added,
+								modified = icons.git.modified,
+								removed = icons.git.removed,
+							},
+							source = function()
+								local gitsigns = vim.b.gitsigns_status_dict
+								if gitsigns then
+									return {
+										added = gitsigns.added,
+										modified = gitsigns.changed,
+										removed = gitsigns.removed,
+									}
+								end
+							end,
+						},
+					},
+					lualine_y = {
+						{ "progress", separator = " ", padding = { left = 1, right = 0 } },
+						{ "location", padding = { left = 0, right = 1 } },
+						{
+							function()
+								local msg = "No Active Lsp"
+								local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = 0 })
+								local clients = vim.lsp.get_clients()
+								if next(clients) == nil then
+									return msg
+								end
+								for _, client in ipairs(clients) do
+									local filetypes = client.config.filetypes
+									if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+										return client.name
+									end
+								end
+								return msg
+							end,
+							icon = " LSP:",
+						},
+					},
+					lualine_z = {
+						function()
+							return " " .. os.date("%R")
+						end,
+					},
+				},
+
 				extensions = { "nvim-tree" },
-			},
-		},
+			}
+			return opts
+		end,
 	},
 	-- setup noice
 	{
