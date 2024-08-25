@@ -16,6 +16,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+
 	spec = {
 		{ import = "ace.ui" },
 		{ import = "ace.editor" },
@@ -23,6 +24,8 @@ require("lazy").setup({
 		{ import = "ace.coding" },
 		{ import = "ace.plugins" },
 		{ import = "ace.lang" },
+		-- { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+		-- { import = "ace.test" },
 	},
 	pgk = { enabled = false },
 	rocks = { enabled = false },

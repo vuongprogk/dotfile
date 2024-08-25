@@ -73,19 +73,9 @@ return {
 			},
 			icons = {
 				web_devicons = {
-					file = {
-						enable = true,
-						color = true,
-					},
 					folder = {
-						enable = false,
-						color = true,
+						enable = true,
 					},
-				},
-				git_placement = "before",
-				modified_placement = "after",
-				show = {
-					git = true,
 				},
 			},
 		},
@@ -102,14 +92,6 @@ return {
 		},
 		filters = {
 			custom = { ".DS_Store" },
-		},
-		git = {
-			ignore = false,
-		},
-		modified = {
-			enable = true,
-			show_on_dirs = true,
-			show_on_open_dirs = true,
 		},
 		on_attach = function(bufnr)
 			local api = require("nvim-tree.api")

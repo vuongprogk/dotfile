@@ -22,4 +22,13 @@ return {
 		},
 		ft = "python",
 	},
+
+	{
+		"neovim/nvim-lspconfig",
+		opts = {
+			servers = {
+				pyright = {},
+			},
+		},
+	},
 }

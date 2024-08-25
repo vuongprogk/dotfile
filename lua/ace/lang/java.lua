@@ -117,4 +117,29 @@ return {
 			})
 		end,
 	},
+
+	{
+		"neovim/nvim-lspconfig",
+		opts = {
+			-- make sure mason installs the server
+			servers = {
+				jdtls = {
+
+					handlers = {
+						["$/progress"] = function() end,
+					},
+				},
+			},
+			setup = {
+				jdtls = function()
+					local is_maven_project = vim.fs.find({ "gradlew", "mvnw", "pom.xml" }, { upward = true })[1]
+					-- NOTE: if cwd is maven project then not start local jdtls instead using nvim jdtls
+					if is_maven_project then
+						return true
+					end
+					return false
+				end,
+			},
+		},
+	},
 }

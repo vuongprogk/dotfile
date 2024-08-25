@@ -21,10 +21,10 @@ return {
 				severity_sort = true,
 				signs = {
 					text = {
-						[vim.diagnostic.severity.ERROR] = Ace.icons.diagnostics.Error,
-						[vim.diagnostic.severity.WARN] = Ace.icons.diagnostics.Warn,
-						[vim.diagnostic.severity.HINT] = Ace.icons.diagnostics.Hint,
-						[vim.diagnostic.severity.INFO] = Ace.icons.diagnostics.Info,
+						[vim.diagnostic.severity.ERROR] = Ace.config.icons.diagnostics.Error,
+						[vim.diagnostic.severity.WARN] = Ace.config.icons.diagnostics.Warn,
+						[vim.diagnostic.severity.HINT] = Ace.config.icons.diagnostics.Hint,
+						[vim.diagnostic.severity.INFO] = Ace.config.icons.diagnostics.Info,
 					},
 				},
 			},
@@ -89,14 +89,7 @@ return {
 				graphql = {
 					filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
 				},
-				jdtls = {
-					handlers = {
-						["$/progress"] = function() end,
-					},
-				},
 				clangd = {},
-				tsserver = {},
-				pyright = {},
 				html = {},
 				cssls = {},
 				tailwindcss = {},
@@ -106,30 +99,12 @@ return {
 							return require("omnisharp_extended").handler(...)
 						end,
 					},
-					keys = {
-						{
-							"gd",
-							function()
-								require("omnisharp_extended").telescope_lsp_definitions()
-							end,
-							desc = "Goto Definition",
-						},
-					},
 					enable_roslyn_analyzers = true,
 					organize_imports_on_format = true,
 					enable_import_completion = true,
 				},
 			},
-			setup = {
-				jdtls = function()
-					local is_maven_project = vim.fs.find({ "gradlew", "mvnw", "pom.xml" }, { upward = true })[1]
-					-- NOTE: if cwd is maven project then not start local jdtls instead using nvim jdtls
-					if is_maven_project then
-						return true
-					end
-					return false
-				end,
-			},
+			setup = {},
 		}
 		return ret
 	end,
@@ -177,7 +152,7 @@ return {
 		if type(opts.diagnostics.virtual_text) == "table" and opts.diagnostics.virtual_text.prefix == "icons" then
 			opts.diagnostics.virtual_text.prefix = vim.fn.has("nvim-0.10.0") == 0 and "●"
 				or function(diagnostic)
-					local icons = Ace.icons.diagnostics
+					local icons = Ace.config.icons.diagnostics
 					for d, icon in pairs(icons) do
 						if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
 							return icon
@@ -185,6 +160,8 @@ return {
 					end
 				end
 		end
+
+		vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
 		local servers = opts.servers
 		local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")

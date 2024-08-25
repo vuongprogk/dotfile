@@ -65,6 +65,17 @@ return {
 					},
 				},
 			},
+
+			setup = {
+				yamlls = function()
+					-- Neovim < 0.10 does not have dynamic registration for formatting
+					if vim.fn.has("nvim-0.10") == 0 then
+						Ace.lsp.on_attach(function(client, _)
+							client.server_capabilities.documentFormattingProvider = true
+						end, "yamlls")
+					end
+				end,
+			},
 		},
 	},
 }

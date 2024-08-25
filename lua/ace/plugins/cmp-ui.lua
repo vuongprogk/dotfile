@@ -42,7 +42,7 @@ return {
 						mode = "symbol_text",
 						maxwidth = 50,
 						ellipsis_char = "...",
-						symbol_map = Ace.icons.kinds,
+						symbol_map = Ace.config.icons.kinds,
 						menu = {
 							buffer = "[Buffer]",
 							nvim_lsp = "[LSP]",

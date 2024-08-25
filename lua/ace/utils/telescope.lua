@@ -31,6 +31,9 @@ return {
 						["<C-k>"] = actions.move_selection_previous, -- move to prev result
 						["<C-j>"] = actions.move_selection_next, -- move to next result
 					},
+					n = {
+						["q"] = actions.close,
+					},
 				},
 				defaults = {
 					get_selection_window = function()

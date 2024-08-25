@@ -143,7 +143,7 @@ return {
 			end
 		end,
 		opts = function()
-			local icons = Ace.icons
+			local icons = Ace.config.icons
 			local function color_picker(name, bg)
 				local hl = vim.api.nvim_get_hl and vim.api.nvim_get_hl(0, { name = name, link = false })
 					or vim.api.nvim_get_hl_by_name(name, true)
@@ -165,17 +165,19 @@ return {
 				options = {
 					theme = "tokyonight",
 					globalstatus = vim.o.laststatus == 3,
-					disabled_filetypes = { statusline = { "alpha" } },
+					disabled_filetypes = { statusline = { "alpha", "dashboard" } },
 					always_divide_middle = true,
 				},
 				sections = {
 					lualine_a = { "mode" },
-					lualine_b = { "branch" },
+					lualine_b = {
+						{ "branch" },
+					},
 
 					lualine_c = {
 						{ "fileformat", separator = "|" },
 						{ "filetype", icon_only = true, padding = { left = 1, right = 0 } },
-						{ "filename", path = 1 },
+						{ "filename", path = 0 },
 						{
 							"diagnostics",
 							symbols = {
@@ -220,23 +222,29 @@ return {
 								modified = icons.git.modified,
 								removed = icons.git.removed,
 							},
-							source = function()
-								local gitsigns = vim.b.gitsigns_status_dict
-								if gitsigns then
-									return {
-										added = gitsigns.added,
-										modified = gitsigns.changed,
-										removed = gitsigns.removed,
-									}
-								end
-							end,
 						},
 					},
 					lualine_y = {
 						{
+							-- Lsp server name .
 							function()
-								return "Powered by ACE"
+								local msg = " Active"
+								local count = 0
+								-- local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = 0 })
+								local clients = vim.lsp.get_clients()
+								if next(clients) == nil then
+									return msg
+								end
+								for _, client in ipairs(clients) do
+									count = count + 1
+									-- local filetypes = client.config.filetypes
+									-- if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+									-- 	return client.name
+									-- end
+								end
+								return count .. msg
 							end,
+							icon = " LSP:",
 						},
 						{ "location", padding = { left = 1, right = 1 } },
 					},
