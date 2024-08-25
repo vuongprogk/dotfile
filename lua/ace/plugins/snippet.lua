@@ -15,6 +15,10 @@ return {
 				return vim.snippet.expand(item.body)
 			end,
 		}
-		table.insert(opts.sources, { name = "snippets" })
+		table.insert(opts.sources, {
+			name = "snippets",
+			max_item_count = 5,
+			priority = 500,
+		})
 	end,
 }
