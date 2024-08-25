@@ -3,4 +3,6 @@ if vim.g.neovide then
 end
 require("ace.core")
 -- setup lazy
-require("ace.lazy")
+if not vim.g.vscode then
+	require("ace.lazy")
+end
