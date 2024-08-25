@@ -16,7 +16,6 @@ return {
 				"eslint_d",
 				"cpplint",
 				"pylint",
-				"luacheck",
 				"black",
 				"isort",
 				"prettier",

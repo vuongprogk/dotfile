@@ -166,12 +166,14 @@ return {
 					theme = "tokyonight",
 					globalstatus = vim.o.laststatus == 3,
 					disabled_filetypes = { statusline = { "alpha" } },
+					always_divide_middle = true,
 				},
 				sections = {
 					lualine_a = { "mode" },
 					lualine_b = { "branch" },
 
 					lualine_c = {
+						{ "fileformat", separator = "|" },
 						{ "filetype", icon_only = true, padding = { left = 1, right = 0 } },
 						{ "filename", path = 1 },
 						{
@@ -231,26 +233,12 @@ return {
 						},
 					},
 					lualine_y = {
-						{ "progress", separator = " ", padding = { left = 1, right = 0 } },
-						{ "location", padding = { left = 0, right = 1 } },
 						{
 							function()
-								local msg = "No Active Lsp"
-								local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = 0 })
-								local clients = vim.lsp.get_clients()
-								if next(clients) == nil then
-									return msg
-								end
-								for _, client in ipairs(clients) do
-									local filetypes = client.config.filetypes
-									if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-										return client.name
-									end
-								end
-								return msg
+								return "Powered by ACE"
 							end,
-							icon = " LSP:",
 						},
+						{ "location", padding = { left = 1, right = 1 } },
 					},
 					lualine_z = {
 						function()
