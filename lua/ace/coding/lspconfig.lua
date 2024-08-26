@@ -92,7 +92,6 @@ return {
 				clangd = {},
 				html = {},
 				cssls = {},
-				tailwindcss = {},
 				omnisharp = {
 					handlers = {
 						["textDocument/definition"] = function(...)
