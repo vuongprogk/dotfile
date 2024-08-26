@@ -23,7 +23,7 @@ return {
 				["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
 				["<C-e>"] = cmp.mapping.abort(), -- close completion window
 				["<C-CR>"] = cmp.mapping.abort(), -- close completion window
-				["<CR>"] = cmp.mapping.confirm({ select = true }),
+				["<CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = false }),
 			}),
 			preselect = auto_select and cmp.PreselectMode.Item or cmp.PreselectMode.None,
 			completion = {

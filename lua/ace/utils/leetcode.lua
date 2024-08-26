@@ -1,11 +1,6 @@
 return {
 	"kawre/leetcode.nvim",
-	enabled = function()
-		if require("ace.custom.os").getName() == "Windows" then
-			return false
-		end
-		return true
-	end,
+	enabled = (not Ace.is_win()) and true or false,
 	build = ":TSUpdate html",
 	cmd = { "Leetcode" },
 	dependencies = {

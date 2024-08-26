@@ -16,7 +16,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-
 	spec = {
 		{ import = "ace.ui" },
 		{ import = "ace.editor" },
@@ -24,8 +23,6 @@ require("lazy").setup({
 		{ import = "ace.coding" },
 		{ import = "ace.plugins" },
 		{ import = "ace.lang" },
-		-- { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-		-- { import = "ace.test" },
 	},
 	pgk = { enabled = false },
 	rocks = { enabled = false },
@@ -33,29 +30,16 @@ require("lazy").setup({
 		notify = false,
 	},
 	performance = {
-		cache = {
-			enabled = true,
-		},
-		reset_packpath = true,
 		rtp = {
+			-- disable some rtp plugins
 			disabled_plugins = {
-				"2html_plugin",
-				"getscript",
-				"getscriptPlugin",
 				"gzip",
-				"logipat",
-				"netrw",
-				"netrwPlugin",
-				"netrwSettings",
-				"netrwFileHandlers",
 				"matchit",
-				"tar",
+				"matchparen",
+				"netrwPlugin",
 				"tarPlugin",
-				"rrhelper",
-				"spellfile_plugin",
-				"vimball",
-				"vimballPlugin",
-				"zip",
+				"tohtml",
+				"tutor",
 				"zipPlugin",
 			},
 		},
