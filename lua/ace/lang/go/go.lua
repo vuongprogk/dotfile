@@ -64,4 +64,18 @@ return {
 			},
 		},
 	},
+	{
+		"williamboman/mason.nvim",
+		opts = { ensure_installed = { "goimports", "gofumpt", "gomodifytags", "impl", "delve" } },
+	},
+	{
+		"mfussenegger/nvim-dap",
+		optional = true,
+		dependencies = {
+			{
+				"leoluz/nvim-dap-go",
+				opts = {},
+			},
+		},
+	},
 }
