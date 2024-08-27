@@ -17,7 +17,7 @@ return {
 				end,
 			}
 			if Ace.has("nvim-snippets") then
-				table.insert(opts.sources, { name = "snippets", priority = 1000, max_item_count = 5 })
+				table.insert(opts.sources, { name = "snippets", max_item_count = 5 })
 			end
 		end,
 		keys = {
