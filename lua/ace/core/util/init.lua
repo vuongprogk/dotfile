@@ -1,9 +1,13 @@
 local Util = require("lazy.core.util")
 
 ---@class util: UtilCore
----@field config Config
----@field lsp util.lsp
----@field cmp util.cmp
+---@field config AceConfig
+---@field lsp Ace.util.lsp
+---@field cmp Ace.util.cmp
+---@field lualine Ace.util.lualine
+---@field ui Ace.util.ui
+---@field root Ace.util.root
+---@field terminal Ace.util.terminal
 local M = {}
 
 setmetatable(M, {
@@ -95,7 +99,7 @@ function M.opts(name)
 	local Plugin = require("lazy.core.plugin")
 	return Plugin.values(plugin, "opts", false)
 end
-M.config = {
+local config = {
 	icons = {
 		diagnostics = {
 			Error = " ",
@@ -186,3 +190,4 @@ M.config = {
 	},
 }
 _G.Ace = M
+Ace.config = config

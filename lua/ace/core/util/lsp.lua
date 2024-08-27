@@ -1,3 +1,4 @@
+---@class Ace.util.lsp
 local M = {}
 
 function M.get_clients(opts)

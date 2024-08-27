@@ -1,3 +1,4 @@
+---@class Ace.util.cmp
 local M = {}
 function M.snippet_replace(snippet, fn)
 	return snippet:gsub("%$%b{}", function(m)
