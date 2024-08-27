@@ -16,103 +16,28 @@ return {
 		},
 		opts = {
 			options = {
-				close_command = function(buf)
-					buf = buf or 0
-					buf = buf == 0 and vim.api.nvim_get_current_buf() or buf
-
-					if vim.bo.modified then
-						local choice =
-							vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
-						if choice == 0 or choice == 3 then -- 0 for <Esc>/<C-c> and 3 for Cancel
-							return
-						end
-						if choice == 1 then -- Yes
-							vim.cmd.write()
-						end
-					end
-
-					for _, win in ipairs(vim.fn.win_findbuf(buf)) do
-						vim.api.nvim_win_call(win, function()
-							if not vim.api.nvim_win_is_valid(win) or vim.api.nvim_win_get_buf(win) ~= buf then
-								return
-							end
-							-- Try using alternate buffer
-							local alt = vim.fn.bufnr("#")
-							if alt ~= buf and vim.fn.buflisted(alt) == 1 then
-								vim.api.nvim_win_set_buf(win, alt)
-								return
-							end
-
-							-- Try using previous buffer
-							local has_previous = pcall(vim.cmd, "bprevious")
-							if has_previous and buf ~= vim.api.nvim_win_get_buf(win) then
-								return
-							end
-
-							-- Create new listed buffer
-							local new_buf = vim.api.nvim_create_buf(true, false)
-							vim.api.nvim_win_set_buf(win, new_buf)
-						end)
-					end
-					if vim.api.nvim_buf_is_valid(buf) then
-						pcall(vim.cmd, "bdelete! " .. buf)
-					end
+				close_command = function(n)
+					Ace.ui.bufremove(n)
 				end,
-				right_mouse_command = function(buf)
-					buf = buf or 0
-					buf = buf == 0 and vim.api.nvim_get_current_buf() or buf
-
-					if vim.bo.modified then
-						local choice =
-							vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
-						if choice == 0 or choice == 3 then -- 0 for <Esc>/<C-c> and 3 for Cancel
-							return
-						end
-						if choice == 1 then -- Yes
-							vim.cmd.write()
-						end
-					end
-
-					for _, win in ipairs(vim.fn.win_findbuf(buf)) do
-						vim.api.nvim_win_call(win, function()
-							if not vim.api.nvim_win_is_valid(win) or vim.api.nvim_win_get_buf(win) ~= buf then
-								return
-							end
-							-- Try using alternate buffer
-							local alt = vim.fn.bufnr("#")
-							if alt ~= buf and vim.fn.buflisted(alt) == 1 then
-								vim.api.nvim_win_set_buf(win, alt)
-								return
-							end
-
-							-- Try using previous buffer
-							local has_previous = pcall(vim.cmd, "bprevious")
-							if has_previous and buf ~= vim.api.nvim_win_get_buf(win) then
-								return
-							end
-
-							-- Create new listed buffer
-							local new_buf = vim.api.nvim_create_buf(true, false)
-							vim.api.nvim_win_set_buf(win, new_buf)
-						end)
-					end
-					if vim.api.nvim_buf_is_valid(buf) then
-						pcall(vim.cmd, "bdelete! " .. buf)
-					end
+				right_mouse_command = function(n)
+					Ace.ui.bufremove(n)
 				end,
 				diagnostics = "nvim_lsp",
 				always_show_bufferline = false,
 				diagnostics_indicator = function(_, _, diag)
-					local icons = {
-						Error = " ",
-						Warn = " ",
-						Hint = " ",
-						Info = " ",
-					}
+					local icons = Ace.config.icons.diagnostics
 					local ret = (diag.error and icons.Error .. diag.error .. " " or "")
 						.. (diag.warning and icons.Warn .. diag.warning or "")
 					return vim.trim(ret)
 				end,
+				offsets = {
+					{
+						filetype = "NvimTree",
+						text = "NvimTree",
+						highlight = "Directory",
+						text_align = "left",
+					},
+				},
 			},
 		},
 		config = function(_, opts)
@@ -144,23 +69,7 @@ return {
 		end,
 		opts = function()
 			local icons = Ace.config.icons
-			local function color_picker(name, bg)
-				local hl = vim.api.nvim_get_hl and vim.api.nvim_get_hl(0, { name = name, link = false })
-					or vim.api.nvim_get_hl_by_name(name, true)
-				local color = nil
-				if hl then
-					if bg then
-						color = hl.bg or hl.background
-					else
-						color = hl.fg or hl.foreground
-					end
-				end
-				return color and string.format("#%06x", color) or nil
-			end
-			local function fg(name)
-				local color = color_picker(name)
-				return color and { fg = color } or nil
-			end
+			vim.o.laststatus = vim.g.lualine_laststatus
 			local opts = {
 				options = {
 					theme = "tokyonight",
@@ -170,14 +79,10 @@ return {
 				},
 				sections = {
 					lualine_a = { "mode" },
-					lualine_b = {
-						{ "branch" },
-					},
+					lualine_b = { "branch" },
 
 					lualine_c = {
-						{ "fileformat", separator = "|" },
-						{ "filetype", icon_only = true, padding = { left = 1, right = 0 } },
-						{ "filename", path = 0 },
+						Ace.lualine.root_dir(),
 						{
 							"diagnostics",
 							symbols = {
@@ -189,6 +94,8 @@ return {
 							separator = "",
 							padding = { left = 1, right = 0 },
 						},
+						{ "filetype", icon_only = true, padding = { left = 1, right = 0 } },
+						{ Ace.lualine.pretty_path() },
 					},
 					lualine_x = {
             -- stylua: ignore
@@ -200,20 +107,20 @@ return {
 								return package.loaded["noice"] and require("noice").api.status.mode.has()
 							end,
 							color = function()
-								return fg("Constant")
+								return Ace.ui.fg("Constant")
 							end,
 						},
             -- stylua: ignore
             {
               function() return "  " .. require("dap").status() end,
               cond = function() return package.loaded["dap"] and require("dap").status() ~= "" end,
-              color = function() return fg("Debug") end,
+              color = function() return Ace.ui.fg("Debug")  end,
             },
             -- stylua: ignore
             {
               require("lazy.status").updates,
               cond = require("lazy.status").has_updates,
-              color = function() return fg("Special") end,
+              color = function() return Ace.ui.fg("Special") end,
             },
 						{
 							"diff",
@@ -230,17 +137,12 @@ return {
 							function()
 								local msg = " Active"
 								local count = 0
-								-- local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = 0 })
 								local clients = vim.lsp.get_clients()
 								if next(clients) == nil then
 									return msg
 								end
 								for _, client in ipairs(clients) do
 									count = count + 1
-									-- local filetypes = client.config.filetypes
-									-- if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-									-- 	return client.name
-									-- end
 								end
 								return count .. msg
 							end,
@@ -255,7 +157,7 @@ return {
 					},
 				},
 
-				extensions = { "nvim-tree" },
+				extensions = { "nvim-tree", "lazy" },
 			}
 			return opts
 		end,

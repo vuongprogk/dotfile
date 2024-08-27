@@ -7,6 +7,8 @@ vim.g.loaded_ruby_provider = 0
 -- Turn off bell
 opt.belloff = "all"
 
+vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
+vim.g.trouble_lualine = true
 -- set default background
 opt.background = "dark"
 opt.termguicolors = true
