@@ -27,37 +27,17 @@ local plugins = {
 	{ import = "ace.lang.schema" },
 	{ import = "ace.lang.markdown" },
 	{ import = "ace.lang.tailwind" },
+	{ import = "ace.coding.copilot" },
+	{ import = "ace.lang.go" },
+	{ import = "ace.lang.python" },
+	{ import = "ace.lang.java" },
+	{ import = "ace.lang.typescript" },
+	{ import = "ace.lang.flutter" },
+	{ import = "ace.lang.kotlin" },
+	{ import = "ace.lang.csharp" },
+	{ import = "ace.lang.docker" },
 }
 --#endregion
-
-local execute = vim.fn.executable
-if pcall(execute, "go") then
-	plugins[#plugins + 1] = { import = "ace.lang.go" }
-end
-
-if pcall(execute, "python") then
-	plugins[#plugins + 1] = { import = "ace.lang.python" }
-end
-
-if pcall(execute, "java") then
-	plugins[#plugins + 1] = { import = "ace.lang.java" }
-end
-
-if pcall(execute, "node") then
-	plugins[#plugins + 1] = { import = "ace.lang.typescript" }
-end
-
-if pcall(execute, "flutter") then
-	plugins[#plugins + 1] = { import = "ace.lang.flutter" }
-	plugins[#plugins + 1] = { import = "ace.lang.kotlin" }
-end
-
-if pcall(execute, "dotnet") then
-	plugins[#plugins + 1] = { import = "ace.lang.csharp" }
-end
-if pcall(execute, "docker") then
-	plugins[#plugins + 1] = { import = "ace.lang.docker" }
-end
 
 require("lazy").setup({
 	spec = plugins,
@@ -67,6 +47,9 @@ require("lazy").setup({
 		notify = false,
 	},
 	performance = {
+		cache = {
+			enabled = true,
+		},
 		rtp = {
 			-- disable some rtp plugins
 			disabled_plugins = {
@@ -80,5 +63,12 @@ require("lazy").setup({
 				"zipPlugin",
 			},
 		},
+	},
+	readme = {
+		enabled = true,
+		root = vim.fn.stdpath("state") .. "/lazy/readme",
+		files = { "README.md", "lua/**/README.md" },
+		-- only generate markdown helptags for plugins that dont have docs
+		skip_if_doc_exists = true,
 	},
 })

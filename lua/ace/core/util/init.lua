@@ -1,12 +1,12 @@
 local Util = require("lazy.core.util")
----@class util: UtilCore
----@field config AceConfig
+
+---@class util: LazyUtilCore
 ---@field lsp Ace.util.lsp
 ---@field cmp Ace.util.cmp
 ---@field lualine Ace.util.lualine
 ---@field ui Ace.util.ui
 ---@field root Ace.util.root
----@field terminal Ace.util.terminal
+---@field config Ace.config
 local M = {}
 
 setmetatable(M, {
@@ -121,6 +121,8 @@ function M.opts(name)
 	local Plugin = require("lazy.core.plugin")
 	return Plugin.values(plugin, "opts", false)
 end
+
+---@class Ace.config
 local config = {
 	icons = {
 		diagnostics = {
@@ -217,6 +219,28 @@ local config = {
 			"Trait",
 		},
 	},
+	executable = {
+		tailwind = vim.fs.find({
+			"tailwind.config.js",
+			"tailwind.config.cjs",
+			"tailwind.config.mjs",
+			"tailwind.config.ts",
+			"postcss.config.js",
+			"postcss.config.cjs",
+			"postcss.config.mjs",
+			"postcss.config.ts",
+		}, { upward = true })[1] and true or false,
+		copilot = false,
+		go = vim.fn.executable("go") == 1 and true or false,
+		java = vim.fn.executable("java") == 1 and true or false,
+		python = vim.fn.executable("python") == 1 and true or false,
+		node = vim.fn.executable("node") == 1 and true or false,
+		flutter = vim.fn.executable("flutter") == 1 and true or false,
+		mobile = true,
+		dotnet = vim.fn.executable("dotnet") == 1 and true or false,
+		docker = vim.fn.executable("docker") == 1 and true or false,
+	},
 }
+
 _G.Ace = M
 Ace.config = config
