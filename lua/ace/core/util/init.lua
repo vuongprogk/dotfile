@@ -1,5 +1,4 @@
 local Util = require("lazy.core.util")
-
 ---@class util: UtilCore
 ---@field config AceConfig
 ---@field lsp Ace.util.lsp
@@ -19,12 +18,35 @@ setmetatable(M, {
 		return t[k]
 	end,
 })
+
 function M.is_win()
 	return vim.uv.os_uname().sysname:find("Windows") ~= nil
 end
+
 ---@param name string
 function M.get_plugin(name)
 	return require("lazy.core.config").spec.plugins[name]
+end
+
+M.CREATE_UNDO = vim.api.nvim_replace_termcodes("<c-G>u", true, true, true)
+function M.create_undo()
+  if vim.api.nvim_get_mode().mode == "i" then
+    vim.api.nvim_feedkeys(M.CREATE_UNDO, "n", false)
+  end
+end
+---@generic T
+---@param list T[]
+---@return T[]
+function M.dedup(list)
+	local ret = {}
+	local seen = {}
+	for _, v in ipairs(list) do
+		if not seen[v] then
+			table.insert(ret, v)
+			seen[v] = true
+		end
+	end
+	return ret
 end
 
 ---@param name string
@@ -111,6 +133,13 @@ local config = {
 			added = " ",
 			modified = " ",
 			removed = " ",
+		},
+		dap = {
+			Stopped = { "󰁕 ", "DiagnosticWarn", "DapStoppedLine" },
+			Breakpoint = " ",
+			BreakpointCondition = " ",
+			BreakpointRejected = { " ", "DiagnosticError" },
+			LogPoint = ".>",
 		},
 		kinds = {
 			Array = " ",
