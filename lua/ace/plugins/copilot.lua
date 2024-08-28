@@ -51,6 +51,9 @@ return {
 	},
 	{
 		"nvim-cmp",
+		init = function()
+			vim.cmd("Copilot disable")
+		end,
 		dependencies = {
 			{
 				"zbirenbaum/copilot-cmp",
@@ -70,7 +73,6 @@ return {
 		opts = function(_, opts)
 			table.insert(opts.sources, {
 				name = "copilot",
-				priority = 750,
 			})
 		end,
 	},
