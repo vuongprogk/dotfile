@@ -10,7 +10,6 @@ return {
 	opts = function()
 		vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
 		local cmp = require("cmp")
-		local defaults = require("cmp.config.default")()
 		local auto_select = true
 
 		local opts = {
@@ -34,12 +33,43 @@ return {
 					hl_group = "CmpGhostText",
 				},
 			},
-			sorting = defaults.sorting,
+			sorting = {
+				priority_weight = 2.0,
+				comparators = {
+					cmp.config.compare.scopes,
+					cmp.config.compare.recently_used,
+					cmp.config.compare.locality,
+					cmp.config.compare.score,
+					cmp.config.compare.offset,
+					cmp.config.compare.order,
+				},
+			},
+			formatting = {
+				format = function(entry, item)
+					local icons = Ace.config.icons.kinds
+					if icons[item.kind] then
+						item.kind = icons[item.kind] .. item.kind
+					end
+
+					local widths = {
+						abbr = vim.g.cmp_widths and vim.g.cmp_widths.abbr or 40,
+						menu = vim.g.cmp_widths and vim.g.cmp_widths.menu or 30,
+					}
+
+					for key, width in pairs(widths) do
+						if item[key] and vim.fn.strdisplaywidth(item[key]) > width then
+							item[key] = vim.fn.strcharpart(item[key], 0, width - 1) .. "…"
+						end
+					end
+
+					return item
+				end,
+			},
 		}
 
 		opts.sources = cmp.config.sources({
-			{ name = "nvim_lsp_signature_help" },
-			{ name = "nvim_lsp" },
+			{ name = "nvim_lsp_signature_help", priority = 1000 },
+			{ name = "nvim_lsp", priority = 1000 },
 		}, {
 			{ name = "path", keyword_length = 2 },
 			{ name = "buffer", max_item_count = 5 },

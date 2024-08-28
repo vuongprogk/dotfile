@@ -25,7 +25,7 @@ return {
 							luasnip.lsp_expand(args.body)
 						end,
 					}
-					table.insert(opts.sources, { name = "luasnip", max_item_count = 5 })
+					table.insert(opts.sources, { name = "luasnip", max_item_count = 5, priority = 1000 })
 					opts.mapping = vim.tbl_extend("force", opts.mapping, {
 						["<Tab>"] = cmp.mapping(function(fallback) -- super tab
 							if cmp.visible() then
