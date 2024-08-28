@@ -15,15 +15,52 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+--#region
+-- config basic
+local plugins = {
+	{ import = "ace.ui" },
+	{ import = "ace.editor" },
+	{ import = "ace.utils" },
+	{ import = "ace.coding" },
+	{ import = "ace.plugins" },
+	{ import = "ace.lang.lua" },
+	{ import = "ace.lang.schema" },
+	{ import = "ace.lang.markdown" },
+	{ import = "ace.lang.tailwind" },
+}
+--#endregion
+
+local execute = vim.fn.executable
+if pcall(execute, "go") then
+	plugins[#plugins + 1] = { import = "ace.lang.go" }
+end
+
+if pcall(execute, "python") then
+	plugins[#plugins + 1] = { import = "ace.lang.python" }
+end
+
+if pcall(execute, "java") then
+	plugins[#plugins + 1] = { import = "ace.lang.java" }
+end
+
+if pcall(execute, "node") then
+	plugins[#plugins + 1] = { import = "ace.lang.typescript" }
+end
+
+if pcall(execute, "flutter") then
+	plugins[#plugins + 1] = { import = "ace.lang.flutter" }
+	plugins[#plugins + 1] = { import = "ace.lang.kotlin" }
+end
+
+if pcall(execute, "dotnet") then
+	plugins[#plugins + 1] = { import = "ace.lang.csharp" }
+end
+if pcall(execute, "docker") then
+	plugins[#plugins + 1] = { import = "ace.lang.docker" }
+end
+
 require("lazy").setup({
-	spec = {
-		{ import = "ace.ui" },
-		{ import = "ace.editor" },
-		{ import = "ace.utils" },
-		{ import = "ace.coding" },
-		{ import = "ace.plugins" },
-		{ import = "ace.lang" },
-	},
+	spec = plugins,
 	pgk = { enabled = false },
 	rocks = { enabled = false },
 	change_detection = {
