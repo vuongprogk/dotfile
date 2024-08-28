@@ -9,11 +9,9 @@ return {
 					timeout_ms = 3000,
 				})
 			end,
-			{
-				desc = "Formatting code mannually",
-				mode = { "n", "v" },
-				remap = true,
-			},
+			desc = "Formatting code mannually",
+			mode = { "n", "v" },
+			remap = true,
 		},
 	},
 	opts = {
@@ -36,9 +34,7 @@ return {
 				"clang_format",
 			},
 			html = { "prettier" },
-			cs = { "csharpier" },
 			css = { "prettier" },
-			cshtml = { "prettier", "prettier", stop_after_first = true },
 		},
 		formatters = {
 			csharpier = {

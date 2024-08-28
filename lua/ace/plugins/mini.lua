@@ -1,7 +1,7 @@
 return {
 	{
 		"echasnovski/mini.indentscope",
-		event = { "BufReadPre", "BufNewFile" },
+		event = { "BufReadPost", "BufWritePost", "BufNewFile" },
 		version = "*",
 		opts = {
 			draw = {
@@ -36,7 +36,7 @@ return {
 	},
 	{
 		"echasnovski/mini.diff",
-		event = { "BufReadPre", "BufNewFile" },
+		event = { "BufReadPost", "BufWritePost", "BufNewFile" },
 		version = "*",
 		keys = {
 			{
@@ -44,7 +44,9 @@ return {
 				function()
 					require("mini.diff").toggle_overlay(0)
 				end,
-				{ desc = "Toggle mini.diff overlay", mode = { "n", "v" }, remap = true },
+				desc = "Toggle mini.diff overlay",
+				mode = { "n", "v" },
+				remap = true,
 			},
 		},
 		opts = {

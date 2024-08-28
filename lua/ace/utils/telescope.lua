@@ -7,13 +7,13 @@ return {
 		},
 		version = false,
 		keys = {
-			{ "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Find file", remap = true } },
-			{ "<leader>fg", "<cmd>Telescope live_grep<CR>", { desc = "Find word in file", remap = true } },
-			{ "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "Find buffers is opening", remap = true } },
-			{ "<leader>fh", "<cmd>Telescope help_tag<CR>", { desc = "Find help tag", remap = true } },
-			{ "<leader>ft", "<cmd>TodoTelescope<CR>", { desc = "Find todo comment", remap = true } },
-			{ "<leader>nh", "<cmd>Telescope notify<CR>", { desc = "Notification history", remap = true } },
-			{ "<leader>nt", "<cmd>Telescope noice<CR>", { desc = "Noice history", remap = true } },
+			{ "<leader>ff", "<cmd>Telescope find_files<CR>", desc = "Find file", remap = true },
+			{ "<leader>fg", "<cmd>Telescope live_grep<CR>", desc = "Find word in file", remap = true },
+			{ "<leader>fb", "<cmd>Telescope buffers<CR>", desc = "Find buffers is opening", remap = true },
+			{ "<leader>fh", "<cmd>Telescope help_tag<CR>", desc = "Find help tag", remap = true },
+			{ "<leader>ft", "<cmd>TodoTelescope<CR>", desc = "Find todo comment", remap = true },
+			{ "<leader>nh", "<cmd>Telescope notify<CR>", desc = "Notification history", remap = true },
+			{ "<leader>nt", "<cmd>Telescope noice<CR>", desc = "Noice history", remap = true },
 		},
 		opts = function()
 			local actions = require("telescope.actions")

@@ -13,10 +13,8 @@ return {
 					focus = true,
 				})
 			end,
-			{
-				desc = "Toggle file explorer on current file",
-				remap = true,
-			},
+			desc = "Toggle file explorer on current file",
+			remap = true,
 		},
 		{
 			"<leader>ee",
@@ -28,20 +26,16 @@ return {
 					focus = true,
 				})
 			end,
-			{
-				desc = "Toggle file explorer",
-				remap = true,
-			},
+			desc = "Toggle file explorer",
+			remap = true,
 		},
 		{
 			"<leader>er",
 			function()
 				require("nvim-tree.api").tree.refresh()
 			end,
-			{
-				desc = "Refresh file explorer",
-				remap = true,
-			},
+			desc = "Refresh file explorer",
+			remap = true,
 		},
 	},
 	init = function()
