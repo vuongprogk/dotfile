@@ -64,11 +64,4 @@ require("lazy").setup({
 			},
 		},
 	},
-	readme = {
-		enabled = true,
-		root = vim.fn.stdpath("state") .. "/lazy/readme",
-		files = { "README.md", "lua/**/README.md" },
-		-- only generate markdown helptags for plugins that dont have docs
-		skip_if_doc_exists = true,
-	},
 })
