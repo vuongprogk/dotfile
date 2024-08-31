@@ -98,6 +98,20 @@ function M.confirm(opts)
 	end
 end
 
+function M.expand(snippet)
+	local session = vim.snippet.active() and vim.snippet._session or nil
+
+	local ok, err = pcall(vim.snippet.expand, snippet)
+	if not ok then
+		local fixed = M.snippet_fix(snippet)
+		ok = pcall(vim.snippet.expand, fixed)
+	end
+
+	if session then
+		vim.snippet._session = session
+	end
+end
+
 ---@param opts cmp.ConfigSchema | {auto_brackets?: string[]}
 function M.setup(opts)
 	for _, source in ipairs(opts.sources) do
@@ -126,4 +140,3 @@ function M.setup(opts)
 end
 
 return M
-
