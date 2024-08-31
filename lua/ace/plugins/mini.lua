@@ -4,9 +4,6 @@ return {
 		event = { "BufReadPost", "BufWritePost", "BufNewFile" },
 		version = "*",
 		opts = {
-			draw = {
-				delay = 150,
-			},
 			symbol = "│",
 			options = { try_as_border = true },
 		},
