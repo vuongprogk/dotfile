@@ -11,7 +11,7 @@ return {
 		vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
 		local cmp = require("cmp")
 		local auto_select = true
-
+		local defaults = require("cmp.config.default")()
 		local opts = {
 			mapping = cmp.mapping.preset.insert({
 				["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
@@ -22,6 +22,7 @@ return {
 				["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
 				["<C-e>"] = cmp.mapping.abort(), -- close completion window
 				["<C-CR>"] = cmp.mapping.abort(), -- close completion window
+				["<S-CR>"] = Ace.cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 				["<CR>"] = Ace.cmp.confirm({ select = auto_select }),
 			}),
 			preselect = auto_select and cmp.PreselectMode.Item or cmp.PreselectMode.None,
@@ -33,17 +34,7 @@ return {
 					hl_group = "CmpGhostText",
 				},
 			},
-			sorting = {
-				priority_weight = 2.0,
-				comparators = {
-					cmp.config.compare.scopes,
-					cmp.config.compare.recently_used,
-					cmp.config.compare.locality,
-					cmp.config.compare.score,
-					cmp.config.compare.offset,
-					cmp.config.compare.order,
-				},
-			},
+			sorting = defaults.sorting,
 			formatting = {
 				format = function(entry, item)
 					local icons = Ace.config.icons.kinds

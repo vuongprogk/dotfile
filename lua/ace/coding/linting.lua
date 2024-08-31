@@ -1,6 +1,6 @@
 return {
 	"mfussenegger/nvim-lint",
-	event = { "BufReadPre", "BufNewFile" },
+	event = { "BufWritePost", "BufReadPost", "InsertLeave" },
 	opts = {
 		events = { "BufWritePost", "BufReadPost", "InsertLeave" },
 		linters_by_ft = {
@@ -66,7 +66,7 @@ return {
 			names = vim.tbl_filter(function(name)
 				local linter = lint.linters[name]
 				if not linter then
-					vim.notify("Linter not found: " .. name, { title = "nvim-lint" }, vim.log.levels.ERROR)
+					vim.notify("Linter not found: " .. name, vim.log.levels.ERROR, { title = "nvim-lint" })
 				end
 				return linter and not (type(linter) == "table" and linter.condition and not linter.condition(ctx))
 			end, names)

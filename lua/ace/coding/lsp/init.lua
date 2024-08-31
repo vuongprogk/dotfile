@@ -30,7 +30,7 @@ return {
 			},
 			inlay_hints = {
 				enabled = true,
-				exclude = { "vue", "javascript" }, -- filetypes for which you don't want to enable inlay hints
+				exclude = { "vue" }, -- filetypes for which you don't want to enable inlay hints
 			},
 			codelens = {
 				enabled = false,
@@ -46,6 +46,10 @@ return {
 						willRename = true,
 					},
 				},
+			},
+			format = {
+				formatting_options = nil,
+				timeout_ms = nil,
 			},
 			servers = {
 				lua_ls = {
@@ -97,7 +101,7 @@ return {
 		return ret
 	end,
 	config = function(_, opts)
-		-- require("ace.core.lspmapping")
+		Ace.format.register(Ace.lsp.formatter())
 		Ace.lsp.on_attach(function(client, buffer)
 			require("ace.coding.lsp.keymaps").on_attach(client, buffer)
 		end)
@@ -142,6 +146,7 @@ return {
 				end)
 			end
 		end
+
 		if type(opts.diagnostics.virtual_text) == "table" and opts.diagnostics.virtual_text.prefix == "icons" then
 			opts.diagnostics.virtual_text.prefix = vim.fn.has("nvim-0.10.0") == 0 and "●"
 				or function(diagnostic)
@@ -158,7 +163,6 @@ return {
 
 		local servers = opts.servers
 		local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-
 		local capabilities = vim.tbl_deep_extend(
 			"force",
 			{},
@@ -166,6 +170,7 @@ return {
 			has_cmp and cmp_nvim_lsp.default_capabilities() or {},
 			opts.capabilities or {}
 		)
+
 		local function setup(server)
 			local server_opts = vim.tbl_deep_extend("force", {
 				capabilities = vim.deepcopy(capabilities),
@@ -176,6 +181,10 @@ return {
 
 			if opts.setup[server] then
 				if opts.setup[server](server, server_opts) then
+					return
+				end
+			elseif opts.setup["*"] then
+				if opts.setup["*"](server, server_opts) then
 					return
 				end
 			end

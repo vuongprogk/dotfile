@@ -1,50 +1,88 @@
+local M = {}
+
+---@param opts conform.setupOpts
+function M.setup(_, opts)
+	for _, key in ipairs({ "format_on_save", "format_after_save" }) do
+		if opts[key] then
+			local msg = "Don't set `opts.%s` for `conform.nvim`."
+			vim.notify(msg:format(key), vim.log.levels.WARN)
+			opts[key] = nil
+		end
+	end
+	require("conform").setup(opts)
+end
+
 return {
 	"stevearc/conform.nvim",
-	event = { "BufRead", "BufNewFile" },
-	keys = {
+	dependencies = { "mason.nvim" },
+	lazy = true,
+	cmd = "ConformInfo",
+	init = function()
+		Ace.on_very_lazy(function()
+			Ace.format.register({
+				name = "conform.nvim",
+				priority = 100,
+				primary = true,
+				format = function(buf)
+					require("conform").format({ bufnr = buf })
+				end,
+				sources = function(buf)
+					local ret = require("conform").list_formatters(buf)
+					---@param v conform.FormatterInfo
+					return vim.tbl_map(function(v)
+						return v.name
+					end, ret)
+				end,
+			})
+		end)
+	end,
+  keys = {
 		{
 			"<leader>cF",
 			function()
-				require("conform").format({
-					timeout_ms = 3000,
-				})
+        require("conform").format({ formatters = { "injected" }, timeout_ms = 3000 })
 			end,
 			desc = "Formatting code mannually",
 			mode = { "n", "v" },
 			remap = true,
 		},
 	},
-	opts = {
-		default_format_opts = {
-			timeout_ms = 3000,
-			async = false, -- not recommended to change
-			quiet = false, -- not recommended to change
-			lsp_format = "fallback", -- not recommended to change
-		},
-		formatters_by_ft = {
-			lua = { "stylua" },
-			python = { "isort", "black" },
-			javascript = { "prettier", "prettierd", stop_after_first = true },
-			javascriptreact = { "prettier", "prettierd", stop_after_first = true },
+	opts = function()
+		local plugin = require("lazy.core.config").plugins["conform.nvim"]
+		if plugin.config ~= M.setup then
+			vim.notify("Don't set `plugin.config` for `conform.nvim`.", vim.log.levels.WARN, { title = "Vim" })
+		end
+		local opts = {
+			default_format_opts = {
+				timeout_ms = 3000,
+				async = false, -- not recommended to change
+				quiet = false, -- not recommended to change
+				lsp_format = "fallback", -- not recommended to change
+			},
+			formatters_by_ft = {
+				lua = { "stylua" },
+				python = { "isort", "black" },
+				javascript = { "prettier", "prettierd", stop_after_first = true },
+				javascriptreact = { "prettier", "prettierd", stop_after_first = true },
 
-			java = {
-				"clang_format",
+				java = {
+					"clang_format",
+				},
+				cpp = {
+					"clang_format",
+				},
+				html = { "prettier" },
+				css = { "prettier" },
 			},
-			cpp = {
-				"clang_format",
+			formatters = {
+        injected = { options = { ignore_errors = true } },
+				csharpier = {
+					command = "dotnet-csharpier",
+					args = { "--write-stdout" },
+				},
 			},
-			html = { "prettier" },
-			css = { "prettier" },
-		},
-		formatters = {
-			csharpier = {
-				command = "dotnet-csharpier",
-				args = { "--write-stdout" },
-			},
-		},
-		format_on_save = {
-			lsp_format = "fallback",
-			timeout_ms = 500,
-		},
-	},
+		}
+		return opts
+	end,
+	config = M.setup,
 }
