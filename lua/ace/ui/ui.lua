@@ -72,7 +72,7 @@ return {
 			vim.o.laststatus = vim.g.lualine_laststatus
 			local opts = {
 				options = {
-					theme = "tokyonight",
+					theme = "auto",
 					globalstatus = vim.o.laststatus == 3,
 					disabled_filetypes = { statusline = { "alpha", "dashboard" } },
 					always_divide_middle = true,
