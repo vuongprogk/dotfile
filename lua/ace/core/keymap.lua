@@ -14,5 +14,5 @@ keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase W
 
 -- Clear search with <esc>
 keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsearch" })
+keymap.set("n", "<leader>bD", "<cmd>bd<cr>", { desc = "Delete Buffer and Window" })
 keymap.set("n", "<leader>bd", Ace.ui.bufremove, { desc = "Delete Buffer" })
-keymap.set("n", "<leader>bD", "<cmd>:bd<cr>", { desc = "Delete Buffer and Window" })
