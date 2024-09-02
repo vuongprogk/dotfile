@@ -1,5 +1,6 @@
 return {
 	"ptdewey/pendulum-nvim",
+	enabled = vim.fn.executable("go") == 1 and true or false,
 	opts = {
 		log_file = vim.fn.expand("$HOME/Documents/Ace.csv"),
 		timeout_len = 300, -- 5 minutes

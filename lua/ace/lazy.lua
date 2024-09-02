@@ -26,17 +26,36 @@ local plugins = {
 	{ import = "ace.lang.lua" },
 	{ import = "ace.lang.schema" },
 	{ import = "ace.lang.markdown" },
-	{ import = "ace.lang.tailwind" },
 	{ import = "ace.coding.copilot" },
-	{ import = "ace.lang.go" },
-	{ import = "ace.lang.python" },
-	{ import = "ace.lang.java" },
-	{ import = "ace.lang.typescript" },
-	{ import = "ace.lang.flutter" },
-	{ import = "ace.lang.kotlin" },
-	{ import = "ace.lang.csharp" },
-	{ import = "ace.lang.docker" },
+	{ import = "ace.lang.cpp" },
 }
+if vim.fn.executable("flutter") == 1 then
+	table.insert(plugins, { import = "ace.lang.flutter" })
+end
+
+if vim.fn.executable("java") == 1 then
+	table.insert(plugins, { { import = "ace.lang.java" }, { import = "ace.lang.kotlin" } })
+end
+
+if vim.fn.executable("node") == 1 then
+	table.insert(plugins, { { import = "ace.lang.typescript" }, { import = "ace.lang.tailwind" } })
+end
+
+if vim.fn.executable("docker") == 1 then
+	table.insert(plugins, { import = "ace.lang.docker" })
+end
+
+if vim.fn.executable("go") == 1 then
+	table.insert(plugins, { import = "ace.lang.go" })
+end
+
+if vim.fn.executable("dotnet") == 1 then
+	table.insert(plugins, { import = "ace.lang.csharp" })
+end
+
+if vim.fn.executable("python") == 1 then
+	table.insert(plugins, { import = "ace.lang.python" })
+end
 --#endregion
 
 require("lazy").setup({
