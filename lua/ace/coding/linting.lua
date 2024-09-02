@@ -4,15 +4,7 @@ return {
 	opts = {
 		events = { "BufWritePost", "BufReadPost", "InsertLeave" },
 		linters_by_ft = {
-			cpp = { "cpplint" },
-			lua = { "luacheck" },
-			javascript = { "eslint_d" },
-			typescript = { "eslint_d" },
-			javascriptreact = { "eslint_d" },
-			typescriptreact = { "eslint_d" },
-			svelte = { "eslint_d" },
-			python = { "pylint" },
-			-- TODO create .vale.init
+			-- TODO: create .vale.init
 			-- using this link to generate profile https://vale.sh/generator
 			-- run cmd vale sync to create style folder
 			markdown = { "markdownlint", "vale" },
