@@ -26,15 +26,6 @@ function M.snippet_preview(snippet)
 		end):gsub("%$0", "")
 end
 
--- This function replaces nested placeholders in a snippet with LSP placeholders.
-function M.snippet_fix(snippet)
-	local texts = {} ---@type table<number, string>
-	return M.snippet_replace(snippet, function(placeholder)
-		texts[placeholder.n] = texts[placeholder.n] or M.snippet_preview(placeholder.text)
-		return "${" .. placeholder.n .. ":" .. texts[placeholder.n] .. "}"
-	end)
-end
-
 ---@param entry cmp.Entry
 function M.auto_brackets(entry)
 	local cmp = require("cmp")
@@ -95,20 +86,6 @@ function M.confirm(opts)
 			end
 		end
 		return fallback()
-	end
-end
-
-function M.expand(snippet)
-	local session = vim.snippet.active() and vim.snippet._session or nil
-
-	local ok, err = pcall(vim.snippet.expand, snippet)
-	if not ok then
-		local fixed = M.snippet_fix(snippet)
-		ok = pcall(vim.snippet.expand, fixed)
-	end
-
-	if session then
-		vim.snippet._session = session
 	end
 end
 

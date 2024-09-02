@@ -224,3 +224,5 @@ local config = {
 
 _G.Ace = M
 Ace.config = config
+require("ace.core.keymap")
+require("ace.core.vim")
