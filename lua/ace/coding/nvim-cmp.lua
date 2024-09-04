@@ -1,6 +1,6 @@
 return {
 	"hrsh7th/nvim-cmp",
-	event = "InsertEnter",
+	version = false, -- last release is way too oldevent = "InsertEnter",
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-buffer",
@@ -12,32 +12,6 @@ return {
 		local cmp = require("cmp")
 		local auto_select = true
 		local defaults = require("cmp.config.default")()
-		local max_buffer_size = 1024 * 1024 -- 1 Megabyte max
-		local buffer_source = {
-			name = "buffer",
-			option = {
-				get_bufnrs = function()
-					local buf = vim.api.nvim_get_current_buf()
-					local byte_size = vim.api.nvim_buf_get_offset(buf, vim.api.nvim_buf_line_count(buf))
-					if byte_size > max_buffer_size then
-						return {}
-					end
-					return { buf }
-				end,
-				indexing_interval = 1000,
-			},
-		}
-		vim.tbl_deep_extend("force", buffer_source, {
-			keyword_length = 5,
-			max_item_count = 5,
-			option = {
-				keyword_length = 5,
-			},
-			priority_weight = 60,
-			entry_filter = function(entry)
-				return not entry.exact
-			end,
-		})
 		return {
 			auto_brackets = {}, -- configure any filetype to auto add brackets
 			mapping = cmp.mapping.preset.insert({
@@ -86,14 +60,10 @@ return {
 				}),
 			},
 			sources = cmp.config.sources({
-				-- { name = "nvim_lsp_signature_help", priority = 1000 },
-				{ name = "nvim_lsp", priority_weight = 100 },
-				{ name = "path", keyword_length = 2 },
+				{ name = "nvim_lsp" },
+				{ name = "path" },
 			}, {
-				{
-					buffer_source,
-				},
-				-- { name = "buffer" },
+				{ name = "buffer" },
 			}),
 		}
 	end,

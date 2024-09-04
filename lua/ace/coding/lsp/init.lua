@@ -30,7 +30,7 @@ return {
 			},
 			inlay_hints = {
 				enabled = true,
-				exclude = { "vue" }, -- filetypes for which you don't want to enable inlay hints
+				exclude = { "vue", "javascriptreact", "typescriptreact" }, -- filetypes for which you don't want to enable inlay hints
 			},
 			codelens = {
 				enabled = false,
@@ -77,9 +77,6 @@ return {
 							},
 						},
 					},
-				},
-				graphql = {
-					filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
 				},
 			},
 			setup = {},
@@ -196,9 +193,14 @@ return {
 				end
 			end
 		end
+
 		if have_mason then
 			mlsp.setup({
-				ensure_installed = ensure_installed,
+				ensure_installed = vim.tbl_deep_extend(
+					"force",
+					ensure_installed,
+					Ace.opts("mason-lspconfig.nvim").ensure_installed or {}
+				),
 				handlers = { setup },
 			})
 		end
