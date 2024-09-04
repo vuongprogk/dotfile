@@ -1,9 +1,35 @@
+local have_make = vim.fn.executable("make") == 1 and true or false
+local have_cmake = vim.fn.executable("cmake") == 1 and true or false
 return {
 	{
 		"nvim-telescope/telescope.nvim",
 		cmd = "Telescope",
 		dependencies = {
-			"nvim-lua/plenary.nvim",
+			{
+				"nvim-telescope/telescope-fzf-native.nvim",
+				build = have_make and "make"
+					or "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+				enabled = have_make or have_cmake,
+				config = function(plugin)
+					Ace.on_load("telescope.nvim", function()
+						local ok, err = pcall(require("telescope").load_extension, "fzf")
+						if not ok then
+							local lib = plugin.dir .. "/build/libfzf." .. (Ace.is_win() and "dll" or "so")
+							if not vim.uv.fs_stat(lib) then
+								Ace.warn("`telescope-fzf-native.nvim` not built. Rebuilding...")
+								require("lazy").build({ plugins = { plugin }, show = false }):wait(function()
+									vim.notify(
+										"Rebuilding `telescope-fzf-native.nvim` done.\nPlease restart Neovim.",
+										vim.log.levels.INFO
+									)
+								end)
+							else
+								vim.notify("Failed to load `telescope-fzf-native.nvim`:\n" .. err, vim.log.levels.ERROR)
+							end
+						end
+					end)
+				end,
+			},
 		},
 		version = false,
 		keys = {
