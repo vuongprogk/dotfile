@@ -28,6 +28,7 @@ local plugins = {
 	{ import = "ace.lang.markdown" },
 	{ import = "ace.coding.copilot" },
 	{ import = "ace.lang.cpp" },
+	{ import = "ace.linting" },
 }
 if vim.fn.executable("flutter") == 1 then
 	table.insert(plugins, { import = "ace.lang.flutter" })
@@ -38,7 +39,10 @@ if vim.fn.executable("java") == 1 then
 end
 
 if vim.fn.executable("node") == 1 then
-	table.insert(plugins, { { import = "ace.lang.typescript" }, { import = "ace.lang.tailwind" } })
+	table.insert(
+		plugins,
+		{ { import = "ace.lang.typescript" }, { import = "ace.lang.tailwind" }, { import = "ace.lang.html" } }
+	)
 end
 
 if vim.fn.executable("docker") == 1 then
@@ -60,6 +64,10 @@ end
 
 require("lazy").setup({
 	spec = plugins,
+	-- spec = {
+	-- 	-- add LazyVim and import its plugins
+	-- 	{ "LazyVim/LazyVim", import = "lazyvim.plugins" },
+	-- },
 	pgk = { enabled = false },
 	rocks = { enabled = false },
 	change_detection = {
