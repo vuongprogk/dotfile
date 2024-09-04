@@ -5,14 +5,41 @@ return {
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-buffer",
 		"hrsh7th/cmp-path",
-		"hrsh7th/cmp-nvim-lsp-signature-help",
+		"onsails/lspkind.nvim",
 	},
 	opts = function()
 		vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
 		local cmp = require("cmp")
 		local auto_select = true
 		local defaults = require("cmp.config.default")()
-		local opts = {
+		local max_buffer_size = 1024 * 1024 -- 1 Megabyte max
+		local buffer_source = {
+			name = "buffer",
+			option = {
+				get_bufnrs = function()
+					local buf = vim.api.nvim_get_current_buf()
+					local byte_size = vim.api.nvim_buf_get_offset(buf, vim.api.nvim_buf_line_count(buf))
+					if byte_size > max_buffer_size then
+						return {}
+					end
+					return { buf }
+				end,
+				indexing_interval = 1000,
+			},
+		}
+		vim.tbl_deep_extend("force", buffer_source, {
+			keyword_length = 5,
+			max_item_count = 5,
+			option = {
+				keyword_length = 5,
+			},
+			priority_weight = 60,
+			entry_filter = function(entry)
+				return not entry.exact
+			end,
+		})
+		return {
+			auto_brackets = {}, -- configure any filetype to auto add brackets
 			mapping = cmp.mapping.preset.insert({
 				["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
 				["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
@@ -36,36 +63,39 @@ return {
 			},
 			sorting = defaults.sorting,
 			formatting = {
-				format = function(entry, item)
-					local icons = Ace.config.icons.kinds
-					if icons[item.kind] then
-						item.kind = icons[item.kind] .. item.kind
-					end
-
-					local widths = {
-						abbr = vim.g.cmp_widths and vim.g.cmp_widths.abbr or 40,
-						menu = vim.g.cmp_widths and vim.g.cmp_widths.menu or 30,
-					}
-
-					for key, width in pairs(widths) do
-						if item[key] and vim.fn.strdisplaywidth(item[key]) > width then
-							item[key] = vim.fn.strcharpart(item[key], 0, width - 1) .. "…"
+				format = require("lspkind").cmp_format({
+					mode = "symbol_text",
+					maxwidth = 50,
+					show_labelDetails = false,
+					-- TODO: Refactor this
+					menu = {
+						nvim_lsp = "[LSP]",
+						path = "[Path]",
+						nvim_lua = "[Lua]",
+						buffer = "[Buffer]",
+						emoji = "[Emoji]",
+						luasnip = "[LuaSnip]",
+						copilot = "[Copilot]",
+					},
+					before = function(entry, vim_item)
+						if Ace.is_loaded("tailwindcss-colorizer-cmp.nvim") then
+							vim_item = require("tailwindcss-colorizer-cmp").formatter(entry, vim_item)
 						end
-					end
-
-					return item
-				end,
+						return vim_item
+					end,
+				}),
 			},
+			sources = cmp.config.sources({
+				-- { name = "nvim_lsp_signature_help", priority = 1000 },
+				{ name = "nvim_lsp", priority_weight = 100 },
+				{ name = "path", keyword_length = 2 },
+			}, {
+				{
+					buffer_source,
+				},
+				-- { name = "buffer" },
+			}),
 		}
-
-		opts.sources = cmp.config.sources({
-			{ name = "nvim_lsp_signature_help", priority = 1000 },
-			{ name = "nvim_lsp", priority = 1000 },
-		}, {
-			{ name = "path", keyword_length = 2 },
-			{ name = "buffer", max_item_count = 5 },
-		})
-		return opts
 	end,
 	main = "ace.core.util.cmp",
 }
