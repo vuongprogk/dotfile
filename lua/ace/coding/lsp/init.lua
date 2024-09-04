@@ -37,7 +37,7 @@ return {
 			},
 			-- Enable lsp cursor word highlighting
 			document_highlight = {
-				enabled = true,
+				enabled = false,
 			},
 			capabilities = {
 				workspace = {
@@ -78,23 +78,9 @@ return {
 						},
 					},
 				},
-				emmet_ls = {
-					filetypes = {
-						"html",
-						"typescriptreact",
-						"javascriptreact",
-						"css",
-						"sass",
-						"scss",
-						"less",
-						"svelte",
-					},
-				},
 				graphql = {
 					filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
 				},
-				html = {},
-				cssls = {},
 			},
 			setup = {},
 		}
