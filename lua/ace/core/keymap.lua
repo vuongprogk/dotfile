@@ -16,3 +16,10 @@ keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase W
 keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsearch" })
 keymap.set("n", "<leader>bD", "<cmd>bd<cr>", { desc = "Delete Buffer and Window" })
 keymap.set("n", "<leader>bd", Ace.ui.bufremove, { desc = "Delete Buffer" })
+
+-- formatting
+keymap.set({ "n", "v" }, "<leader>cf", function()
+	Ace.format({ force = true })
+end, { desc = "Format" })
+
+keymap.set("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })

@@ -7,11 +7,25 @@ vim.g.loaded_ruby_provider = 0
 -- Turn off bell
 opt.belloff = "all"
 
+vim.g.bigfile_size = 1024 * 1024 * 1.5 -- 1.5 MB
 vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
+
 vim.g.trouble_lualine = true
 -- set default background
 opt.background = "dark"
 opt.termguicolors = true
+opt.conceallevel = 2 -- Hide * markup for bold and italic, but not markers with substitutions
+opt.confirm = true -- Confirm to save changes before exiting modified buffer
+
+opt.fillchars = {
+	foldopen = "",
+	foldclose = "",
+	fold = " ",
+	foldsep = " ",
+	diff = "╱",
+	eob = " ",
+}
+opt.linebreak = true -- Wrap lines at convenient points
 
 opt.laststatus = 3 -- global statusline
 
@@ -55,26 +69,30 @@ vim.g.maplocalleader = "\\"
 vim.g.updatetime = 200
 opt.undolevels = 10000
 
-if vim.fn.has("nvim-0.10") == 1 then
-	opt.smoothscroll = true
-end
-
 opt.showmode = false -- Dont show mode since we have a statusline
-
-vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+opt.timeoutlen = vim.g.vscode and 1000 or 300 -- Lower than default (1000) to quickly trigger which-key
+opt.winminwidth = 5 -- Minimum window width
+opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
 opt.spelllang = { "en" }
 opt.spelloptions:append("noplainbuffer")
 
-vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+opt.formatexpr = "v:lua.require'ace.core.util.format'.formatexpr()"
+opt.statuscolumn = [[%!v:lua.require'ace.core.util.ui'.statuscolumn()]]
 opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
 opt.inccommand = "nosplit" -- preview incremental substitute
-opt.pumblend = 0 -- Popup blend
-opt.pumheight = 12 -- Maximum number of entries in a popup
+opt.pumblend = 10 -- Popup blend
+opt.pumheight = 10 -- Maximum number of entries in a popup
 
 opt.shiftround = true -- Round indent
 opt.shortmess:append({ W = true, I = true, c = true, C = true })
 opt.list = true
+opt.mouse = "a" -- Enable mouse mode
+opt.sidescrolloff = 8 -- Columns of context
+
+if vim.fn.has("nvim-0.10") == 1 then
+	opt.smoothscroll = true
+end
 
 -- set keymap for tab
 vim.keymap.set("n", "<Leader>tn", "<cmd>tabnext<CR>", { silent = true })
