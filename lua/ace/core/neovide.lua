@@ -1,3 +1,4 @@
+vim.o.guifont = "JetBrainsMono NF:h16" -- text below applies for VimScript
 vim.g.neovide_scale_factor = 1.0
 vim.g.neovide_text_gamma = 0.0
 vim.g.neovide_transparency = 0.9
