@@ -12,20 +12,10 @@ return {
 		},
 	},
 	{
-		"MeanderingProgrammer/markdown.nvim",
-		name = "render-markdown",
-		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+		"MeanderingProgrammer/render-markdown.nvim",
+		dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" }, -- if you use standalone mini plugins
 		opts = {
 			file_types = { "markdown", "norg", "rmd", "org" },
-			code = {
-				sign = false,
-				width = "block",
-				right_pad = 1,
-			},
-			heading = {
-				sign = false,
-				icons = {},
-			},
 		},
 		ft = { "markdown", "norg", "rmd", "org" },
 	},
@@ -55,6 +45,15 @@ return {
 			formatters_by_ft = {
 				["markdown"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
 				["markdown.mdx"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
+			},
+		},
+	},
+	{
+		"mfussenegger/nvim-lint",
+		optional = true,
+		opts = {
+			linters_by_ft = {
+				markdown = { "markdownlint-cli2" },
 			},
 		},
 	},
