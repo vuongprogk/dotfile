@@ -1,15 +1,15 @@
 ---@class Ace.util.toggle
 local M = {}
 
----@class lazyvim.Toggle
+---@class ace.Toggle
 ---@field name string
 ---@field get fun():boolean
 ---@field set fun(state:boolean)
 
----@class lazyvim.Toggle.wrap: lazyvim.Toggle
+---@class ace.Toggle.wrap: ace.Toggle
 ---@operator call:boolean
 
----@param toggle lazyvim.Toggle
+---@param toggle ace.Toggle
 function M.wrap(toggle)
 	return setmetatable(toggle, {
 		__call = function()
@@ -22,11 +22,11 @@ function M.wrap(toggle)
 			end
 			return state
 		end,
-	}) --[[@as lazyvim.Toggle.wrap]]
+	}) --[[@as ace.Toggle.wrap]]
 end
 
 ---@param lhs string
----@param toggle lazyvim.Toggle
+---@param toggle ace.Toggle
 function M.map(lhs, toggle)
 	local t = M.wrap(toggle)
 	Ace.safe_keymap_set("n", lhs, function()
@@ -185,7 +185,7 @@ M.maximize = M.wrap({
 			-- `VimLeavePre` might be another consideration? Not sure about differences between the 2
 			vim.api.nvim_create_autocmd("ExitPre", {
 				once = true,
-				group = vim.api.nvim_create_augroup("lazyvim_restore_max_exit_pre", { clear = true }),
+				group = vim.api.nvim_create_augroup("restore_max_exit_pre", { clear = true }),
 				desc = "Restore width/height when close Neovim while maximized",
 				callback = function()
 					M.maximize.set(false)
