@@ -64,10 +64,6 @@ end
 
 require("lazy").setup({
 	spec = plugins,
-	-- spec = {
-	-- 	-- add LazyVim and import its plugins
-	-- 	{ "LazyVim/LazyVim", import = "lazyvim.plugins" },
-	-- },
 	pgk = { enabled = false },
 	rocks = { enabled = false },
 	change_detection = {
