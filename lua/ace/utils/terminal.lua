@@ -4,7 +4,7 @@ return {
 		version = "*",
 		event = "VeryLazy",
 		opts = {
-			open_mapping = [[<c-\>]],
+			open_mapping = [[<c-/>]],
 			direction = "float",
 			shell = Ace.is_win() and "powershell /nologo" or "bash",
 			float_opts = {
