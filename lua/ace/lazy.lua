@@ -41,7 +41,7 @@ end
 if vim.fn.executable("node") == 1 then
 	table.insert(
 		plugins,
-		{ { import = "ace.lang.typescript" }, { import = "ace.lang.tailwind" }, { import = "ace.lang.html" } }
+		{ { import = "ace.lang.typescript" }, { import = "ace.lang.tailwindcss" }, { import = "ace.lang.html" } }
 	)
 end
 

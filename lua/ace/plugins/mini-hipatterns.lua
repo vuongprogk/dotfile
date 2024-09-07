@@ -15,7 +15,6 @@ M.plugin = {
 			tailwind = {
 				enabled = true,
 				ft = {
-					"astro",
 					"css",
 					"heex",
 					"html",
