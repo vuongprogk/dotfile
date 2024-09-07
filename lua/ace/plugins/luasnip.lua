@@ -23,7 +23,7 @@ return {
 							require("luasnip").lsp_expand(args.body)
 						end,
 					}
-					table.insert(opts.sources, { name = "luasnip", priority_weight = 80, max_item_count = 5 })
+					table.insert(opts.sources, { name = "luasnip", max_item_count = 5 })
 				end,
 			},
 		},
