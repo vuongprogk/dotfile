@@ -16,6 +16,13 @@ return {
 		dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" }, -- if you use standalone mini plugins
 		opts = {
 			file_types = { "markdown", "norg", "rmd", "org" },
+			checkbox = {
+				custom = {
+					followup = { raw = "[>]", rendered = " ", highlight = "RenderMarkdownWarn" },
+					cancel = { raw = "[~]", rendered = "󰰱 ", highlight = "RenderMarkdownError" },
+					important = { raw = "[!]", rendered = " ", highlight = "RenderMarkdownError" },
+				},
+			},
 		},
 		ft = { "markdown", "norg", "rmd", "org" },
 	},
@@ -59,10 +66,15 @@ return {
 	},
 	{
 		"epwalsh/obsidian.nvim",
+		event = {
+			"BufReadPre " .. vim.fn.expand("~/vaults/personal/*.md"),
+			"BufReadPre " .. vim.fn.expand("~/vaults/work/*.md"),
+			"BufNewFile " .. vim.fn.expand("~/vaults/personal/*.md"),
+			"BufNewFile " .. vim.fn.expand("~/vaults/work/*.md"),
+		},
 		version = "*", -- recommended, use latest release instead of latest commit
-		lazy = true,
-		ft = "markdown",
 		opts = {
+			ui = { enable = false },
 			workspaces = {
 				{
 					name = "personal",
