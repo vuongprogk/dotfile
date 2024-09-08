@@ -1,3 +1,3 @@
-require("ace.core.util")
+require("ace.core").setup()
 local M = {}
 return M

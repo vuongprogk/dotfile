@@ -245,11 +245,5 @@ local config = {
 	},
 }
 
-_G.Ace = M
-Ace.config = config
-require("ace.core.vim")
-Ace.on_very_lazy(function()
-	Ace.format.setup()
-	Ace.root.setup()
-	require("ace.core.keymap")
-end)
+M.config = config
+return M
