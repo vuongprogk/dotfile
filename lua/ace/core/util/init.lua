@@ -9,6 +9,7 @@ local Util = require("lazy.core.util")
 ---@field root Ace.util.root
 ---@field config Ace.config
 ---@field mini Ace.util.mini
+---@field pick Ace.util.pick
 ---@field toggle Ace.util.toggle
 local M = {}
 
