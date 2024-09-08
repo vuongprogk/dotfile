@@ -18,7 +18,7 @@ vim.api.nvim_create_autocmd("FileChangedShellPost", {
 	pattern = "*",
 	group = augroup("checktime"),
 	callback = function()
-		vim.notify("File changed on disk. Buffer reloaded.", vim.log.levels.INFO)
+		Ace.info("File changed on disk. Buffer reloaded.")
 	end,
 })
 

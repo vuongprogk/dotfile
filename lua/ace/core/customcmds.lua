@@ -11,12 +11,12 @@ local function clearShada()
 		local success = vim.fn.delete(file)
 		all_success = all_success + success
 		if success ~= 0 then
-			vim.notify("Couldn't delete file '" .. file_name .. "'", vim.log.levels.WARN)
+			Ace.warn("Couldn't delete file '" .. file_name .. "'")
 		end
 		::continue::
 	end
 	if all_success == 0 then
-		vim.print("Successfully deleted all temporary shada files", vim.log.levels.INFO)
+		Ace.info("Successfully deleted all temporary shada files")
 	end
 end
 local function clearState(args)
@@ -27,11 +27,11 @@ local function clearState(args)
 		local file_name = vim.fn.fnamemodify(file, ":t")
 		success = vim.fn.delete(file)
 		if success ~= 0 then
-			vim.notify("Couldn't delete file '" .. file_name .. "'", vim.log.levels.WARN)
+			Ace.warn("Couldn't delete file '" .. file_name .. "'")
 		end
 	end
 	if success == 0 then
-		vim.notify("Deleting Successfully", vim.log.levels.INFO)
+		Ace.info("Deleting Successfully")
 	end
 end
 vim.api.nvim_create_user_command("ClearShada", clearShada, { desc = "Clears all the .tmp shada files" })

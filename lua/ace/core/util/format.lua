@@ -74,10 +74,9 @@ function M.info(buf)
 	if not have then
 		lines[#lines + 1] = "\n***No formatters available for this buffer.***"
 	end
-	vim.notify(
+	Ace[enabled and "info" or "warn"](
 		table.concat(lines, "\n"),
-		enabled and vim.log.levels.INFO or vim.log.levels.WARN,
-		{ title = "Formatting (" .. (enabled and "enabled" or "disabled") .. ")" }
+		{ title = "Format (" .. (enabled and "enabled" or "disabled") .. ")" }
 	)
 end
 
@@ -135,7 +134,7 @@ function M.format(opts)
 	end
 
 	if not done and opts and opts.force then
-		vim.notify("No formatter available", vim.log.levels.INFO, { title = "Formatting" })
+		Ace.info("No formatter available", { title = "Formatting" })
 	end
 end
 

@@ -57,13 +57,10 @@ return {
 							if not vim.uv.fs_stat(lib) then
 								Ace.warn("`telescope-fzf-native.nvim` not built. Rebuilding...")
 								require("lazy").build({ plugins = { plugin }, show = false }):wait(function()
-									vim.notify(
-										"Rebuilding `telescope-fzf-native.nvim` done.\nPlease restart Neovim.",
-										vim.log.levels.INFO
-									)
+									Ace.info("Rebuilding `telescope-fzf-native.nvim` done.\nPlease restart Neovim.")
 								end)
 							else
-								vim.notify("Failed to load `telescope-fzf-native.nvim`:\n" .. err, vim.log.levels.ERROR)
+								Ace.error("Failed to load `telescope-fzf-native.nvim`:\n" .. err)
 							end
 						end
 					end)

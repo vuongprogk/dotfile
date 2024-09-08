@@ -5,7 +5,7 @@ function M.setup(_, opts)
 	for _, key in ipairs({ "format_on_save", "format_after_save" }) do
 		if opts[key] then
 			local msg = "Don't set `opts.%s` for `conform.nvim`."
-			vim.notify(msg:format(key), vim.log.levels.WARN)
+			Ace.warn(msg:format(key))
 			opts[key] = nil
 		end
 	end
@@ -36,11 +36,11 @@ return {
 			})
 		end)
 	end,
-  keys = {
+	keys = {
 		{
 			"<leader>cF",
 			function()
-        require("conform").format({ formatters = { "injected" }, timeout_ms = 3000 })
+				require("conform").format({ formatters = { "injected" }, timeout_ms = 3000 })
 			end,
 			desc = "Formatting code mannually",
 			mode = { "n", "v" },
@@ -50,7 +50,7 @@ return {
 	opts = function()
 		local plugin = require("lazy.core.config").plugins["conform.nvim"]
 		if plugin.config ~= M.setup then
-			vim.notify("Don't set `plugin.config` for `conform.nvim`.", vim.log.levels.WARN, { title = "Vim" })
+			Ace.warn("Don't set `plugin.config` for `conform.nvim`.", { title = "Vim" })
 		end
 		local opts = {
 			default_format_opts = {
@@ -75,7 +75,7 @@ return {
 				css = { "prettier" },
 			},
 			formatters = {
-        injected = { options = { ignore_errors = true } },
+				injected = { options = { ignore_errors = true } },
 				csharpier = {
 					command = "dotnet-csharpier",
 					args = { "--write-stdout" },
