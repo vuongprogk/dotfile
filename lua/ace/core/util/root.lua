@@ -8,13 +8,13 @@ local M = setmetatable({}, {
 
 ---@class Root
 ---@field paths string[]
----@field spec Spec
+---@field spec RootSpec
 
----@alias Fn fun(buf: number): (string|string[])
+---@alias RootFn fun(buf: number): (string|string[])
 
----@alias Spec string|string[]|Fn
+---@alias RootSpec string|string[]|RootFn
 
----@type Spec[]
+---@type RootSpec[]
 M.spec = { "lsp", { ".git", "lua" }, "cwd" }
 
 M.detectors = {}
@@ -78,7 +78,7 @@ function M.realpath(path)
 	return Ace.norm(path)
 end
 
----@param spec Spec
+---@param spec RootSpec
 ---@return RootFn
 function M.resolve(spec)
 	if M.detectors[spec] then
@@ -91,7 +91,7 @@ function M.resolve(spec)
 	end
 end
 
----@param opts? { buf?: number, spec?: Spec[], all?: boolean }
+---@param opts? { buf?: number, spec?: RootSpec[], all?: boolean }
 function M.detect(opts)
 	opts = opts or {}
 	opts.spec = opts.spec or type(vim.g.root_spec) == "table" and vim.g.root_spec or M.spec
