@@ -1,10 +1,10 @@
 local M = {}
 
----@type LspSpec[]|nil
+---@type KeysLspSpec[]|nil
 M._keys = nil
 
----@alias KeysLspSpec KeysSpec|{has?:string|string[], cond?:fun():boolean}
----@alias KeysLsp Keys|{has?:string|string[], cond?:fun():boolean}
+---@alias KeysLspSpec LazyKeysSpec|{has?:string|string[], cond?:fun():boolean}
+---@alias KeysLsp LazyKeys|{has?:string|string[], cond?:fun():boolean}
 
 ---@return KeysLspSpec[]
 function M.get()
