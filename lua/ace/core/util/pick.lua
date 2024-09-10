@@ -1,3 +1,4 @@
+---@diagnostic disable: assign-type-mismatch
 ---@class Ace.util.pick
 ---@overload fun(command:string, opts?:Ace.util.pick.Opts): fun()
 local M = setmetatable({}, {
@@ -43,9 +44,6 @@ end
 
 function M.want()
 	vim.g.lazyvim_picker = vim.g.lazyvim_picker or "auto"
-	if vim.g.lazyvim_picker == "auto" then
-		return Ace.has_extra("editor.fzf") and "fzf" or "telescope"
-	end
 	return vim.g.lazyvim_picker
 end
 

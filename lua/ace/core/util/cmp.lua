@@ -96,6 +96,7 @@ function M.setup(opts)
 	end
 
 	local parse = require("cmp.utils.snippet").parse
+	---@diagnostic disable-next-line: duplicate-set-field
 	require("cmp.utils.snippet").parse = function(input)
 		local ok, ret = pcall(parse, input)
 		if ok then

@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-doc-name, undefined-field
 ---@class Ace.util.lsp
 local M = {}
 

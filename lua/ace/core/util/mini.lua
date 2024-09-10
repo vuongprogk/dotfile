@@ -1,3 +1,4 @@
+---@diagnostic disable: duplicate-set-field
 ---@class Ace.util.mini
 local M = {}
 

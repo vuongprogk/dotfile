@@ -1,3 +1,4 @@
+---@diagnostic disable: unused-local, param-type-mismatch
 ---@class Ace.util.root
 ---@overload fun(): string
 local M = setmetatable({}, {

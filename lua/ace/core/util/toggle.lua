@@ -1,3 +1,4 @@
+---@diagnostic disable: deprecated, undefined-field
 ---@class Ace.util.toggle
 local M = {}
 

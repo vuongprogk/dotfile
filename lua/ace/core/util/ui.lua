@@ -1,3 +1,4 @@
+---@diagnostic disable: param-type-mismatch, cast-local-type, undefined-field, deprecated
 ---@class Ace.util.ui
 local M = {}
 
