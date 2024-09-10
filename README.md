@@ -78,7 +78,6 @@ NVIM_APPNAME=vuongprogk/dotfile/ nvim
 
 - [echasnovski/mini.diff](https://dotfyle.com/plugins/echasnovski/mini.diff)
 - [lewis6991/gitsigns.nvim](https://dotfyle.com/plugins/lewis6991/gitsigns.nvim)
-- [kdheepak/lazygit.nvim](https://dotfyle.com/plugins/kdheepak/lazygit.nvim)
 
 ### icon
 
@@ -163,10 +162,6 @@ NVIM_APPNAME=vuongprogk/dotfile/ nvim
 ### tabline
 
 - [akinsho/bufferline.nvim](https://dotfyle.com/plugins/akinsho/bufferline.nvim)
-
-### terminal-integration
-
-- [akinsho/toggleterm.nvim](https://dotfyle.com/plugins/akinsho/toggleterm.nvim)
 
 ### test
 
