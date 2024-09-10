@@ -38,7 +38,6 @@ opt.relativenumber = true
 
 -- set tabsize
 opt.expandtab = true
-opt.autoindent = true
 opt.tabstop = 2
 opt.shiftwidth = 2
 opt.smartindent = true -- Insert indents automatically
