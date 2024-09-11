@@ -1,7 +1,16 @@
 return {
 	{
+		"folke/which-key.nvim",
+		opts = {
+			spec = {
+				{ "<BS>", desc = "Decrement Selection", mode = "x" },
+				{ "<c-space>", desc = "Increment Selection", mode = { "x", "n" } },
+			},
+		},
+	},
+	{
 		"nvim-treesitter/nvim-treesitter",
-		event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+		event = { "BufReadPost", "BufWritePost", "BufNewFile", "VeryLazy" },
 		build = ":TSUpdate",
 		lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
 		init = function(plugin)
@@ -44,11 +53,10 @@ return {
 				"xml",
 				"yaml",
 			},
-			sync_install = true,
-			auto_install = true,
+			-- sync_install = true,
+			-- auto_install = true,
 			highlight = {
 				enable = true,
-				-- disable = { "c_sharp" },
 			},
 			indent = { enable = true },
 			ignore_install = {},
