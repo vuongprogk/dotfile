@@ -125,3 +125,7 @@ map("t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to Upper Window" })
 map("t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to Right Window" })
 map("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
 map("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
+
+-- set keymap for tab
+map("n", "<Leader>tn", "<cmd>tabnext<CR>", { silent = true })
+map("n", "<Leader>tp", "<cmd>tabprevious<CR>", { silent = true })

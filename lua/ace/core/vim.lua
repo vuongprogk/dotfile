@@ -92,7 +92,4 @@ opt.sidescrolloff = 8 -- Columns of context
 if vim.fn.has("nvim-0.10") == 1 then
 	opt.smoothscroll = true
 end
-
--- set keymap for tab
-vim.keymap.set("n", "<Leader>tn", "<cmd>tabnext<CR>", { silent = true })
-vim.keymap.set("n", "<Leader>tp", "<cmd>tabprevious<CR>", { silent = true })
+opt.ttyfast = true
