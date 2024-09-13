@@ -62,17 +62,12 @@ return {
 			formatters_by_ft = {
 				lua = { "stylua" },
 				python = { "isort", "black" },
-				javascript = { "prettier", "prettierd", stop_after_first = true },
-				javascriptreact = { "prettier", "prettierd", stop_after_first = true },
-
 				java = {
 					"clang_format",
 				},
 				cpp = {
 					"clang_format",
 				},
-				html = { "prettier" },
-				css = { "prettier" },
 			},
 			formatters = {
 				injected = { options = { ignore_errors = true } },
