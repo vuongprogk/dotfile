@@ -31,6 +31,9 @@ return {
 			for _, ft in ipairs(supported) do
 				opts.formatters_by_ft[ft] = { "prettier" }
 			end
+			opts.formatters.prettier = {
+				prepend_args = { "--prose-wrap", "always" },
+			}
 		end,
 	},
 }
