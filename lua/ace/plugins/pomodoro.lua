@@ -1,6 +1,7 @@
 return {
 	"quentingruber/pomodoro.nvim",
 	lazy = false, -- needed so the pomodoro can start at launch
+	event = { "BufReadPost", "BufWritePost", "BufNewFile" },
 	opts = {
 		start_at_launch = true,
 		work_duration = 25,
