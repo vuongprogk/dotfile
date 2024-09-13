@@ -45,6 +45,9 @@ return {
 						didRename = true,
 						willRename = true,
 					},
+					didChangeWatchedFiles = {
+						dynamicRegistration = false,
+					},
 				},
 			},
 			format = {
