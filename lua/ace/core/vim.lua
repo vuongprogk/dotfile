@@ -15,7 +15,7 @@ vim.g.trouble_lualine = true
 opt.background = "dark"
 opt.termguicolors = true
 opt.conceallevel = 2 -- Hide * markup for bold and italic, but not markers with substitutions
-opt.confirm = true -- Confirm to save changes before exiting modified buffer
+opt.autowrite = true -- Enable auto write
 
 opt.fillchars = {
 	foldopen = "",
@@ -34,7 +34,7 @@ opt.scrolloff = 10
 
 -- show number
 opt.number = true
-opt.relativenumber = true
+opt.relativenumber = false
 
 -- set tabsize
 opt.expandtab = true
@@ -54,10 +54,10 @@ opt.wrap = false
 opt.signcolumn = "yes"
 
 -- open cursor line
-opt.cursorline = true
+opt.cursorline = false
 
 -- set copy direct to clipboard
-opt.clipboard:append("unnamedplus")
+opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
 opt.ignorecase = true
 opt.smartcase = true
 
@@ -76,6 +76,7 @@ opt.spelllang = { "en" }
 opt.spelloptions:append("noplainbuffer")
 
 opt.formatexpr = "v:lua.require'ace.core.util.format'.formatexpr()"
+opt.formatoptions = "jcroqlnt" -- tcqj
 opt.statuscolumn = [[%!v:lua.require'ace.core.util.ui'.statuscolumn()]]
 opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
@@ -93,3 +94,13 @@ if vim.fn.has("nvim-0.10") == 1 then
 	opt.smoothscroll = true
 end
 opt.ttyfast = true
+
+vim.opt.backup = true
+vim.opt.backupdir = vim.fn.stdpath("state") .. "/backup"
+
+vim.g.autoformat = true
+
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_node_provider = 0
