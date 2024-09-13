@@ -12,7 +12,7 @@ return {
 					"indent_blankline",
 					"syntax",
 				},
-				filesize = 2,
+				filesize = vim.g.bigfile,
 				pattern = "*",
 				extra_patterns = {
 					{ filesize = 0.1, pattern = "*.json" },
