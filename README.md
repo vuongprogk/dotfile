@@ -6,7 +6,8 @@
 
 ## Install Instructions
 
-> Install requires Neovim 0.9+. Always review the code before installing a configuration.
+> Install requires Neovim 0.9+. Always review the code before installing a
+> configuration.
 
 Clone the repository and install the plugins:
 
@@ -158,10 +159,6 @@ NVIM_APPNAME=vuongprogk/dotfile/ nvim
 - [kylechui/nvim-surround](https://dotfyle.com/plugins/kylechui/nvim-surround)
 - [nvim-treesitter/nvim-treesitter](https://dotfyle.com/plugins/nvim-treesitter/nvim-treesitter)
 - [nvim-treesitter/nvim-treesitter-textobjects](https://dotfyle.com/plugins/nvim-treesitter/nvim-treesitter-textobjects)
-
-### tabline
-
-- [akinsho/bufferline.nvim](https://dotfyle.com/plugins/akinsho/bufferline.nvim)
 
 ### test
 
