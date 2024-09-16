@@ -11,7 +11,6 @@ M.plugin = {
 	opts = function()
 		local hi = require("mini.hipatterns")
 		return {
-			-- custom LazyVim option to enable the tailwind integration
 			tailwind = {
 				enabled = true,
 				ft = {

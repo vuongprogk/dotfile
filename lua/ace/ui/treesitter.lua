@@ -25,24 +25,21 @@ return {
 		opts_extend = { "ensure_installed" },
 		opts = {
 			ensure_installed = {
-				"cpp",
-				"python",
-				"css",
-				"html",
-				"lua",
-				"latex",
 				"bash",
 				"c",
 				"diff",
+				"html",
 				"javascript",
 				"jsdoc",
 				"json",
 				"jsonc",
+				"lua",
 				"luadoc",
 				"luap",
 				"markdown",
 				"markdown_inline",
 				"printf",
+				"python",
 				"query",
 				"regex",
 				"toml",
@@ -53,13 +50,17 @@ return {
 				"xml",
 				"yaml",
 			},
-			-- sync_install = true,
-			-- auto_install = true,
 			highlight = {
 				enable = true,
+				disable = function(lang, buf)
+					local max_filesize = 100 * 1024 -- 100 KB
+					local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+					if ok and stats and stats.size > max_filesize then
+						return true
+					end
+				end,
 			},
 			indent = { enable = true },
-			ignore_install = {},
 			incremental_selection = {
 				enable = true,
 				keymaps = {

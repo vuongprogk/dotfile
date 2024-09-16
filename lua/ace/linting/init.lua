@@ -43,7 +43,6 @@ return {
 					end
 				end
 
-				-- register the formatter with LazyVim
 				Ace.format.register(formatter)
 			end,
 		},

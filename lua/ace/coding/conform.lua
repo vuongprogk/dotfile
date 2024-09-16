@@ -40,7 +40,7 @@ return {
 		{
 			"<leader>cF",
 			function()
-				require("conform").format({ formatters = { "injected" }, timeout_ms = 3000 })
+				require("conform").format({ formatters = { "injected" }, timeout_ms = 2500 })
 			end,
 			desc = "Formatting code mannually",
 			mode = { "n", "v" },
@@ -54,7 +54,7 @@ return {
 		end
 		local opts = {
 			default_format_opts = {
-				timeout_ms = 3000,
+				timeout_ms = 2500,
 				async = false, -- not recommended to change
 				quiet = false, -- not recommended to change
 				lsp_format = "fallback", -- not recommended to change

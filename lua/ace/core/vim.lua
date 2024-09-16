@@ -30,7 +30,7 @@ opt.linebreak = true -- Wrap lines at convenient points
 opt.laststatus = 3 -- global statusline
 
 --set croll off
-opt.scrolloff = 10
+opt.scrolloff = 4
 
 -- show number
 opt.number = true
@@ -99,6 +99,7 @@ vim.opt.backup = true
 vim.opt.backupdir = vim.fn.stdpath("state") .. "/backup"
 
 vim.g.autoformat = true
+vim.g.lazygit_config = true
 
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_perl_provider = 0

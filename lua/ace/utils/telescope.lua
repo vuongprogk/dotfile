@@ -6,7 +6,6 @@ local picker = {
 		files = "find_files",
 	},
 	-- this will return a function that calls telescope.
-	-- cwd will default to lazyvim.util.get_root
 	-- for `files`, git_files or find_files will be chosen depending on .git
 	---@param builtin string
 	---@param opts? Ace.util.pick.Opts
