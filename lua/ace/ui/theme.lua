@@ -1,9 +1,8 @@
 return {
-	"folke/tokyonight.nvim",
+	"craftzdog/solarized-osaka.nvim",
 	lazy = false,
 	priority = 1000,
 	opts = {
-		style = "night",
 		styles = {
 			comments = { italic = true },
 			keywords = { italic = true, bold = true },
@@ -15,6 +14,6 @@ return {
 		end,
 	},
 	config = function(_, opts)
-		require("tokyonight").load(opts)
+		require("solarized-osaka").load(opts)
 	end,
 }

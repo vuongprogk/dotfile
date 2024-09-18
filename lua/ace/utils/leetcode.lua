@@ -3,15 +3,6 @@ return {
 	enabled = (not Ace.is_win()) and true or false,
 	build = ":TSUpdate html",
 	cmd = { "Leetcode" },
-	dependencies = {
-		"nvim-telescope/telescope.nvim",
-		"nvim-lua/plenary.nvim", -- required by telescope
-		"MunifTanjim/nui.nvim",
-
-		"nvim-treesitter/nvim-treesitter",
-		"rcarriga/nvim-notify",
-		"nvim-tree/nvim-web-devicons",
-	},
 	opts = {
 		---@type string
 		arg = "leetcode.nvim",

@@ -7,11 +7,9 @@ return {
 		build = ":UpdateRemotePlugins",
 		opts = {}, -- your configuration
 	},
+	{ "roobert/tailwindcss-colorizer-cmp.nvim", opts = {} },
 	{
 		"hrsh7th/nvim-cmp",
-		dependencies = {
-			{ "roobert/tailwindcss-colorizer-cmp.nvim", opts = {} },
-		},
 		opts = function(_, opts)
 			local format_kinds = opts.formatting.format
 			opts.formatting.format = function(entry, item)

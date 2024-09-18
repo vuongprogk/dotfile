@@ -1,10 +1,7 @@
 return {
 	"akinsho/flutter-tools.nvim",
-	dependencies = {
-		"nvim-lua/plenary.nvim",
-	},
 	event = { "BufReadPost", "BufWritePost", "BufNewFile" },
-	cond = vim.fs.find({ "pubspec.yaml" }, { upward = true })[1] and true or false,
+	cond = vim.fn.executable("flutter") == 1 and true or false,
 	opts = {
 		decorations = {
 			statusline = {

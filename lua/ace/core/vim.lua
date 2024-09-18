@@ -54,7 +54,7 @@ opt.wrap = false
 opt.signcolumn = "yes"
 
 -- open cursor line
-opt.cursorline = false
+opt.cursorline = true
 
 -- set copy direct to clipboard
 opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard

@@ -21,8 +21,8 @@ function M.setup()
 	local lazy_autocmds = vim.fn.argc(-1) == 0
 	if not lazy_autocmds then
 		M.load("autocmds")
-		M.load("customcmds")
 	end
+	M.load("customcmds")
 
 	local group = vim.api.nvim_create_augroup("LazyVim", { clear = true })
 	vim.api.nvim_create_autocmd("User", {
