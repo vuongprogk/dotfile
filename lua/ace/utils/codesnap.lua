@@ -4,7 +4,7 @@ return {
 	build = "make",
 	cmd = { "CodeSnapSave", "CodeSnapSaveHighlight" },
 	opts = {
-		save_path = "/mnt/c/Users/vuong/Pictures/Codesnap",
+		save_path = "~/Pictures/Codesnap",
 		has_breadcrumbs = false,
 		watermark = "Powered by ACE",
 		bg_theme = "dusk",
