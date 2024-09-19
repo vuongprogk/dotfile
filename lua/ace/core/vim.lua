@@ -3,6 +3,8 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_node_provider = 0
 
 -- Turn off bell
 opt.belloff = "all"
@@ -31,6 +33,9 @@ opt.laststatus = 3 -- global statusline
 
 --set croll off
 opt.scrolloff = 4
+
+-- disable tabline
+opt.showtabline = 0
 
 -- show number
 opt.number = true
@@ -100,8 +105,3 @@ vim.opt.backupdir = vim.fn.stdpath("state") .. "/backup"
 
 vim.g.autoformat = true
 vim.g.lazygit_config = true
-
-vim.g.loaded_python3_provider = 0
-vim.g.loaded_perl_provider = 0
-vim.g.loaded_ruby_provider = 0
-vim.g.loaded_node_provider = 0
