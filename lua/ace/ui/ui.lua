@@ -4,7 +4,6 @@ return {
 	{
 		"nvim-lualine/lualine.nvim",
 		event = "VeryLazy",
-		dependencies = "nvim-tree/nvim-web-devicons",
 		init = function()
 			vim.g.lualine_laststatus = vim.o.laststatus
 			if vim.fn.argc(-1) > 0 then
@@ -206,12 +205,11 @@ return {
 	-- incline
 	{
 		"b0o/incline.nvim",
-		dependencies = { "craftzdog/solarized-osaka.nvim" },
 		event = "BufReadPre",
 		priority = 1200,
-		config = function()
+		opts = function()
 			local colors = require("solarized-osaka.colors").setup()
-			require("incline").setup({
+			return {
 				highlight = {
 					groups = {
 						InclineNormal = { guibg = colors.magenta500, guifg = colors.base04 },
@@ -224,14 +222,19 @@ return {
 				},
 				render = function(props)
 					local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
-					if vim.bo[props.buf].modified then
-						filename = "[+] " .. filename
+					local modified = vim.bo[props.buf].modified
+					if filename == "" then
+						filename = "[No Name]"
 					end
-
 					local icon, color = require("nvim-web-devicons").get_icon_color(filename)
-					return { { icon, guifg = color }, { " " }, { filename } }
+					return {
+						{ icon, guifg = color },
+						{ " " },
+						modified and { "[+] ", gui = "bold" } or "",
+						{ filename .. " ", gui = modified and "bold,italic" or "bold" },
+					}
 				end,
-			})
+			}
 		end,
 	},
 }
