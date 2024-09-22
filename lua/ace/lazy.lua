@@ -37,6 +37,7 @@ local plugins = {
 	{ import = "ace.lang.docker" },
 	{ import = "ace.lang.csharp" },
 	{ import = "ace.lang.python" },
+	{ import = "ace.lang.php" },
 }
 --#endregion
 
