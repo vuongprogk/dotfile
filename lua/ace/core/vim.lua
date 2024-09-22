@@ -105,3 +105,4 @@ vim.opt.backupdir = vim.fn.stdpath("state") .. "/backup"
 
 vim.g.autoformat = true
 vim.g.lazygit_config = true
+vim.g.lazyvim_prettier_needs_config = false
