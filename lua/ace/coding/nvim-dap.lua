@@ -33,9 +33,12 @@ return {
       { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
     },
 		dependencies = {
-			"nvim-neotest/nvim-nio",
 			"rcarriga/nvim-dap-ui",
-			"nvim-telescope/telescope.nvim",
+			-- virtual text for the debugger
+			{
+				"theHamsta/nvim-dap-virtual-text",
+				opts = {},
+			},
 		},
 		config = function()
 			if Ace.has("mason-nvim-dap.nvim") then
