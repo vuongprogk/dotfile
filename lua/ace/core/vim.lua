@@ -1,3 +1,7 @@
+-- set leader key
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
 local opt = vim.opt
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -9,24 +13,13 @@ vim.g.loaded_node_provider = 0
 -- Turn off bell
 opt.belloff = "all"
 
-vim.g.bigfile_size = 1024 * 1024 * 1.5 -- 1.5 MB
 vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
 
-vim.g.trouble_lualine = true
 -- set default background
 opt.background = "dark"
 opt.termguicolors = true
 opt.conceallevel = 2 -- Hide * markup for bold and italic, but not markers with substitutions
-opt.autowrite = true -- Enable auto write
 
-opt.fillchars = {
-	foldopen = "",
-	foldclose = "",
-	fold = " ",
-	foldsep = " ",
-	diff = "╱",
-	eob = " ",
-}
 opt.linebreak = true -- Wrap lines at convenient points
 
 opt.laststatus = 3 -- global statusline
@@ -66,10 +59,6 @@ opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clip
 opt.ignorecase = true
 opt.smartcase = true
 
--- set leader key
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
-
 vim.g.updatetime = 200
 opt.undolevels = 10000
 
@@ -81,7 +70,7 @@ opt.spelllang = { "en" }
 opt.spelloptions:append("noplainbuffer")
 
 opt.formatexpr = "v:lua.require'ace.core.util.format'.formatexpr()"
-opt.formatoptions = "jcroqlnt" -- tcqj
+-- opt.formatoptions = "jcroqlnt" -- tcqj
 opt.statuscolumn = [[%!v:lua.require'ace.core.util.ui'.statuscolumn()]]
 opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
@@ -90,10 +79,8 @@ opt.pumblend = 10 -- Popup blend
 opt.pumheight = 10 -- Maximum number of entries in a popup
 
 opt.shiftround = true -- Round indent
-opt.shortmess:append({ W = true, I = true, c = true, C = true })
 opt.list = true
 opt.mouse = "a" -- Enable mouse mode
-opt.sidescrolloff = 8 -- Columns of context
 
 if vim.fn.has("nvim-0.10") == 1 then
 	opt.smoothscroll = true
