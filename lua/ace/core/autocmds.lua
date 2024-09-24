@@ -14,14 +14,6 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
 	end,
 })
 
-vim.api.nvim_create_autocmd("FileChangedShellPost", {
-	pattern = "*",
-	group = augroup("checktime"),
-	callback = function()
-		Ace.info("File changed on disk. Buffer reloaded.")
-	end,
-})
-
 -- resize splits if window got resized
 vim.api.nvim_create_augroup("UserCustomAutoCmds", { clear = true })
 vim.api.nvim_create_autocmd({ "VimResized" }, {
